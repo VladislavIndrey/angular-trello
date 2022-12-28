@@ -1,0 +1,12 @@
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+
+  &__board{
+    flex-grow: 1;
+  }
+}
