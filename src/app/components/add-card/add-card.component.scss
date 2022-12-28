@@ -12,8 +12,34 @@
   &__text{
     user-select: none;
   }
+
+  &__input{
+    outline: none;
+    border: none;
+    padding: 0 10px;
+    width: 95%;
+    height: 50px;
+    box-shadow: inset 0 0 0 2px #0079bf;
+    border-radius: var(--card-border-radius);
+  }
+
+  &__add-button{
+    background-color: #0079bf;
+    color: white !important;
+    align-self: flex-start;
+  }
 }
 
-.add-card:hover{
+.add-mod{
+  flex-direction: column;
+  gap: 10px;
+  border: none;
+  background-color: var(--card-color);
+  height: fit-content;
+  padding: 10px 20px;
+  transition: 85ms ease-in-out;
+}
+
+.add-card--is-idle:hover{
   background-color: var(--card-hover);
 }

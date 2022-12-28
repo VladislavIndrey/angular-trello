@@ -1,3 +1,9 @@
-<div class="add-card">
-  <span class="add-card__text">+ Add new card</span>
+<div class="add-card" [class.add-card--is-idle]="!isAddMod" [class.add-mod]="isAddMod" (click)="onAddListClicked()">
+  <ng-template [ngIf]="!isAddMod">
+    <span class="add-card__text">+ Add new card</span>
+  </ng-template>
+  <ng-template [ngIf]="isAddMod">
+    <input class="add-card__input" placeholder="Type Card Text">
+    <button mat-button class="add-card__add-button">Add</button>
+  </ng-template>
 </div>

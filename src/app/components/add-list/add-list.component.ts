@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {Store} from "@ngrx/store";
+
 import {createList} from "../../redux/actions/board.actions";
 
 @Component({

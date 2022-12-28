@@ -16,4 +16,8 @@ export class List {
     this._name = name;
     this._cards = [];
   }
+
+  public addCard(card: Card): void {
+    this._cards.push(card);
+  }
 }
