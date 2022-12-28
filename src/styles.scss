@@ -16,9 +16,12 @@ $trello-theme: mat.define-light-theme((
 
 :root{
   --card-color: rgb(244, 244, 244);
+  --card-hover: rgb(244, 244, 244, 0.3);
   --text-color-second: rgb(205, 204, 202);
   --orange-priority: rgb(248, 189, 28);
   --card-border-radius: 10px;
+  --card-width: 362px;
+  --card-height: 160px
 }
 
 * {

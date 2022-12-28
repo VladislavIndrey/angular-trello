@@ -3,9 +3,9 @@
   flex-direction: column;
 
   background-color: var(--card-color);
-  width: 362px;
+  width: var(--card-width);
   height: fit-content;
-  min-height: 161px;
+  min-height: var(--card-height);
   padding: 20px;
   border-radius: var(--card-border-radius);
 

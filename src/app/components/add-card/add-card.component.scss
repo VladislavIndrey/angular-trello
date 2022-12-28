@@ -1,0 +1,19 @@
+.add-card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--card-width);
+  height: var(--card-height);
+  border: 2px dashed var(--card-color);
+  border-radius: var(--card-border-radius);
+  cursor: pointer;
+
+  &__text{
+    user-select: none;
+  }
+}
+
+.add-card:hover{
+  background-color: var(--card-hover);
+}
