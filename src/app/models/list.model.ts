@@ -14,5 +14,6 @@ export class List {
 
   constructor(name: string) {
     this._name = name;
+    this._cards = [];
   }
 }
