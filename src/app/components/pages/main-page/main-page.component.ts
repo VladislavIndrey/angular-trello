@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CardComponent} from "../../card/card.component";
+import {BoardComponent} from "../../board/board.component";
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-    imports: [CommonModule, CardComponent],
+    imports: [CommonModule, BoardComponent],
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })

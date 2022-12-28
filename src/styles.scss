@@ -14,6 +14,13 @@ $trello-theme: mat.define-light-theme((
 
 @include mat.all-component-themes($trello-theme);
 
+:root{
+  --card-color: rgb(244, 244, 244);
+  --text-color-second: rgb(205, 204, 202);
+  --orange-priority: rgb(248, 189, 28);
+  --card-border-radius: 10px;
+}
+
 * {
   margin: 0;
   padding: 0;

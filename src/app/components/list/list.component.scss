@@ -1,0 +1,32 @@
+.list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header {
+  background-color: var(--card-color);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+
+  height: fit-content;
+  width: fit-content;
+  min-height: 50px;
+  min-width: 362px;
+  border-radius: var(--card-border-radius);
+
+  &__title{
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  &__more{
+    color: var(--text-color-second);
+    cursor: pointer;
+  }
+}
