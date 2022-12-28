@@ -1,3 +1,9 @@
-<div class="add-list">
-  <span class="add-list__text">+ Add new list</span>
+<div class="add-list" [class.add-list--is-idle]="!isAddMod" [class.add-mod]="isAddMod" (click)="onAddListClicked()">
+  <ng-template [ngIf]="!isAddMod">
+    <span class="add-list__text">+ Add new list</span>
+  </ng-template>
+  <ng-template [ngIf]="isAddMod">
+    <input class="add-list__input" placeholder="Type List Name" #nameInput>
+    <button mat-button class="add-list__add-button" (click)="onAddClicked($event,nameInput.value)">Add</button>
+  </ng-template>
 </div>
