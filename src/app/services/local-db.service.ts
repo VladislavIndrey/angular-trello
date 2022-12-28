@@ -18,4 +18,7 @@ export class LocalDbService extends Dexie {
       tasks: '++id, taskListId',
     });
   }
+
+  // TODO:  liveQuery<> return observable<> https://dexie.org/docs/Tutorial/Angular (get)
+  // TODO: async db.add()
 }
