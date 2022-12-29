@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {Store} from "@ngrx/store";
+import {addList, loadTaskLists} from "../../redux/actions/task.actions";
 
 
 @Component({
@@ -21,8 +22,11 @@ export class AddListComponent {
     this.isAddMod = true;
   }
 
-  public onAddClicked($event: MouseEvent, name: string): void {
+  public onAddClicked($event: MouseEvent, title: string): void {
     $event.stopPropagation();
+
+    this.store.dispatch(addList({title}));
+    this.store.dispatch(loadTaskLists());
     this.isAddMod = false;
   }
 }

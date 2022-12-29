@@ -1,6 +1,7 @@
 import {List} from "../../models/list.model";
 import {createReducer, on} from "@ngrx/store";
 import {
+  addList, listAdded, listAddFailed,
   loadTaskLists,
   loadTasks,
   taskListsLoaded,
@@ -9,6 +10,7 @@ import {
   tasksLoadFailed
 } from "../actions/task.actions";
 import {Task} from "../../models/task.model";
+import {state} from "@angular/animations";
 
 export const initialState: {
   lists: List[],
@@ -56,6 +58,21 @@ export const taskReducer = createReducer(
     ...state,
     isLoading: false,
     tasks: [],
+    error,
+  })),
+  on(addList, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(listAdded, (state) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+  })),
+  on(listAddFailed, (state, {error}) => ({
+    ...state,
+    isLoading: false,
     error,
   }))
 );

@@ -20,8 +20,8 @@ export class LocalDBService {
     return from(db.tasks.toArray());
   }
 
-  public async addNewList(title: string) {
-    await db.taskLists.add({title});
+  public addNewList(title: string): Observable<number> {
+     return from(db.taskLists.add({title}));
   }
 
   public async addTask(task: Task): Promise<void> {
