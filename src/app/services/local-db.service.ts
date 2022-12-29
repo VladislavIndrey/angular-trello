@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import Dexie, { Table } from 'dexie';
+import {Injectable} from '@angular/core';
+import Dexie, {liveQuery, Table} from 'dexie';
 
-import { Task } from '../models/task.model';
-import { List } from '../models/list.model';
+import {Task} from '../models/task.model';
+import {List} from '../models/list.model';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalDbService extends Dexie {
-  tasks!: Table<Task, number>;
-  taskLists!: Table<List, number>;
+  private _tasks!: Table<Task, number>;
+  private _taskLists!: Table<List, number>;
 
   constructor() {
     super('trello');
@@ -19,6 +20,23 @@ export class LocalDbService extends Dexie {
     });
   }
 
-  // TODO:  liveQuery<> return observable<> https://dexie.org/docs/Tutorial/Angular (get)
-  // TODO: async db.add()
+  public getTaskLists() {
+    return liveQuery(() => this._taskLists.toArray());
+  }
+
+  public async addNewList(title: string): Promise<void> {
+    await this._taskLists.add({title});
+  }
+
+  public async addTask(task: Task): Promise<void> {
+    await this._tasks.add(task)
+  }
+
+  public getTasksByListId(id: number) {
+    return liveQuery(() => this.listTasks(id));
+  }
+
+  private async listTasks(id: number) {
+    return this._tasks.where({taskListId: id}).toArray();
+  }
 }
