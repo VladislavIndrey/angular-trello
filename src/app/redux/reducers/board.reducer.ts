@@ -1,16 +1,14 @@
 import {createReducer, on} from '@ngrx/store';
 import {addCard, createList, moveList, removeList} from '../actions/board.actions';
 
-import {List} from "../../models/classes/list.model";
-import {Card} from "../../models/classes/card.model";
-
 export const initialState: List[] = [];
 
 // TODO: Rename reducer and actions file
 // TODO: Create reducer
+// TODO: Create effects
 export const boardReducer = createReducer(
   initialState,
-  on(createList, (state, {name}) => [...state, new List(name)]),
+  on(createList, (state, {title}) => [...state, new List(title)]),
   on(removeList, (state) => state),
   on(moveList, (state) => state),
   on(addCard, (state, {text, ownerName, index}) => {

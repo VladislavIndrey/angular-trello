@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import Dexie, {liveQuery, Table} from 'dexie';
+import Dexie, {liveQuery, Table, Observable} from 'dexie';
 
 import {Task} from '../models/task.model';
 import {List} from '../models/list.model';
@@ -8,7 +8,7 @@ import {List} from '../models/list.model';
 @Injectable({
   providedIn: 'root',
 })
-export class LocalDbService extends Dexie {
+export class LocalDBService extends Dexie {
   private _tasks!: Table<Task, number>;
   private _taskLists!: Table<List, number>;
 
@@ -20,7 +20,7 @@ export class LocalDbService extends Dexie {
     });
   }
 
-  public getTaskLists() {
+  public getTaskLists(): Observable<List[]> {
     return liveQuery(() => this._taskLists.toArray());
   }
 
