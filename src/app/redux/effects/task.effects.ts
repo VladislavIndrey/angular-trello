@@ -2,18 +2,18 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap, of} from "rxjs";
 
-
+// TODO: Refactoring create file for task and list
 import {LocalDBService} from "../../services/local-d-b.service";
 import {
   addList,
   listAdded,
-  listAddFailed,
+  listAddFailed, listUpdated, listUpdateFailed,
   loadTaskLists,
   loadTasks,
   taskListsLoaded,
   taskListsLoadFailed,
   tasksLoaded,
-  tasksLoadFailed
+  tasksLoadFailed, updateList
 } from "../actions/task.actions";
 
 @Injectable()
@@ -40,6 +40,14 @@ export class TaskEffects {
     mergeMap((action) => this.localDBService.addNewList(action.title).pipe(
       map(() => listAdded()),
       catchError((error) => of(listAddFailed({error}))),
+    ))
+  ));
+
+  public updateList$ = createEffect(() => this.actions$.pipe(
+    ofType(updateList),
+    mergeMap((action) => this.localDBService.updateList(action.id, action.title).pipe(
+      map(() => listUpdated()),
+      catchError((error) => of(listUpdateFailed({error})))
     ))
   ))
 

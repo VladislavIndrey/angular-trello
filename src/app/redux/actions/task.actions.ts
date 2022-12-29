@@ -13,3 +13,6 @@ export const tasksLoadFailed = createAction('[Local DB API] Tasks Load Failed', 
 export const addList = createAction('[Add List Component] Add List', props<{ title: string }>())
 export const listAdded = createAction('[Local DB API] List Added Success');
 export const listAddFailed = createAction('[Local DB API] List Add Failed', props<{ error: any }>());
+export const updateList = createAction('[List Component] Edit List', props<{ id: number, title: string }>())
+export const listUpdated = createAction('[Local DB API] List Updated');
+export const listUpdateFailed = createAction('[Local DB API] List Update Failed', props<{ error: any }>());

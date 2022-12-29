@@ -1,13 +1,13 @@
 import {List} from "../../models/list.model";
 import {createReducer, on} from "@ngrx/store";
 import {
-  addList, listAdded, listAddFailed,
+  addList, listAdded, listAddFailed, listUpdated, listUpdateFailed,
   loadTaskLists,
   loadTasks,
   taskListsLoaded,
   taskListsLoadFailed,
   tasksLoaded,
-  tasksLoadFailed
+  tasksLoadFailed, updateList
 } from "../actions/task.actions";
 import {Task} from "../../models/task.model";
 import {state} from "@angular/animations";
@@ -23,7 +23,7 @@ export const initialState: {
   isLoading: false,
   error: null,
 };
-
+// TODO: Refactoring create file for task and list
 export const taskReducer = createReducer(
   initialState,
   on(loadTaskLists, (state) => ({
@@ -71,6 +71,21 @@ export const taskReducer = createReducer(
     error: null,
   })),
   on(listAddFailed, (state, {error}) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
+  on(updateList, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(listUpdated, (state) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+  })),
+  on(listUpdateFailed, (state, error) => ({
     ...state,
     isLoading: false,
     error,

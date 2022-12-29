@@ -24,6 +24,10 @@ export class LocalDBService {
      return from(db.taskLists.add({title}));
   }
 
+  public updateList(id: number, title: string): Observable<number>{
+    return from(db.taskLists.update(id, {title}));
+  }
+
   public async addTask(task: Task): Promise<void> {
     await db.tasks.add(task)
   }
