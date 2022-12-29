@@ -8,7 +8,8 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 
-import {boardReducer} from "./redux/reducers/board.reducer";
+import {TaskEffects} from "./redux/effects/task.effects";
+import {taskReducer} from "./redux/reducers/task.reducer";
 
 @NgModule({
   declarations: [
@@ -18,9 +19,9 @@ import {boardReducer} from "./redux/reducers/board.reducer";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({lists: boardReducer}),
+    StoreModule.forRoot({task: taskReducer}),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([TaskEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

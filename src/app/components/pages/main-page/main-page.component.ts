@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Store} from "@ngrx/store";
+
 import {BoardComponent} from "../../board/board.component";
 import {HeaderComponent} from "../../header/header.component";
+import {loadTaskLists} from "../../../redux/actions/task.actions";
 
 @Component({
   selector: 'app-main-page',
@@ -10,6 +13,11 @@ import {HeaderComponent} from "../../header/header.component";
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent {
+export class MainPageComponent implements OnInit {
+  constructor(private store: Store) {
+  }
 
+  ngOnInit(): void {
+    this.store.dispatch(loadTaskLists());
+  }
 }

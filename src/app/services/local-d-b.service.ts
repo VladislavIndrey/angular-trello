@@ -1,42 +1,34 @@
 import {Injectable} from '@angular/core';
-import Dexie, {liveQuery, Table, Observable} from 'dexie';
+import {liveQuery} from 'dexie';
+import {from, Observable, of} from "rxjs";
+
 
 import {Task} from '../models/task.model';
 import {List} from '../models/list.model';
+import {db} from "./db";
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocalDBService extends Dexie {
-  private _tasks!: Table<Task, number>;
-  private _taskLists!: Table<List, number>;
-
-  constructor() {
-    super('trello');
-    this.version(3).stores({
-      taskLists: '++id',
-      tasks: '++id, taskListId',
-    });
+export class LocalDBService {
+  public getTaskLists() : Observable<List[]>{
+    return from(db.taskLists.toArray())
   }
 
-  public getTaskLists(): Observable<List[]> {
-    return liveQuery(() => this._taskLists.toArray());
+  public getTasksByListId(id: number): Observable<Task[]> {
+    return from(this.listTasks(id));
   }
 
-  public async addNewList(title: string): Promise<void> {
-    await this._taskLists.add({title});
+  public async addNewList(title: string) {
+    await db.taskLists.add({title});
   }
 
   public async addTask(task: Task): Promise<void> {
-    await this._tasks.add(task)
+    await db.tasks.add(task)
   }
 
-  public getTasksByListId(id: number) {
-    return liveQuery(() => this.listTasks(id));
-  }
-
-  private async listTasks(id: number) {
-    return this._tasks.where({taskListId: id}).toArray();
+  private async listTasks(id: number): Promise<Task[]> {
+    return db.tasks.where({taskListId: id}).toArray();
   }
 }

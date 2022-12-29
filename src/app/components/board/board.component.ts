@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store';
 
 import { ListComponent } from '../list/list.component';
 import { AddListComponent } from '../add-list/add-list.component';
-import { List } from '../../models/classes/list.model';
+import {List} from "../../models/list.model";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-board',
@@ -22,7 +23,8 @@ import { List } from '../../models/classes/list.model';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
-  public lists$ = this.store.select('lists');
+  public lists$ = this.store.select('task').pipe(map((data) => data.lists));
 
-  constructor(private store: Store<{ lists: List[] }>) {}
+  constructor(private store: Store<{task: {lists: List[]}}>) {
+  }
 }

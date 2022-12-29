@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {Store} from "@ngrx/store";
 
-import {createList} from "../../redux/actions/board.actions";
 
 @Component({
   selector: 'app-add-list',
@@ -23,7 +22,6 @@ export class AddListComponent {
   }
 
   public onAddClicked($event: MouseEvent, name: string): void {
-    this.store.dispatch(createList({name}))
     $event.stopPropagation();
     this.isAddMod = false;
   }
