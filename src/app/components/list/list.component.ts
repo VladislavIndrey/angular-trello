@@ -20,7 +20,7 @@ import {loadTaskLists, updateList} from "../../redux/actions/task.actions";
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent {
+export class ListComponent { // TODO: Refactoring (create list model)
   @Input() list!: List;
   @ViewChild('editInput', {static: false}) editInput!: ElementRef<HTMLInputElement>;
   public isAdding: boolean = false;

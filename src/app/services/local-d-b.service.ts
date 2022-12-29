@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {liveQuery} from 'dexie';
-import {from, Observable, of} from "rxjs";
+import {from, Observable} from "rxjs";
 
 
 import {Task} from '../models/task.model';
