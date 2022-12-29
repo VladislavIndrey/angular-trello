@@ -4,16 +4,31 @@ import {catchError, map, mergeMap, of} from "rxjs";
 
 
 import {LocalDBService} from "../../services/local-d-b.service";
-import {taskListsLoaded, taskListsLoadFailed} from "../actions/task.actions";
+import {
+  loadTaskLists,
+  loadTasks,
+  taskListsLoaded,
+  taskListsLoadFailed,
+  tasksLoaded,
+  tasksLoadFailed
+} from "../actions/task.actions";
 
 @Injectable()
 export class TaskEffects {
 
   public loadTaskLists$ = createEffect(() => this.actions$.pipe(
-    ofType('[Main Page] Load Task Lists'),
+    ofType(loadTaskLists),
     mergeMap(() => this.localDBService.getTaskLists().pipe(
       map((taskLists) => taskListsLoaded({taskLists})),
       catchError((error) => of(taskListsLoadFailed({error}))),
+    ))
+  ));
+
+  public loadTasks$ = createEffect(() => this.actions$.pipe(
+    ofType(loadTasks),
+    mergeMap(() => this.localDBService.getTasks().pipe(
+      map((tasks) => tasksLoaded({tasks})),
+      catchError((error) => of(tasksLoadFailed({error}))),
     ))
   ))
 

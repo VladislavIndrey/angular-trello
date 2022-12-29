@@ -25,7 +25,7 @@ export class AppDB extends Dexie {
     const taskListId2 = await db.taskLists.add({
       title: 'Done',
     });
-    await db.tasks.add({listId: taskListId2, text: 'Test text', ownerName: 'Sample owner', priority: 0});
+    await db.tasks.add({listId: taskListId2, text: 'Done text', ownerName: 'Sample owner', priority: 0});
   }
 }
 

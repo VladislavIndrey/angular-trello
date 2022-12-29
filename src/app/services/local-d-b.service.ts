@@ -16,8 +16,8 @@ export class LocalDBService {
     return from(db.taskLists.toArray())
   }
 
-  public getTasksByListId(id: number): Observable<Task[]> {
-    return from(this.listTasks(id));
+  public getTasks(): Observable<Task[]> {
+    return from(db.tasks.toArray());
   }
 
   public async addNewList(title: string) {
@@ -26,9 +26,5 @@ export class LocalDBService {
 
   public async addTask(task: Task): Promise<void> {
     await db.tasks.add(task)
-  }
-
-  private async listTasks(id: number): Promise<Task[]> {
-    return db.tasks.where({taskListId: id}).toArray();
   }
 }
