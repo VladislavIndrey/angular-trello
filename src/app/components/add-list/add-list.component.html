@@ -1,4 +1,9 @@
-<div class="add-list" [class.add-list--is-idle]="!isAddMod" [class.add-mod]="isAddMod" (click)="onAddListClicked()">
+<div
+  class="add-list"
+  [class.add-list--is-idle]="!isAddMod"
+  [class.add-mod]="isAddMod"
+  (click)="onAddListClicked()"
+>
   <ng-template [ngIf]="!isAddMod">
     <span class="add-list__text">+ Add new list</span>
   </ng-template>
