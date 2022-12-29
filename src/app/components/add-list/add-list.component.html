@@ -4,6 +4,9 @@
   </ng-template>
   <ng-template [ngIf]="isAddMod">
     <input class="add-list__input" placeholder="Type List Name" #nameInput>
-    <button mat-button class="add-list__add-button" (click)="onAddClicked($event,nameInput.value)">Add</button>
+    <div class="add-list__buttons buttons">
+      <button mat-button class="buttons__add-button" (click)="onAddClicked($event,nameInput.value)">Add</button>
+      <mat-icon class="buttons__cancel-button cancel-button--hover" (click)="onCancleCliked($event)">highlight_off</mat-icon>
+    </div>
   </ng-template>
 </div>

@@ -3,12 +3,13 @@ import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {Store} from "@ngrx/store";
 import {addList, loadTaskLists} from "../../redux/actions/task.actions";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @Component({
   selector: 'app-add-list',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './add-list.component.html',
   styleUrls: ['./add-list.component.scss']
 })
@@ -27,6 +28,11 @@ export class AddListComponent {
 
     this.store.dispatch(addList({title}));
     this.store.dispatch(loadTaskLists());
+    this.isAddMod = false;
+  }
+
+  public onCancleCliked($event: MouseEvent): void {
+    $event.stopPropagation();
     this.isAddMod = false;
   }
 }
