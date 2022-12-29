@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import Dexie, { Table } from 'dexie';
 
-import { Card } from '../models/card.model';
+import { Task } from '../models/task.model';
 import { List } from '../models/list.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalDbService extends Dexie {
-  tasks!: Table<Card, number>;
+  tasks!: Table<Task, number>;
   taskLists!: Table<List, number>;
 
   constructor() {

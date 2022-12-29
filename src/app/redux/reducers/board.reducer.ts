@@ -1,8 +1,8 @@
 import {createReducer, on} from '@ngrx/store';
 import {addCard, createList, moveList, removeList} from '../actions/board.actions';
 
-import {List} from "../../models/list.model";
-import {Card} from "../../models/card.model";
+import {List} from "../../models/classes/list.model";
+import {Card} from "../../models/classes/card.model";
 
 export const initialState: List[] = [];
 

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { ListComponent } from '../list/list.component';
 import { AddListComponent } from '../add-list/add-list.component';
-import { List } from '../../models/list.model';
+import { List } from '../../models/classes/list.model';
 
 @Component({
   selector: 'app-board',

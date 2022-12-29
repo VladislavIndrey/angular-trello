@@ -4,7 +4,7 @@ import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {CardComponent} from "../card/card.component";
 import {AddCardComponent} from "../add-card/add-card.component";
-import {List} from "../../models/list.model";
+import {List} from "../../models/classes/list.model";
 
 @Component({
   selector: 'app-list',
