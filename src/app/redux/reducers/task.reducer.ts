@@ -10,7 +10,6 @@ import {
   tasksLoadFailed, updateList
 } from "../actions/task.actions";
 import {Task} from "../../models/task.model";
-import {state} from "@angular/animations";
 
 export const initialState: {
   lists: List[],

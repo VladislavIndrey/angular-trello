@@ -1,4 +1,4 @@
-import Dexie, { Table } from 'dexie';
+import Dexie, {Table} from 'dexie';
 import {Task} from "../models/task.model";
 import {List} from "../models/list.model";
 

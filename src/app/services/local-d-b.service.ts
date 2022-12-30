@@ -11,7 +11,7 @@ import {db} from "./db";
   providedIn: 'root',
 })
 export class LocalDBService {
-  public getTaskLists() : Observable<List[]>{
+  public getTaskLists(): Observable<List[]> {
     return from(db.taskLists.toArray())
   }
 
@@ -20,10 +20,10 @@ export class LocalDBService {
   }
 
   public addNewList(title: string): Observable<number> {
-     return from(db.taskLists.add({title}));
+    return from(db.taskLists.add({title}));
   }
 
-  public updateList(id: number, title: string): Observable<number>{
+  public updateList(id: number, title: string): Observable<number> {
     return from(db.taskLists.update(id, {title}));
   }
 
