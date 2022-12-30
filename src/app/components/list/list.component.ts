@@ -1,17 +1,20 @@
 import {ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {Store} from "@ngrx/store";
+import {map} from "rxjs";
+
 import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
 
 import {CardComponent} from "../card/card.component";
 import {AddCardComponent} from "../add-card/add-card.component";
-import {List} from "../../models/list.model";
-import {Store} from "@ngrx/store";
+
 import {Task} from "../../models/task.model";
-import {map} from "rxjs";
-import {MatButtonModule} from "@angular/material/button";
-import {MatMenuModule} from "@angular/material/menu";
-import {deleteList, loadTaskLists, updateList} from "../../redux/actions/task.actions";
+import {List} from "../../models/list.model";
+import {deleteList, loadLists, updateList} from "../../redux/actions/list.actions";
+
 
 @Component({
   selector: 'app-list',
@@ -49,7 +52,7 @@ export class ListComponent { // TODO: Refactoring (create list model)
 
   public onDeleteClicked(): void {
     this.store.dispatch(deleteList({id: Number(this.list.id)}));
-    this.store.dispatch(loadTaskLists());
+    this.store.dispatch(loadLists());
   }
 
   private focusInput(): void {
@@ -69,7 +72,7 @@ export class ListComponent { // TODO: Refactoring (create list model)
     setTimeout(() => {
       if (title.trim() && this.list.title !== title) {
         this.store.dispatch(updateList({id: Number(this.list.id), title: title}));
-        this.store.dispatch(loadTaskLists());
+        this.store.dispatch(loadLists());
       }
     })
   }

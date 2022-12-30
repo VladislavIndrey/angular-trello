@@ -22,7 +22,6 @@ export class AddCardComponent {
   }
 
   public onAddClicked($event: MouseEvent, text: string): void {
-    // TODO: Use object of lists instead of array, use ids for keys
     $event.stopPropagation();
     this.isAddMod = false;
   }

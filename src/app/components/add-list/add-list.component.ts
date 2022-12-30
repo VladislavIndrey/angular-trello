@@ -2,8 +2,9 @@ import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {Store} from "@ngrx/store";
-import {addList, loadTaskLists} from "../../redux/actions/task.actions";
 import {MatIconModule} from "@angular/material/icon";
+
+import {addList, loadLists} from "../../redux/actions/list.actions";
 
 
 @Component({
@@ -32,7 +33,7 @@ export class AddListComponent {
     $event.stopPropagation();
 
     this.store.dispatch(addList({title}));
-    this.store.dispatch(loadTaskLists());
+    this.store.dispatch(loadLists());
     this.isAddMod = false;
   }
 

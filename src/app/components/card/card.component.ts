@@ -2,12 +2,10 @@ import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   CdkDrag,
-  CdkDragDrop,
   CdkDropList,
   CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem
 } from "@angular/cdk/drag-drop";
+
 import {Task} from "../../models/task.model";
 
 @Component({
