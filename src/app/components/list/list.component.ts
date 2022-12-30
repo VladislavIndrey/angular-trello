@@ -11,7 +11,7 @@ import {Task} from "../../models/task.model";
 import {map} from "rxjs";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
-import {loadTaskLists, updateList} from "../../redux/actions/task.actions";
+import {deleteList, loadTaskLists, updateList} from "../../redux/actions/task.actions";
 
 @Component({
   selector: 'app-list',
@@ -45,6 +45,11 @@ export class ListComponent { // TODO: Refactoring (create list model)
     if ($event.key === 'Enter') {
       this.endEditing(value);
     }
+  }
+
+  public onDeleteClicked(): void {
+    this.store.dispatch(deleteList({id: Number(this.list.id)}));
+    this.store.dispatch(loadTaskLists());
   }
 
   private focusInput(): void {

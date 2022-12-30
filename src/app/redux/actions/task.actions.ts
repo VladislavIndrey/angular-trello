@@ -16,3 +16,6 @@ export const listAddFailed = createAction('[Local DB API] List Add Failed', prop
 export const updateList = createAction('[List Component] Edit List', props<{ id: number, title: string }>())
 export const listUpdated = createAction('[Local DB API] List Updated');
 export const listUpdateFailed = createAction('[Local DB API] List Update Failed', props<{ error: any }>());
+export const deleteList = createAction('[List Component] Delete List', props<{ id: number }>());
+export const listDeleted = createAction('[Local DB API] List Deleted');
+export const deleteListFailed = createAction('[Local DB API] Delete List Failed', props<{ error: any }>());

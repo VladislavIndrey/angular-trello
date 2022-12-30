@@ -23,6 +23,10 @@ export class LocalDBService {
     return from(db.taskLists.add({title}));
   }
 
+  public deleteListById(id: number): Observable<void> {
+    return from(db.taskLists.delete(id));
+  }
+
   public updateList(id: number, title: string): Observable<number> {
     return from(db.taskLists.update(id, {title}));
   }

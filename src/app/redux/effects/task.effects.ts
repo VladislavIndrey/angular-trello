@@ -5,9 +5,9 @@ import {catchError, map, mergeMap, of} from "rxjs";
 // TODO: Refactoring create file for task and list
 import {LocalDBService} from "../../services/local-d-b.service";
 import {
-  addList,
+  addList, deleteList, deleteListFailed,
   listAdded,
-  listAddFailed, listUpdated, listUpdateFailed,
+  listAddFailed, listDeleted, listUpdated, listUpdateFailed,
   loadTaskLists,
   loadTasks,
   taskListsLoaded,
@@ -49,7 +49,15 @@ export class TaskEffects {
       map(() => listUpdated()),
       catchError((error) => of(listUpdateFailed({error})))
     ))
-  ))
+  ));
+
+  public deleteList$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteList),
+    mergeMap((action) => this.localDBService.deleteListById(action.id).pipe(
+      map(() => listDeleted()),
+      catchError((error) => of(deleteListFailed({error})))
+    ))
+  ));
 
   constructor(private localDBService: LocalDBService, private actions$: Actions) {
   }

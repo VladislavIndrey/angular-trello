@@ -1,7 +1,7 @@
 import {List} from "../../models/list.model";
 import {createReducer, on} from "@ngrx/store";
 import {
-  addList, listAdded, listAddFailed, listUpdated, listUpdateFailed,
+  addList, deleteList, deleteListFailed, listAdded, listAddFailed, listDeleted, listUpdated, listUpdateFailed,
   loadTaskLists,
   loadTasks,
   taskListsLoaded,
@@ -84,9 +84,24 @@ export const taskReducer = createReducer(
     isLoading: false,
     error: null,
   })),
-  on(listUpdateFailed, (state, error) => ({
+  on(listUpdateFailed, (state, {error}) => ({
     ...state,
     isLoading: false,
     error,
-  }))
+  })),
+  on(deleteList, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(listDeleted, (state) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+  })),
+  on(deleteListFailed, (state, {error}) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
 );
