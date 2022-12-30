@@ -1,0 +1,39 @@
+.priority {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #219653;
+  border-radius: 10px;
+  width: 102px;
+  height: 28px;
+  cursor: pointer;
+  background: #219653;
+
+  &__icon {
+    color: #F2F2F2;
+  }
+
+  &__text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #F2F2F2;
+  }
+}
+
+.priority:hover{
+  opacity: 0.8;
+}
+
+.priority--selected {
+  background: none;
+}
+
+.icon--selected {
+  color: #219653;
+}
+
+.text--selected {
+  font-size: 12px;
+  font-weight: 500;
+  color: #219653;
+}

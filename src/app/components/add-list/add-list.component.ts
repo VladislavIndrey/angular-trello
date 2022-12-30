@@ -6,7 +6,7 @@ import {MatIconModule} from "@angular/material/icon";
 
 import {addList, loadLists} from "../../redux/actions/list.actions";
 
-
+// TODO: Add blur event and validation.
 @Component({
   selector: 'app-add-list',
   standalone: true,

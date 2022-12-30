@@ -3,7 +3,30 @@
     <span class="add-card__text">+ Add new card</span>
   </ng-template>
   <ng-template [ngIf]="isAddMod">
-    <input class="add-card__input" placeholder="Type Card Text">
-    <button mat-button class="add-card__add-button">Add</button>
+    <div class="add-card__clear-button clear-button">
+      <span class="clear-button__text">Create New Task</span>
+      <mat-icon class="clear-button__button" matRipple>clear</mat-icon>
+    </div>
+    <input class="add-card__owner-input" placeholder="Type Card Owner" #ownerInput>
+    <textarea
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="10"
+      class="add-card__text-input"
+      placeholder="Type Your Text"
+      #textInput
+    ></textarea>
+    <div class="add-card__priorities priorities">
+      <priority class="priorities__priority">On Track</priority>
+      <priority class="priorities__priority">On Track</priority>
+      <button mat-icon-button [cdkMenuTriggerFor]="menu" >
+        <mat-icon class="priorities__more" matRipple>more_horiz</mat-icon>
+      </button>
+      <ng-template #menu>
+        <div class="priority-selector" cdkMenu>
+          <priority *ngFor="let num of numbers" cdkMenuItem>Test</priority>
+        </div>
+      </ng-template>
+    </div>
+    <custom-button class="add-card__add-button">Add</custom-button>
   </ng-template>
 </div>
