@@ -16,14 +16,21 @@
       #textInput
     ></textarea>
     <div class="add-card__priorities priorities">
-      <priority class="priorities__priority">On Track</priority>
-      <priority class="priorities__priority">On Track</priority>
-      <button mat-icon-button [cdkMenuTriggerFor]="menu" >
+      <priority class="priorities__priority"
+                [color]="addCardModel.priority.color">{{addCardModel.priority.name}}</priority>
+      <button mat-icon-button [cdkMenuTriggerFor]="menu">
         <mat-icon class="priorities__more" matRipple>more_horiz</mat-icon>
       </button>
       <ng-template #menu>
         <div class="priority-selector" cdkMenu>
-          <priority *ngFor="let num of numbers" cdkMenuItem>Test</priority>
+          <priority
+            *ngFor="let priority of addCardModel.priorities"
+            [color]="priority.color"
+            (click)="addCardModel.changePriority(priority.id)"
+            cdkMenuItem
+          >
+            {{priority.name}}
+          </priority>
         </div>
       </ng-template>
     </div>

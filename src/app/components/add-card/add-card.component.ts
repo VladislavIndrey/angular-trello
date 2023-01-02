@@ -11,6 +11,7 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {PriorityComponent} from "../priority/priority.component";
+import {AddCardModel} from "../../models/components/add-card/add-card.model";
 
 @Component({
   selector: 'app-add-card',
@@ -36,7 +37,7 @@ import {PriorityComponent} from "../priority/priority.component";
 export class AddCardComponent {
   @Input() index: number = 0;
   public isAddMod: boolean = false;
-  public numbers: number[] = [1,2,3,4,5,6,7,8,];
+  public addCardModel: AddCardModel = new AddCardModel();
 
   constructor(private store: Store) {
   }

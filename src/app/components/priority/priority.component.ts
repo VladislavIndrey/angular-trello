@@ -12,4 +12,5 @@ import {MatRippleModule} from "@angular/material/core";
 })
 export class PriorityComponent {
   @Input('selected') isSelected: boolean = false;
+  @Input('color') bgColor: string = '';
 }

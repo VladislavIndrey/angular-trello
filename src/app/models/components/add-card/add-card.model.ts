@@ -5,8 +5,11 @@ interface Priority {
 }
 
 export class AddCardModel {
+  get priority(): Priority {
+    return this._priority;
+  }
   get priorities(): Priority[] {
-    return this._priorities;
+    return this._priorities.filter((element) => element.id != this._priority.id);
   }
 
   private _priorities: Priority[] = [
@@ -23,4 +26,12 @@ export class AddCardModel {
     {id: 10, name: 'Other', color: '#e1c622'},
   ];
   private _priority: Priority = this._priorities[0];
+
+  public changePriority(index: number) {
+    if (index >= this._priorities.length) {
+      throw new Error(`Out of range, max range is ${this._priorities.length-1}`);
+    }
+
+    this._priority = this._priorities[index];
+  }
 }

@@ -1,4 +1,4 @@
-<div class="priority" [class.priority--selected]="!isSelected" matRipple>
-  <mat-icon class="priority__icon"  [class.icon--selected]="!isSelected">fiber_manual_record</mat-icon>
-  <span class="priority__text" [class.text--selected]="!isSelected"><ng-content></ng-content> </span>
+<div class="priority" [class.priority--selected]="!isSelected" [ngStyle]="{'border': '1px solid ' + bgColor}" matRipple>
+  <mat-icon class="priority__icon"  [class.icon--selected]="!isSelected" [ngStyle]="{'color': bgColor}">fiber_manual_record</mat-icon>
+  <span class="priority__text" [class.text--selected]="!isSelected" [ngStyle]="{'color': bgColor}"><ng-content></ng-content> </span>
 </div>

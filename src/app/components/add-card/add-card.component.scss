@@ -74,9 +74,10 @@
 
 .priorities {
   display: flex;
-  gap: 30px;
   padding: 20px;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   &__more {
     border-radius: 8px;
