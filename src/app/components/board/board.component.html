@@ -1,4 +1,4 @@
 <div class="board" cdkDropListGroup cdkDropList>
-  <app-list cdkDrag *ngFor="let list of (lists$ | async)" [list]="list"></app-list>
+  <app-list *ngFor="let list of (lists$ | async)" [list]="list"></app-list>
   <app-add-list></app-add-list>
 </div>

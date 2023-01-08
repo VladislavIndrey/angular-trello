@@ -1,5 +1,5 @@
-<div class="list" cdkDropList>
-  <div class="list__header header">
+<div class="list" cdkDropList cdkDrag>
+  <div class="list__header header" cdkDragHandle>
     <span *ngIf="!isAdding" class="header__title" (click)="onEditClicked()">{{list.title}}</span>
     <input
       *ngIf="isAdding"

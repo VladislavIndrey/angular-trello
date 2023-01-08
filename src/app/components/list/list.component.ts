@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
 import {map} from "rxjs";
 
-import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragHandle, CdkDropList} from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
@@ -19,7 +19,7 @@ import {deleteList, loadLists, updateList} from "../../redux/actions/list.action
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, CdkDropList, MatIconModule, CardComponent, AddCardComponent, CdkDrag, MatButtonModule, MatMenuModule],
+  imports: [CommonModule, CdkDropList, MatIconModule, CardComponent, AddCardComponent, CdkDrag, MatButtonModule, MatMenuModule, CdkDragHandle],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
