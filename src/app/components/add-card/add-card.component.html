@@ -5,7 +5,7 @@
   <ng-template [ngIf]="isAddMod">
     <div class="add-card__clear-button clear-button">
       <span class="clear-button__text">Create New Task</span>
-      <mat-icon class="clear-button__button" matRipple>clear</mat-icon>
+      <mat-icon class="clear-button__button" matRipple (click)="onCancelClicked($event)">clear</mat-icon>
     </div>
     <input class="add-card__owner-input" placeholder="Type Card Owner" #ownerInput>
     <textarea
@@ -16,17 +16,23 @@
       #textInput
     ></textarea>
     <div class="add-card__priorities priorities">
-      <priority class="priorities__priority"
-                [color]="addCardModel.priority.color">{{addCardModel.priority.name}}</priority>
+      <priority
+        class="priorities__priority"
+        [color]="addCardModel.priority.color"
+        [isSelected]="true"
+      >
+        {{addCardModel.priority.name}}
+      </priority>
       <button mat-icon-button [cdkMenuTriggerFor]="menu">
         <mat-icon class="priorities__more" matRipple>more_horiz</mat-icon>
       </button>
       <ng-template #menu>
         <div class="priority-selector" cdkMenu>
           <priority
-            *ngFor="let priority of addCardModel.priorities"
-            [color]="priority.color"
+            *ngFor="let priority of addCardModel.priorities; trackBy:trackById"
             (click)="addCardModel.changePriority(priority.id)"
+            [isSelected]="false"
+            [color]="priority.color"
             cdkMenuItem
           >
             {{priority.name}}
@@ -34,6 +40,6 @@
         </div>
       </ng-template>
     </div>
-    <custom-button class="add-card__add-button">Add</custom-button>
+    <custom-button class="add-card__add-button" (click)="onAddClicked($event, textInput.value, ownerInput.value)">Add</custom-button>
   </ng-template>
 </div>

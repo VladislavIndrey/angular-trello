@@ -1,6 +1,6 @@
 <div class="list" cdkDropList>
   <div class="list__header header">
-    <span *ngIf="!isAdding" class="header__title">{{list.title}}</span>
+    <span *ngIf="!isAdding" class="header__title" (click)="onEditClicked()">{{list.title}}</span>
     <input
       *ngIf="isAdding"
       [value]="list.title"
@@ -23,5 +23,5 @@
     </mat-menu>
   </div>
   <app-card cdkDrag *ngFor="let task of (tasks$ | async)" [task]="task"></app-card>
-  <app-add-card></app-add-card>
+  <app-add-card [listId]="list.id"></app-add-card>
 </div>

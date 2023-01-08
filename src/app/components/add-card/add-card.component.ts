@@ -12,6 +12,7 @@ import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {PriorityComponent} from "../priority/priority.component";
 import {AddCardModel} from "../../models/components/add-card/add-card.model";
+import {addTask, loadTasks} from "../../redux/actions/task.actions";
 
 @Component({
   selector: 'app-add-card',
@@ -35,7 +36,7 @@ import {AddCardModel} from "../../models/components/add-card/add-card.model";
   styleUrls: ['./add-card.component.scss']
 })
 export class AddCardComponent {
-  @Input() index: number = 0;
+  @Input() listId: number | undefined = 0;
   public isAddMod: boolean = false;
   public addCardModel: AddCardModel = new AddCardModel();
 
@@ -46,7 +47,18 @@ export class AddCardComponent {
     this.isAddMod = true;
   }
 
-  public onAddClicked($event: MouseEvent, text: string): void {
+  public onAddClicked($event: MouseEvent, text: string, ownerName: string): void {
+    $event.stopPropagation();
+    this.store.dispatch(addTask({task: {text, ownerName, listId: this.listId!, priority: this.addCardModel.priority.id}}));
+    this.store.dispatch(loadTasks());
+    this.isAddMod = false;
+  }
+
+  public trackById(index: number, item: any) {
+    return item.id;
+  }
+
+  public onCancelClicked($event: MouseEvent): void {
     $event.stopPropagation();
     this.isAddMod = false;
   }

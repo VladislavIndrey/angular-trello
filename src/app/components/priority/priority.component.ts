@@ -11,6 +11,7 @@ import {MatRippleModule} from "@angular/material/core";
   styleUrls: ['./priority.component.scss']
 })
 export class PriorityComponent {
-  @Input('selected') isSelected: boolean = false;
+  @Input() isSelected: boolean = false;
   @Input('color') bgColor: string = '';
+  public defaultColor: string = '#F2F2F2';
 }

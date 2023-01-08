@@ -4,10 +4,12 @@ interface Priority {
   color: string;
 }
 
+// TODO: Rename to TaskPriorityModel or TaskModel
 export class AddCardModel {
   get priority(): Priority {
     return this._priority;
   }
+
   get priorities(): Priority[] {
     return this._priorities.filter((element) => element.id != this._priority.id);
   }
@@ -27,11 +29,13 @@ export class AddCardModel {
   ];
   private _priority: Priority = this._priorities[0];
 
-  public changePriority(index: number) {
-    if (index >= this._priorities.length) {
-      throw new Error(`Out of range, max range is ${this._priorities.length-1}`);
-    }
+  public changePriority(id: number) {
+    const foundPriority = this._priorities.find((priority) => priority.id === id);
 
-    this._priority = this._priorities[index];
+    if (foundPriority === undefined) {
+      throw new Error(`No priority was found with id: ${id}`);
+    } else {
+      this._priority = foundPriority;
+    }
   }
 }
