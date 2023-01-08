@@ -14,8 +14,23 @@
     white-space: pre-line;
   }
 
-  &__owner{
+  &__owner {
     padding-top: 26px;
     opacity: 0.4;
+  }
+}
+
+.top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  &__edit-button {
+    opacity: 0.3;
+  }
+
+  &__edit-button:hover {
+    opacity: 1;
   }
 }
