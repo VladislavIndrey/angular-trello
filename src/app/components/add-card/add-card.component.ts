@@ -11,7 +11,7 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {PriorityComponent} from "../priority/priority.component";
-import {AddCardModel} from "../../models/components/add-card/add-card.model";
+import {TaskPriorityModel} from "../../models/task-priority.model";
 import {addTask, loadTasks} from "../../redux/actions/task.actions";
 
 @Component({
@@ -38,7 +38,7 @@ import {addTask, loadTasks} from "../../redux/actions/task.actions";
 export class AddCardComponent {
   @Input() listId: number | undefined = 0;
   public isAddMod: boolean = false;
-  public addCardModel: AddCardModel = new AddCardModel();
+  public addCardModel: TaskPriorityModel = new TaskPriorityModel();
 
   constructor(private store: Store) {
   }

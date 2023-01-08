@@ -4,8 +4,7 @@ interface Priority {
   color: string;
 }
 
-// TODO: Rename to TaskPriorityModel or TaskModel
-export class AddCardModel {
+export class TaskPriorityModel {
   get priority(): Priority {
     return this._priority;
   }

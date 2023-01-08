@@ -9,13 +9,6 @@
   padding: 20px;
   border-radius: var(--card-border-radius);
 
-  &__priority {
-    width: 60px;
-    height: 8px;
-    border-radius: 4px;
-    background-color: var(--orange-priority);
-  }
-
   &__text {
     padding-top: 10px;
     white-space: pre-line;
