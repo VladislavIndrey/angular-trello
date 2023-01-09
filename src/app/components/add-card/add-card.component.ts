@@ -1,17 +1,16 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatButtonModule} from "@angular/material/button";
 import {Store} from "@ngrx/store";
-import {MatChipsModule} from "@angular/material/chips";
-import {MatMenuModule} from "@angular/material/menu";
-import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from "@angular/cdk/menu";
 import {MatRippleModule} from "@angular/material/core";
 import {MatIconModule} from "@angular/material/icon";
-import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {TextFieldModule} from "@angular/cdk/text-field";
-import {MatInputModule} from "@angular/material/input";
+
+
+import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {PriorityComponent} from "../priority/priority.component";
 import {TaskPriorityModel} from "../../models/task-priority.model";
+import {PrioritySelectorComponent} from "../priority-selector/priority-selector.component";
+
 import {addTask, loadTasks} from "../../redux/actions/task.actions";
 
 @Component({
@@ -19,18 +18,12 @@ import {addTask, loadTasks} from "../../redux/actions/task.actions";
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatMenuModule,
-    CdkMenuTrigger,
-    CdkMenu,
-    CdkMenuItem,
     MatRippleModule,
     MatIconModule,
     CustomButtonComponent,
     TextFieldModule,
-    MatInputModule,
-    PriorityComponent
+    PriorityComponent,
+    PrioritySelectorComponent
   ],
   templateUrl: './add-card.component.html',
   styleUrls: ['./add-card.component.scss']
@@ -38,7 +31,7 @@ import {addTask, loadTasks} from "../../redux/actions/task.actions";
 export class AddCardComponent {
   @Input() listId: number | undefined = 0;
   public isAddMod: boolean = false;
-  public addCardModel: TaskPriorityModel = new TaskPriorityModel();
+  public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 
   constructor(private store: Store) {
   }
@@ -49,13 +42,16 @@ export class AddCardComponent {
 
   public onAddClicked($event: MouseEvent, text: string, ownerName: string): void {
     $event.stopPropagation();
-    this.store.dispatch(addTask({task: {text, ownerName, taskListId: this.listId!, priority: this.addCardModel.priority.id}}));
+    this.store.dispatch(addTask({
+      task: {
+        text,
+        ownerName,
+        taskListId: this.listId!,
+        priority: this.taskPriorityModel.priority.id
+      }
+    }));
     this.store.dispatch(loadTasks());
     this.isAddMod = false;
-  }
-
-  public trackById(index: number, item: any) {
-    return item.id;
   }
 
   public onCancelClicked($event: MouseEvent): void {

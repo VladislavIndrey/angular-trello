@@ -18,27 +18,12 @@
     <div class="add-card__priorities priorities">
       <priority
         class="priorities__priority"
-        [color]="addCardModel.priority.color"
+        [color]="taskPriorityModel.priority.color"
         [isSelected]="true"
       >
-        {{addCardModel.priority.name}}
+        {{taskPriorityModel.priority.name}}
       </priority>
-      <button mat-icon-button [cdkMenuTriggerFor]="menu">
-        <mat-icon class="priorities__more" matRipple>more_horiz</mat-icon>
-      </button>
-      <ng-template #menu>
-        <div class="priority-selector" cdkMenu>
-          <priority
-            *ngFor="let priority of addCardModel.priorities; trackBy:trackById"
-            (click)="addCardModel.changePriority(priority.id)"
-            [isSelected]="false"
-            [color]="priority.color"
-            cdkMenuItem
-          >
-            {{priority.name}}
-          </priority>
-        </div>
-      </ng-template>
+      <priority-selector [taskPriorityModel]="taskPriorityModel"></priority-selector>
     </div>
     <custom-button class="add-card__add-button" (click)="onAddClicked($event, textInput.value, ownerInput.value)">Add</custom-button>
   </ng-template>

@@ -1,12 +1,14 @@
 <div class="card">
   <div class="card__top top">
-    <priority
-      [color]="taskPriorityModel.priority.color"
-      [isSelected]="true"
-      class="top__priority"
-    >
-      {{taskPriorityModel.priority.name}}
-    </priority>
+    <div>
+      <priority
+        [color]="taskPriorityModel.priority.color"
+        [isSelected]="true"
+        class="top__priority"
+      >
+        {{taskPriorityModel.priority.name}}
+      </priority>
+    </div>
     <button mat-icon-button class="top__edit-button" [matMenuTriggerFor]="menu">
       <mat-icon>more_horiz</mat-icon>
     </button>
