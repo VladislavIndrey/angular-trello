@@ -30,7 +30,7 @@ export class ListEffects {
 
   public addList$ = createEffect(() => this.actions$.pipe(
     ofType(addList),
-    mergeMap((action) => this.localDBService.addNewList(action.title).pipe(
+    mergeMap((action) => this.localDBService.addNewList(action.list).pipe(
       map(() => listAdded()),
       catchError((error) => of(listAddFailed({error}))),
     ))
@@ -38,7 +38,7 @@ export class ListEffects {
 
   public updateList$ = createEffect(() => this.actions$.pipe(
     ofType(updateList),
-    mergeMap((action) => this.localDBService.updateList(action.id, action.title).pipe(
+    mergeMap((action) => this.localDBService.updateList(action.id, action.list).pipe(
       map(() => listUpdated()),
       catchError((error) => of(listUpdateFailed({error})))
     ))

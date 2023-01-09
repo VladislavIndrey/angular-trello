@@ -2,11 +2,10 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CdkDrag, CdkDropList, CdkDropListGroup} from '@angular/cdk/drag-drop';
 import {Store} from '@ngrx/store';
-import {map} from "rxjs";
 
 import {ListComponent} from '../list/list.component';
 import {AddListComponent} from '../add-list/add-list.component';
-import {List} from "../../models/list.model";
+import {selectOrderedLists} from "../../redux/selectors/list.selectors";
 
 @Component({
   selector: 'app-board',
@@ -23,8 +22,8 @@ import {List} from "../../models/list.model";
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
-  public lists$ = this.store.select('list').pipe(map((data) => data.lists));
+  public lists$ = this.store.select(selectOrderedLists);
 
-  constructor(private store: Store<{ list: { lists: List[] } }>) {
+  constructor(private store: Store) {
   }
 }

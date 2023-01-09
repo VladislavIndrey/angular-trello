@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {Store} from "@ngrx/store";
@@ -11,11 +11,12 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
 @Component({
   selector: 'app-add-list',
   standalone: true,
-    imports: [CommonModule, MatButtonModule, MatIconModule, BlueInputDirective],
+  imports: [CommonModule, MatButtonModule, MatIconModule, BlueInputDirective],
   templateUrl: './add-list.component.html',
   styleUrls: ['./add-list.component.scss']
 })
 export class AddListComponent {
+  @Input()listSize: number = 0;
   @ViewChild('nameInput', {static: false}) addListInput!: ElementRef<HTMLInputElement>;
   public isAddMod = false;
 
@@ -33,7 +34,7 @@ export class AddListComponent {
   public onAddClicked($event: MouseEvent, title: string): void {
     $event.stopPropagation();
 
-    this.store.dispatch(addList({title}));
+    this.store.dispatch(addList({list: {title, orderIndex: this.listSize}})); // TODO: Load lists on add list
     this.store.dispatch(loadLists());
     this.isAddMod = false;
   }
@@ -43,9 +44,9 @@ export class AddListComponent {
   }
 
   public onInputBlur(): void {
-  setTimeout(() => {
-    this.isAddMod = false;
-  }, 150)
+    setTimeout(() => {
+      this.isAddMod = false;
+    }, 150)
   }
 
 }

@@ -19,16 +19,16 @@ export class LocalDBService {
     return from(db.tasks.toArray());
   }
 
-  public addNewList(title: string): Observable<number> {
-    return from(db.taskLists.add({title}));
+  public addNewList(list: List): Observable<number> {
+    return from(db.taskLists.add(list));
   }
 
   public deleteListById(id: number): Observable<[void, number]> {
     return zip(from(db.taskLists.delete(id)), from(db.tasks.where({taskListId: id}).delete()));
   }
 
-  public updateList(id: number, title: string): Observable<number> {
-    return from(db.taskLists.update(id, {title}));
+  public updateList(id: number, list: List): Observable<number> {
+    return from(db.taskLists.update(id, list));
   }
 
   public addTask(task: Task): Observable<number> {

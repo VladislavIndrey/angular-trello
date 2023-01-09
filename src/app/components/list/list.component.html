@@ -23,6 +23,8 @@
       </button>
     </mat-menu>
   </div>
-  <app-card cdkDrag *ngFor="let task of (tasks$ | async)" [task]="task"></app-card>
-  <app-add-card [listId]="list.id"></app-add-card>
+  <ng-container *ngIf="tasks$ | async as tasks">
+    <app-card cdkDrag *ngFor="let task of tasks" [task]="task"></app-card>
+    <app-add-card [listId]="list.id" [tasksLength]="tasks.length"></app-add-card>
+  </ng-container>
 </div>

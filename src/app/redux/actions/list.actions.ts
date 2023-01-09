@@ -6,11 +6,11 @@ export const loadLists = createAction('[Main Page] Load Lists');
 export const listsLoaded = createAction('[Local DB API] Lists Loaded Success', props<{ taskLists: List[] }>());
 export const listsLoadFailed = createAction('[Local DB API] Lists Load Failed', props<{ error: any }>());
 
-export const addList = createAction('[Add List Component] Add List', props<{ title: string }>());
+export const addList = createAction('[Add List Component] Add List', props<{ list: List }>());
 export const listAdded = createAction('[Local DB API] List Added Success');
 export const listAddFailed = createAction('[Local DB API] List Add Failed', props<{ error: any }>());
 
-export const updateList = createAction('[List Component] Edit List', props<{ id: number, title: string }>());
+export const updateList = createAction('[List Component] Edit List', props<{ id: number, list: List }>());
 export const listUpdated = createAction('[Local DB API] List Updated');
 export const listUpdateFailed = createAction('[Local DB API] List Update Failed', props<{ error: any }>());
 

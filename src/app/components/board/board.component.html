@@ -1,4 +1,4 @@
 <div class="board" cdkDropListGroup cdkDropList>
   <app-list *ngFor="let list of (lists$ | async)" [list]="list"></app-list>
-  <app-add-list></app-add-list>
+  <app-add-list *ngIf="(lists$ | async) || ([]) as lists" [listSize]="lists.length"></app-add-list>
 </div>

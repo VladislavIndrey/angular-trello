@@ -16,11 +16,13 @@ import {
 } from "../actions/list.actions";
 import {List} from "../../models/list.model";
 
-export const initialState: {
+export type listInitialState = {
   lists: List[],
   isLoading: boolean,
   error: any,
-} = {
+};
+
+export const initialState: listInitialState = {
   lists: [],
   isLoading: false,
   error: null,

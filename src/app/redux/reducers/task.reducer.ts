@@ -16,11 +16,13 @@ import {
 } from "../actions/task.actions";
 import {Task} from "../../models/task.model";
 
-export const initialState: {
+export type taskInitialState = {
   tasks: Task[],
   isLoading: boolean,
   error: any,
-} = {
+};
+
+export const initialState: taskInitialState = {
   tasks: [],
   isLoading: false,
   error: null,

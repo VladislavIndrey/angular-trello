@@ -68,7 +68,13 @@ export class CardComponent implements OnInit {
     } else {
       this.store.dispatch(updateTask({
         id: this.task.id,
-        task: {taskListId: this.task.taskListId, text, ownerName, priority: this.taskPriorityModel.priority.id}
+        task: {
+          taskListId: this.task.taskListId,
+          text,
+          ownerName,
+          priority: this.taskPriorityModel.priority.id,
+          orderIndex: this.task.orderIndex
+        }
       }));
     }
   }
