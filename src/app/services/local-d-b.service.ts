@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {from, mergeAll, Observable, of, zip} from "rxjs";
+import {from, Observable, zip} from "rxjs";
 
 
 import {Task} from '../models/task.model';
@@ -32,6 +32,11 @@ export class LocalDBService {
   }
 
   public addTask(task: Task): Observable<number> {
-    return from(db.tasks.add(task))
+    return from(db.tasks.add(task));
+  }
+
+  // TODO: Get new tasks on delete
+  public deleteTask(id: number): Observable<void> {
+    return from(db.tasks.delete(id));
   }
 }

@@ -1,8 +1,8 @@
 import {createReducer, on} from "@ngrx/store";
 
 import {
-  addTask, addTaskFailed,
-  loadTasks, taskAdded,
+  addTask, addTaskFailed, deleteTask, deleteTaskFailed,
+  loadTasks, taskAdded, taskDeleted,
   tasksLoaded,
   tasksLoadFailed,
 } from "../actions/task.actions";
@@ -47,6 +47,21 @@ export const taskReducer = createReducer(
     error: null,
   })),
   on(addTaskFailed, (state, {error}) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
+  on(deleteTask, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(taskDeleted, (state) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+  })),
+  on(deleteTaskFailed, (state, {error}) => ({
     ...state,
     isLoading: false,
     error,
