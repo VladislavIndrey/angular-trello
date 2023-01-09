@@ -49,7 +49,7 @@ export class AddCardComponent {
 
   public onAddClicked($event: MouseEvent, text: string, ownerName: string): void {
     $event.stopPropagation();
-    this.store.dispatch(addTask({task: {text, ownerName, listId: this.listId!, priority: this.addCardModel.priority.id}}));
+    this.store.dispatch(addTask({task: {text, ownerName, taskListId: this.listId!, priority: this.addCardModel.priority.id}}));
     this.store.dispatch(loadTasks());
     this.isAddMod = false;
   }

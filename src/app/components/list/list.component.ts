@@ -30,7 +30,7 @@ export class ListComponent { // TODO: Refactoring (create list model)
   public isAdding: boolean = false;
   public tasks$ = this.store.select('task')
     .pipe(map((data) =>
-      data.tasks.filter((task) => task.listId === this.list.id)
+      data.tasks.filter((task) => task.taskListId === this.list.id)
     ));
 
   constructor(private store: Store<{ task: { tasks: Task[] } }>, private changeDetectorRef: ChangeDetectorRef) {

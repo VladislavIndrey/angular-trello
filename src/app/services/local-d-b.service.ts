@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {from, Observable} from "rxjs";
+import {from, mergeAll, Observable, of, zip} from "rxjs";
 
 
 import {Task} from '../models/task.model';
@@ -23,8 +23,8 @@ export class LocalDBService {
     return from(db.taskLists.add({title}));
   }
 
-  public deleteListById(id: number): Observable<void> {
-    return from(db.taskLists.delete(id));
+  public deleteListById(id: number): Observable<[void, number]>{
+    return zip(from(db.taskLists.delete(id)),from(db.tasks.where({taskListId: id}).delete()));
   }
 
   public updateList(id: number, title: string): Observable<number> {

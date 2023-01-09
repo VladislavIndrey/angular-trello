@@ -8,8 +8,8 @@
       (blur)="onInputBlur(editInput.value)"
       (keyup)="onEnterClicked($event, editInput.value)"
       #editInput>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon class="header__more">more_horiz</mat-icon>
+    <button class="header__more" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onEditClicked()">

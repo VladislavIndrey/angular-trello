@@ -1,6 +1,6 @@
 export interface Task {
   id?: number;
-  listId: number;
+  taskListId: number;
   text: string;
   priority: number;
   ownerName: string;

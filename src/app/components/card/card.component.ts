@@ -7,11 +7,12 @@ import {PriorityComponent} from "../priority/priority.component";
 import {Task} from "../../models/task.model";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [CommonModule, PriorityComponent, MatIconModule, MatButtonModule],
+    imports: [CommonModule, PriorityComponent, MatIconModule, MatButtonModule, MatMenuModule],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
