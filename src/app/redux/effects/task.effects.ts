@@ -12,7 +12,7 @@ import {
   taskAdded,
   taskDeleted,
   tasksLoaded,
-  tasksLoadFailed,
+  tasksLoadFailed, taskUpdated, updateTask, updateTaskFailed,
 } from "../actions/task.actions";
 
 @Injectable()
@@ -38,6 +38,14 @@ export class TaskEffects {
     mergeMap((action) => this.localDBService.deleteTask(action.id).pipe(
       map(() => taskDeleted()),
       catchError((error) => of(deleteTaskFailed({error}))),
+    )),
+  ));
+
+  public updateTask$ = createEffect(() => this.actions$.pipe(
+    ofType(updateTask),
+    mergeMap((action) => this.localDBService.updateTask(action.id, action.task).pipe(
+      map(([, tasks]) => taskUpdated({tasks})),
+      catchError((error) => of(updateTaskFailed({error}))),
     )),
   ));
 

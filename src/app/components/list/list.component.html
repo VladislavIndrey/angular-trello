@@ -2,6 +2,7 @@
   <div class="list__header header" cdkDragHandle>
     <span *ngIf="!isAdding" class="header__title" (click)="onEditClicked()">{{list.title}}</span>
     <input
+      blueInput
       *ngIf="isAdding"
       [value]="list.title"
       class="header__input"

@@ -1,6 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 
   background-color: var(--card-color);
   width: var(--card-width);
@@ -10,13 +11,21 @@
   border-radius: var(--card-border-radius);
 
   &__text {
-    padding-top: 10px;
     white-space: pre-line;
   }
 
   &__owner {
-    padding-top: 26px;
+    padding-top: 16px;
     opacity: 0.4;
+  }
+
+  &__owner-input {
+    height: 50px;
+    padding: 0 10px;
+  }
+
+  &__text-textarea {
+    overflow: hidden;
   }
 }
 
@@ -26,11 +35,17 @@
   justify-content: space-between;
   align-items: center;
 
-  &__edit-button {
+  &__edit-button, &__cancel-button {
     opacity: 0.3;
   }
 
-  &__edit-button:hover {
+  &__edit-button:hover, &__cancel-button:hover {
     opacity: 1;
   }
+}
+
+.priority-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

@@ -7,8 +7,9 @@
       <span class="clear-button__text">Create New Task</span>
       <mat-icon class="clear-button__button" matRipple (click)="onCancelClicked($event)">clear</mat-icon>
     </div>
-    <input class="add-card__owner-input" placeholder="Type Card Owner" #ownerInput>
+    <input blueInput class="add-card__owner-input" placeholder="Type Card Owner" #ownerInput>
     <textarea
+      blueInput
       cdkTextareaAutosize
       cdkAutosizeMinRows="10"
       class="add-card__text-input"

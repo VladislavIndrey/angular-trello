@@ -14,12 +14,13 @@ import {AddCardComponent} from "../add-card/add-card.component";
 import {Task} from "../../models/task.model";
 import {List} from "../../models/list.model";
 import {deleteList, loadLists, updateList} from "../../redux/actions/list.actions";
+import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, CdkDropList, MatIconModule, CardComponent, AddCardComponent, CdkDrag, MatButtonModule, MatMenuModule, CdkDragHandle],
+    imports: [CommonModule, CdkDropList, MatIconModule, CardComponent, AddCardComponent, CdkDrag, MatButtonModule, MatMenuModule, CdkDragHandle, BlueInputDirective],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })

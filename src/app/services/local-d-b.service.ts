@@ -23,8 +23,8 @@ export class LocalDBService {
     return from(db.taskLists.add({title}));
   }
 
-  public deleteListById(id: number): Observable<[void, number]>{
-    return zip(from(db.taskLists.delete(id)),from(db.tasks.where({taskListId: id}).delete()));
+  public deleteListById(id: number): Observable<[void, number]> {
+    return zip(from(db.taskLists.delete(id)), from(db.tasks.where({taskListId: id}).delete()));
   }
 
   public updateList(id: number, title: string): Observable<number> {
@@ -38,5 +38,9 @@ export class LocalDBService {
   // TODO: Get new tasks on delete
   public deleteTask(id: number): Observable<void> {
     return from(db.tasks.delete(id));
+  }
+
+  public updateTask(id: number, task: Task): Observable<[number, Task[]]> {
+    return zip(from(db.tasks.update(id, task)), this.getTasks());
   }
 }

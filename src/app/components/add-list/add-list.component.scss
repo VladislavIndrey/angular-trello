@@ -14,13 +14,9 @@
   }
 
   &__input {
-    outline: none;
-    border: none;
-    padding: 0 10px;
     width: 95%;
     height: 50px;
-    box-shadow: inset 0 0 0 2px #0079bf;
-    border-radius: var(--card-border-radius);
+    padding: 0 10px;
   }
 }
 

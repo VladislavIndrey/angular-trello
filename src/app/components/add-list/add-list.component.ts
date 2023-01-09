@@ -5,12 +5,13 @@ import {Store} from "@ngrx/store";
 import {MatIconModule} from "@angular/material/icon";
 
 import {addList, loadLists} from "../../redux/actions/list.actions";
+import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 // TODO: Add blur event and validation.
 @Component({
   selector: 'app-add-list',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+    imports: [CommonModule, MatButtonModule, MatIconModule, BlueInputDirective],
   templateUrl: './add-list.component.html',
   styleUrls: ['./add-list.component.scss']
 })

@@ -14,21 +14,13 @@
   }
 
   &__owner-input {
-    outline: none;
     padding: 0 10px;
     width: 95%;
     height: 50px;
-    border: 0.8px solid #2F80ED;
-    box-shadow: 0 4px 6px 3px rgba(45, 83, 219, 0.1);
-    border-radius: 8px;
   }
 
   &__text-input {
-    outline: none;
     width: 95%;
-    border: 0.8px solid #2F80ED;
-    box-shadow: 0 4px 6px 3px rgba(45, 83, 219, 0.1);
-    border-radius: 8px;
     overflow: hidden;
   }
 

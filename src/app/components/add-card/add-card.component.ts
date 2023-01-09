@@ -10,6 +10,7 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {PriorityComponent} from "../priority/priority.component";
 import {TaskPriorityModel} from "../../models/task-priority.model";
 import {PrioritySelectorComponent} from "../priority-selector/priority-selector.component";
+import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 import {addTask, loadTasks} from "../../redux/actions/task.actions";
 
@@ -23,7 +24,8 @@ import {addTask, loadTasks} from "../../redux/actions/task.actions";
     CustomButtonComponent,
     TextFieldModule,
     PriorityComponent,
-    PrioritySelectorComponent
+    PrioritySelectorComponent,
+    BlueInputDirective
   ],
   templateUrl: './add-card.component.html',
   styleUrls: ['./add-card.component.scss']

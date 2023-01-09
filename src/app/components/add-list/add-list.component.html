@@ -8,7 +8,7 @@
     <span class="add-list__text">+ Add new list</span>
   </ng-template>
   <ng-template [ngIf]="isAddMod">
-    <input class="add-list__input" placeholder="Type List Name" #nameInput (blur)="onInputBlur()">
+    <input blueInput class="add-list__input" placeholder="Type List Name" #nameInput (blur)="onInputBlur()">
     <div class="add-list__buttons buttons">
       <button mat-button class="buttons__add-button" (click)="onAddClicked($event,nameInput.value)">Add</button>
       <mat-icon class="buttons__cancel-button cancel-button--hover" (click)="onCancelClicked()">highlight_off</mat-icon>
