@@ -1,4 +1,4 @@
-.add-card{
+.add-card {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,11 +9,84 @@
   border-radius: var(--card-border-radius);
   cursor: pointer;
 
-  &__text{
+  &__text {
     user-select: none;
+  }
+
+  &__owner-input {
+    padding: 0 10px;
+    width: 95%;
+    height: 50px;
+  }
+
+  &__text-input {
+    width: 95%;
+    overflow: hidden;
+  }
+
+  &__priority {
+    width: 50%;
+    align-self: flex-start;
+  }
+
+  &__add-button {
+    width: 100%;
   }
 }
 
-.add-card:hover{
+.clear-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 20px;
+
+  &__text {
+    font-weight: 500;
+  }
+
+  &__button {
+    border-radius: 8px;
+  }
+}
+
+.add-mod {
+  flex-direction: column;
+  gap: 10px;
+  border: none;
+  background-color: var(--card-color);
+  height: fit-content;
+  padding: 10px 20px;
+  transition: 85ms ease-in-out;
+}
+
+.add-card--is-idle:hover {
   background-color: var(--card-hover);
+}
+
+.priorities {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  &__more {
+    border-radius: 8px;
+  }
+}
+
+.priority-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background-color: white;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15),
+  0 2px 2px rgba(0, 0, 0, 0.15),
+  0 4px 4px rgba(0, 0, 0, 0.15),
+  0 8px 8px rgba(0, 0, 0, 0.15);
 }

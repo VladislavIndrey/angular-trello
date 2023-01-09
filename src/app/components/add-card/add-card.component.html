@@ -1,3 +1,31 @@
-<div class="add-card">
-  <span class="add-card__text">+ Add new card</span>
+<div class="add-card" [class.add-card--is-idle]="!isAddMod" [class.add-mod]="isAddMod" (click)="onAddListClicked()">
+  <ng-template [ngIf]="!isAddMod">
+    <span class="add-card__text">+ Add new card</span>
+  </ng-template>
+  <ng-template [ngIf]="isAddMod">
+    <div class="add-card__clear-button clear-button">
+      <span class="clear-button__text">Create New Task</span>
+      <mat-icon class="clear-button__button" matRipple (click)="onCancelClicked($event)">clear</mat-icon>
+    </div>
+    <input blueInput class="add-card__owner-input" placeholder="Type Card Owner" #ownerInput>
+    <textarea
+      blueInput
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="10"
+      class="add-card__text-input"
+      placeholder="Type Your Text"
+      #textInput
+    ></textarea>
+    <div class="add-card__priorities priorities">
+      <priority
+        class="priorities__priority"
+        [color]="taskPriorityModel.priority.color"
+        [isSelected]="true"
+      >
+        {{taskPriorityModel.priority.name}}
+      </priority>
+      <priority-selector [taskPriorityModel]="taskPriorityModel"></priority-selector>
+    </div>
+    <custom-button class="add-card__add-button" (click)="onAddClicked($event, textInput.value, ownerInput.value)">Add</custom-button>
+  </ng-template>
 </div>

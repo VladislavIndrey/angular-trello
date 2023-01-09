@@ -1,5 +1,20 @@
-.board{
+.board {
   display: flex;
   gap: 30px;
   padding: 30px;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+
+  overflow: auto;
+}
+
+.board::-webkit-scrollbar {
+  background: rgb(151, 151, 151, 0.3);
+  border-radius: 10px;
+}
+
+.board::-webkit-scrollbar-thumb {
+  background: rgb(151, 151, 151);
+  border-radius: 10px;
 }

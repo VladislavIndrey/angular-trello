@@ -12,8 +12,48 @@
   &__text {
     user-select: none;
   }
+
+  &__input {
+    width: 95%;
+    height: 50px;
+    padding: 0 10px;
+  }
 }
 
-.add-list:hover {
+.buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  align-self: flex-end;
+
+  width: fit-content;
+  height: fit-content;
+
+  &__add-button {
+    background-color: #0079bf;
+    color: white !important;
+  }
+
+  &__cancel-button {
+    color: #fd6060;
+  }
+}
+
+.add-mod {
+  flex-direction: column;
+  gap: 10px;
+  border: none;
+  background-color: var(--card-color);
+  height: fit-content;
+  padding: 10px 20px;
+  transition: 85ms ease-in-out;
+}
+
+.add-list--is-idle:hover {
   background-color: var(--card-hover);
 }
+
+.cancel-button--hover:hover {
+  color: red;
+}
+

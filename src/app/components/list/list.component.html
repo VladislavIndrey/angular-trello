@@ -1,8 +1,28 @@
-<div class="list" cdkDropList>
-  <div class="list__header header">
-    <span class="header__title">TODO</span>
-    <mat-icon class="header__more">more_horiz</mat-icon>
+<div class="list" cdkDropList cdkDrag>
+  <div class="list__header header" cdkDragHandle>
+    <span *ngIf="!isAdding" class="header__title" (click)="onEditClicked()">{{list.title}}</span>
+    <input
+      blueInput
+      *ngIf="isAdding"
+      [value]="list.title"
+      class="header__input"
+      (blur)="onInputBlur(editInput.value)"
+      (keyup)="onEnterClicked($event, editInput.value)"
+      #editInput>
+    <button class="header__more" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEditClicked()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item  (click)="onDeleteClicked()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
   </div>
-  <app-card></app-card>
-  <app-add-card></app-add-card>
+  <app-card cdkDrag *ngFor="let task of (tasks$ | async)" [task]="task"></app-card>
+  <app-add-card [listId]="list.id"></app-add-card>
 </div>

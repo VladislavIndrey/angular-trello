@@ -1,16 +1,30 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {CdkDropListGroup} from "@angular/cdk/drag-drop";
-import {ListComponent} from "../list/list.component";
-import {AddListComponent} from "../add-list/add-list.component";
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {CdkDrag, CdkDropList, CdkDropListGroup} from '@angular/cdk/drag-drop';
+import {Store} from '@ngrx/store';
+import {map} from "rxjs";
+
+import {ListComponent} from '../list/list.component';
+import {AddListComponent} from '../add-list/add-list.component';
+import {List} from "../../models/list.model";
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, CdkDropListGroup, ListComponent, AddListComponent],
+  imports: [
+    CommonModule,
+    CdkDropListGroup,
+    ListComponent,
+    AddListComponent,
+    CdkDropList,
+    CdkDrag,
+  ],
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
+  public lists$ = this.store.select('list').pipe(map((data) => data.lists));
 
+  constructor(private store: Store<{ list: { lists: List[] } }>) {
+  }
 }

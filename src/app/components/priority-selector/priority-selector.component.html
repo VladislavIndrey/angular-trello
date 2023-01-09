@@ -1,0 +1,16 @@
+<button class="priorities__more" mat-icon-button [cdkMenuTriggerFor]="menu">
+  <mat-icon matRipple>more_horiz</mat-icon>
+</button>
+<ng-template #menu>
+  <div class="priority-selector" cdkMenu>
+    <priority
+      *ngFor="let priority of taskPriorityModel.priorities; trackBy:trackById"
+      (click)="taskPriorityModel.changePriority(priority.id)"
+      [isSelected]="false"
+      [color]="priority.color"
+      cdkMenuItem
+    >
+      {{priority.name}}
+    </priority>
+  </div>
+</ng-template>

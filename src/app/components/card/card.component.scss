@@ -1,6 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 
   background-color: var(--card-color);
   width: var(--card-width);
@@ -9,18 +10,42 @@
   padding: 20px;
   border-radius: var(--card-border-radius);
 
-  &__priority {
-    width: 60px;
-    height: 8px;
-    border-radius: 4px;
-    background-color: var(--orange-priority);
-  }
-
   &__text {
-    padding-top: 10px;
+    white-space: pre-line;
   }
 
-  &__owner{
-    padding-top: 26px;
+  &__owner {
+    padding-top: 16px;
+    opacity: 0.4;
   }
+
+  &__owner-input {
+    height: 50px;
+    padding: 0 10px;
+  }
+
+  &__text-textarea {
+    overflow: hidden;
+  }
+}
+
+.top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  &__edit-button, &__cancel-button {
+    opacity: 0.3;
+  }
+
+  &__edit-button:hover, &__cancel-button:hover {
+    opacity: 1;
+  }
+}
+
+.priority-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

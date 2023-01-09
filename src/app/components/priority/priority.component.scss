@@ -1,0 +1,18 @@
+.priority {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  width: 102px;
+  height: 28px;
+  cursor: pointer;
+
+  &__text {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+.priority:hover {
+  opacity: 0.8;
+}
