@@ -2,7 +2,14 @@ import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from
 import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
 
-import {CdkDrag, CdkDragHandle, CdkDropList} from "@angular/cdk/drag-drop";
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragHandle,
+  CdkDropList,
+  moveItemInArray,
+  transferArrayItem
+} from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
@@ -99,5 +106,23 @@ export class ListComponent implements OnInit {
         }
       }
     });
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    if (event.previousContainer === event.container) {
+      if (event.currentIndex - 1 < 0) {
+        event.container.data[event.currentIndex].orderIndex = 0;
+      } else {
+        event.container.data[event.currentIndex].orderIndex = event.container.data[event.currentIndex - 1].orderIndex + 0.1;
+      }
+    } else {
+      console.log('transfer');
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 }

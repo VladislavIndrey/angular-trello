@@ -15,6 +15,7 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 
 import {Task} from "../../models/task.model";
 import {deleteTask, loadTasks, updateTask} from "../../redux/actions/task.actions";
+import {CdkDrag} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-card',
@@ -29,6 +30,7 @@ import {deleteTask, loadTasks, updateTask} from "../../redux/actions/task.action
     BlueInputDirective,
     CustomButtonComponent,
     TextFieldModule,
+    CdkDrag,
   ],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
