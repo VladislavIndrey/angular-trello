@@ -43,4 +43,28 @@ export class LocalDBService {
   public updateTask(id: number, task: Task): Observable<[number, Task[]]> {
     return zip(from(db.tasks.update(id, task)), this.getTasks());
   }
+
+  public moveTask(previousTask: Task, currentTask: Task): Observable<[void, void, number, number, Task[]]> {
+    if (previousTask.id === undefined || currentTask.id === undefined) {
+      throw new Error('One of tasks id is undefined');
+    }
+
+    return zip(
+      this.deleteTask(previousTask.id),
+      this.deleteTask(currentTask.id),
+      this.addTask({
+        ...previousTask,
+        text: currentTask.text,
+        ownerName: currentTask.ownerName,
+        priority: currentTask.priority
+      }),
+      this.addTask({
+        ...currentTask,
+        text: previousTask.text,
+        ownerName: previousTask.ownerName,
+        priority: previousTask.priority
+      }),
+      this.getTasks(),
+    );
+  }
 }

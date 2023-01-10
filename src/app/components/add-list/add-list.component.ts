@@ -16,7 +16,6 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
   styleUrls: ['./add-list.component.scss']
 })
 export class AddListComponent {
-  @Input()listSize: number = 0;
   @ViewChild('nameInput', {static: false}) addListInput!: ElementRef<HTMLInputElement>;
   public isAddMod = false;
 
@@ -34,7 +33,7 @@ export class AddListComponent {
   public onAddClicked($event: MouseEvent, title: string): void {
     $event.stopPropagation();
 
-    this.store.dispatch(addList({list: {title, orderIndex: this.listSize}})); // TODO: Load lists on add list
+    this.store.dispatch(addList({list: {title}})); // TODO: Load lists on add list
     this.store.dispatch(loadLists());
     this.isAddMod = false;
   }

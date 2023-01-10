@@ -32,7 +32,6 @@ import {addTask, loadTasks} from "../../redux/actions/task.actions";
 })
 export class AddCardComponent {
   @Input() listId: number | undefined = 0;
-  @Input() tasksLength: number = 0;
   public isAddMod: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 
@@ -51,7 +50,6 @@ export class AddCardComponent {
         ownerName,
         taskListId: this.listId!,
         priority: this.taskPriorityModel.priority.id,
-        orderIndex: this.tasksLength,
       }
     })); // TODO: Load tasks on add task
     this.store.dispatch(loadTasks());

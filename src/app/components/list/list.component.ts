@@ -7,8 +7,6 @@ import {
   CdkDragDrop,
   CdkDragHandle,
   CdkDropList,
-  moveItemInArray,
-  transferArrayItem
 } from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -100,7 +98,7 @@ export class ListComponent implements OnInit {
         if (title.trim() && this.list.title !== title) {
           this.store.dispatch(updateList({
             id: Number(this.list.id),
-            list: {title, orderIndex: this.list.orderIndex}
+            list: {title},
           })); // TODO: Load lists on update
           this.store.dispatch(loadLists());
         }
@@ -109,20 +107,5 @@ export class ListComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
-    if (event.previousContainer === event.container) {
-      if (event.currentIndex - 1 < 0) {
-        event.container.data[event.currentIndex].orderIndex = 0;
-      } else {
-        event.container.data[event.currentIndex].orderIndex = event.container.data[event.currentIndex - 1].orderIndex + 0.1;
-      }
-    } else {
-      console.log('transfer');
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
   }
 }

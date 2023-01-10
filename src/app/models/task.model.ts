@@ -4,5 +4,4 @@ export interface Task {
   text: string;
   priority: number;
   ownerName: string;
-  orderIndex: number;
 }

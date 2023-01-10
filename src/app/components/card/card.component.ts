@@ -75,7 +75,6 @@ export class CardComponent implements OnInit {
           text,
           ownerName,
           priority: this.taskPriorityModel.priority.id,
-          orderIndex: this.task.orderIndex
         }
       }));
     }

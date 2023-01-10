@@ -11,6 +11,12 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
     }
 
     return [...task.tasks].filter((task) => task.taskListId === listId)
-      .sort((taskOne, taskTwo) => taskOne.orderIndex - taskTwo.orderIndex)
+      .sort((taskOne, taskTwo) => {
+        if (taskOne.id !== undefined && taskTwo.id !== undefined) {
+          return taskOne.id - taskTwo.id;
+        }
+
+        throw new Error('One of task id is undefined!');
+      })
   },
 );
