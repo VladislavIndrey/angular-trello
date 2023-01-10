@@ -10,7 +10,7 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
       return [];
     }
 
-    return task.tasks.filter((task) => task.taskListId === listId)
+    return [...task.tasks].filter((task) => task.taskListId === listId)
       .sort((taskOne, taskTwo) => taskOne.orderIndex - taskTwo.orderIndex)
   },
 );

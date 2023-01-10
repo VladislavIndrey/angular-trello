@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
 
@@ -14,6 +14,8 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
 import {List} from "../../models/list.model";
 import {deleteList, loadLists, updateList} from "../../redux/actions/list.actions";
 import {selectTasksList} from "../../redux/selectors/task.selectors";
+import {Observable, of} from "rxjs";
+import {Task} from "../../models/task.model";
 
 
 @Component({
@@ -34,14 +36,21 @@ import {selectTasksList} from "../../redux/selectors/task.selectors";
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent {
-  @Input() list!: List;
+export class ListComponent implements OnInit {
+  @Input() list: List | undefined;
   @ViewChild('editInput', {static: false}) editInput!: ElementRef<HTMLInputElement>;
   public isAdding: boolean = false;
-  public tasks$ = this.store.select(selectTasksList(this.list?.id));
+  public tasks$: Observable<Task[]> = of([]);
 
   constructor(private store: Store, private changeDetectorRef: ChangeDetectorRef) {
   }
+
+  ngOnInit(): void {
+    if (this.list !== undefined) {
+      this.tasks$ = this.store.select(selectTasksList(this.list?.id));
+    }
+  }
+
 
   public onEditClicked(): void {
     this.isAdding = true;
@@ -59,8 +68,10 @@ export class ListComponent {
   }
 
   public onDeleteClicked(): void {
-    this.store.dispatch(deleteList({id: Number(this.list.id)}));
-    this.store.dispatch(loadLists()); // TODO: Load lists on delete
+    if (this.list !== undefined) {
+      this.store.dispatch(deleteList({id: Number(this.list.id)}));
+      this.store.dispatch(loadLists()); // TODO: Load lists on delete
+    }
   }
 
   private focusInput(): void {
@@ -78,12 +89,15 @@ export class ListComponent {
   private updateList(title: string): void {
     this.changeDetectorRef.detectChanges();
     setTimeout(() => {
-      if (title.trim() && this.list.title !== title) {
-        this.store.dispatch(updateList({id: Number(this.list.id),
-          list: {title, orderIndex: this.list.orderIndex}})); // TODO: Load lists on update
-        this.store.dispatch(loadLists());
+      if (this.list !== undefined) {
+        if (title.trim() && this.list.title !== title) {
+          this.store.dispatch(updateList({
+            id: Number(this.list.id),
+            list: {title, orderIndex: this.list.orderIndex}
+          })); // TODO: Load lists on update
+          this.store.dispatch(loadLists());
+        }
       }
-    })
+    });
   }
-
 }
