@@ -23,6 +23,7 @@ import {Observable, of} from "rxjs";
 import {Task} from "../../models/task.model";
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
 import {DragDropService} from "../../services/drag-drop-service/drag-drop.service";
+import {moveTask} from "../../redux/actions/task.actions";
 
 
 @Component({
