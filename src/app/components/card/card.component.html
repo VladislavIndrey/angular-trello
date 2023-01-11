@@ -1,4 +1,10 @@
-<div cdkDrag class="card">
+<div
+  cdkDrag
+  [cdkDragData]="task"
+  (cdkDragMoved)="dragMoved($event)"
+  (cdkDragReleased)="dragReleased($event)"
+  class="card"
+>
   <div class="card__top top">
     <div class="top__priority-wrapper priority-wrapper">
       <priority

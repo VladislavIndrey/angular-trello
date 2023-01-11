@@ -1,4 +1,14 @@
-<div class="board" cdkDropListGroup cdkDropList>
-  <app-list *ngFor="let list of (lists$ | async)" [list]="list"></app-list>
-  <app-add-list *ngIf="(lists$ | async) || ([]) as lists"></app-add-list>
+<div class="board">
+  <ng-container *ngIf="lists$ | async as lists">
+    <div
+      class="board__lists-wrapper lists-wrapper"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      [cdkDropListData]="lists"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-list *ngFor="let list of lists" [list]="list"></app-list>
+    </div>
+  </ng-container>
+  <app-add-list></app-add-list>
 </div>

@@ -15,7 +15,8 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 
 import {Task} from "../../models/task.model";
 import {deleteTask, loadTasks, updateTask} from "../../redux/actions/task.actions";
-import {CdkDrag} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragMove, CdkDragRelease} from "@angular/cdk/drag-drop";
+import {DragDropService} from "../../services/drag-drop-service/drag-drop.service";
 
 @Component({
   selector: 'app-card',
@@ -40,7 +41,7 @@ export class CardComponent implements OnInit {
   public isEditMode: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private dragDropService: DragDropService) {
   }
 
   ngOnInit(): void {
@@ -78,5 +79,13 @@ export class CardComponent implements OnInit {
         }
       }));
     }
+  }
+
+  public dragMoved(event: CdkDragMove): void {
+    this.dragDropService.dragMoved(event);
+  }
+
+  public dragReleased(event: CdkDragRelease): void {
+    this.dragDropService.dragReleased(event);
   }
 }

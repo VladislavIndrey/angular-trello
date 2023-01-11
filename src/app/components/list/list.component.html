@@ -33,10 +33,16 @@
     <div
       cdkDropList
       [cdkDropListData]="tasks"
+      [cdkDropListConnectedTo]="dragDropService.dropLists"
+      [cdkDropListEnterPredicate]="allowDropPredicate"
       (cdkDropListDropped)="drop($event)"
-      class="list__tasks-wrapper"
+      class="list__tasks-wrapper tasks-wrapper"
     >
-      <app-card *ngFor="let task of tasks" [task]="task" class="task"></app-card>
+      <app-card
+        *ngFor="let task of tasks"
+        [task]="task"
+        class="task"
+      ></app-card>
     </div>
     <app-add-card [listId]="list.id"></app-add-card>
   </ng-container>
