@@ -14,10 +14,10 @@ import {
   loadLists,
   updateList
 } from "../actions/list.actions";
-import {List} from "../../data/db/list";
+import {IList} from "../../data/db/list";
 
 export type listInitialState = {
-  lists: List[],
+  lists: IList[],
   isLoading: boolean,
   error: any,
 };

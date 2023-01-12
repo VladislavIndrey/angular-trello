@@ -26,11 +26,11 @@ import {CardComponent} from "../card/card.component";
 import {AddCardComponent} from "../add-card/add-card.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
-import {List} from "../../data/db/list";
+import {IList} from "../../data/db/list";
 import {deleteList, updateList} from "../../redux/actions/list.actions";
 import {selectTasksList} from "../../redux/selectors/task.selectors";
 import {Observable, of} from "rxjs";
-import {Task} from "../../data/db/task";
+import {ITask} from "../../data/db/task";
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
 import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
 
@@ -54,12 +54,12 @@ import {DragDropService} from "../../Infrastructure/services/drag-drop-service/d
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactoring, create ListModel
-  @Input() list: List | undefined;
+  @Input() list: IList | undefined;
   @ViewChild('editInput', {static: false}) editInput!: ElementRef<HTMLInputElement>;
   @ViewChild(CdkDropList) dropList?: CdkDropList;
   public isAdding: boolean = false;
-  public tasks$: Observable<Task[]> = of([]);
-  public lists$: Observable<List[]> = of([]);
+  public tasks$: Observable<ITask[]> = of([]);
+  public lists$: Observable<IList[]> = of([]);
 
   constructor(
     private store: Store,
@@ -102,7 +102,7 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
     }
   }
 
-  public drop(event: CdkDragDrop<Task[]>) {
+  public drop(event: CdkDragDrop<ITask[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -160,7 +160,7 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
     });
   }
 
-  private onUpdateList(title: string, list: List) {
+  private onUpdateList(title: string, list: IList) {
     if (title.trim() && list.title !== title) {
       this.store.dispatch(updateList({
         id: Number(list.id),

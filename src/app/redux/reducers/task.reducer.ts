@@ -14,10 +14,10 @@ import {
   updateTask,
   updateTaskFailed,
 } from "../actions/task.actions";
-import {Task} from "../../data/db/task";
+import {ITask} from "../../data/db/task";
 
 export type taskInitialState = {
-  tasks: Task[],
+  tasks: ITask[],
   isLoading: boolean,
   error: any,
 };

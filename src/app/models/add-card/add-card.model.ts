@@ -1,5 +1,5 @@
 import {Store} from "@ngrx/store";
-import {Task} from "../../data/db/task";
+import {ITask} from "../../data/db/task";
 import {addTask, updateTask} from "../../redux/actions/task.actions";
 
 export class AddCardModel {
@@ -7,7 +7,7 @@ export class AddCardModel {
   constructor(private store: Store) {
   }
 
-  public addTask(tasks: Task[], newTask: Task): void {
+  public addTask(tasks: ITask[], newTask: ITask): void {
     const prevId: number | undefined = tasks[tasks.length - 1].id;
 
     if (prevId !== undefined) {

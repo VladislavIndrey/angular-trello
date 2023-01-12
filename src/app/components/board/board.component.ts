@@ -14,7 +14,7 @@ import {ListComponent} from '../list/list.component';
 import {AddListComponent} from '../add-list/add-list.component';
 
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
-import {List} from "../../data/db/list";
+import {IList} from "../../data/db/list";
 
 @Component({
   selector: 'app-board',
@@ -36,7 +36,7 @@ export class BoardComponent {
   }
 
   // TODO: Save result in db.
-  drop(event: CdkDragDrop<List[]>) {
+  drop(event: CdkDragDrop<IList[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

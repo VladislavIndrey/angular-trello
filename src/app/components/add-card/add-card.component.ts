@@ -12,7 +12,7 @@ import {TaskPriorityModel} from "../../data/task-priority.model";
 import {PrioritySelectorComponent} from "../priority-selector/priority-selector.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
-import {Task} from "../../data/db/task";
+import {ITask} from "../../data/db/task";
 import {AddCardModel} from "../../models/add-card/add-card.model";
 
 @Component({
@@ -33,7 +33,7 @@ import {AddCardModel} from "../../models/add-card/add-card.model";
 })
 export class AddCardComponent {
   @Input() listId: number | undefined = 0;
-  @Input() tasks: Task[] = [];
+  @Input() tasks: ITask[] = [];
   public isAddMod: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 

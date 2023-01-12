@@ -1,11 +1,11 @@
 import Dexie, {Table} from 'dexie';
 
-import {Task} from "../../../data/db/task";
-import {List} from "../../../data/db/list";
+import {ITask} from "../../../data/db/task";
+import {IList} from "../../../data/db/list";
 
 export class AppDB extends Dexie {
-  public tasks!: Table<Task, number>;
-  public taskLists!: Table<List, number>;
+  public tasks!: Table<ITask, number>;
+  public taskLists!: Table<IList, number>;
 
   constructor() {
     super('trello');

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {from, Observable, zip} from "rxjs";
 
 
-import {Task} from '../../../data/db/task';
-import {List} from '../../../data/db/list';
+import {ITask} from '../../../data/db/task';
+import {IList} from '../../../data/db/list';
 import {db} from "./db";
 
 
@@ -11,31 +11,31 @@ import {db} from "./db";
   providedIn: 'root',
 })
 export class LocalDBService {
-  public getTaskLists(): Observable<List[]> {
+  public getTaskLists(): Observable<IList[]> {
     return from(db.taskLists.toArray())
   }
 
-  public getTasks(): Observable<Task[]> {
+  public getTasks(): Observable<ITask[]> {
     return from(db.tasks.toArray());
   }
 
-  public addTask(task: Task): Observable<[number, Task[]]> {
+  public addTask(task: ITask): Observable<[number, ITask[]]> {
     return zip(from(db.tasks.add(task)), from(db.tasks.toArray()));
   }
 
-  public deleteTask(id: number): Observable<[void, Task[]]> {
+  public deleteTask(id: number): Observable<[void, ITask[]]> {
     return zip(db.tasks.delete(id), db.tasks.toArray());
   }
 
-  public updateTask(id: number, task: Task): Observable<[number, Task[]]> {
+  public updateTask(id: number, task: ITask): Observable<[number, ITask[]]> {
     return zip(db.tasks.update(id, task), this.getTasks());
   }
 
-  public addNewList(list: List): Observable<[number, List[]]> {
+  public addNewList(list: IList): Observable<[number, IList[]]> {
     return zip(db.taskLists.add(list), db.taskLists.toArray());
   }
 
-  public deleteListById(id: number): Observable<[void, number, List[]]> {
+  public deleteListById(id: number): Observable<[void, number, IList[]]> {
     return zip(
       db.taskLists.delete(id),
       db.tasks.where({taskListId: id}).delete(),
@@ -43,11 +43,11 @@ export class LocalDBService {
     );
   }
 
-  public updateList(id: number, list: List): Observable<[number, List[]]> {
+  public updateList(id: number, list: IList): Observable<[number, IList[]]> {
     return zip(db.taskLists.update(id, list), db.taskLists.toArray());
   }
 
-  public moveTask(previousTask: Task, currentTask: Task): Observable<[void, void, number, number, Task[]]> {
+  public moveTask(previousTask: ITask, currentTask: ITask): Observable<[void, void, number, number, ITask[]]> {
     if (previousTask.id === undefined || currentTask.id === undefined) {
       throw new Error('One of tasks id is undefined');
     }
