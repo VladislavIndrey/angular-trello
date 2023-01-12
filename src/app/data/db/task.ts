@@ -4,4 +4,6 @@ export interface Task {
   text: string;
   priority: number;
   ownerName: string;
+  prevId?: number;
+  nextId?: number;
 }

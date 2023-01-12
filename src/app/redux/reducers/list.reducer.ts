@@ -14,7 +14,7 @@ import {
   loadLists,
   updateList
 } from "../actions/list.actions";
-import {List} from "../../models/list.model";
+import {List} from "../../data/db/list";
 
 export type listInitialState = {
   lists: List[],

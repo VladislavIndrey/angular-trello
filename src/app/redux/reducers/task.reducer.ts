@@ -14,7 +14,7 @@ import {
   updateTask,
   updateTaskFailed,
 } from "../actions/task.actions";
-import {Task} from "../../models/task.model";
+import {Task} from "../../data/db/task";
 
 export type taskInitialState = {
   tasks: Task[],

@@ -1,7 +1,7 @@
 import Dexie, {Table} from 'dexie';
 
-import {Task} from "../models/task.model";
-import {List} from "../models/list.model";
+import {Task} from "../../../data/db/task";
+import {List} from "../../../data/db/list";
 
 export class AppDB extends Dexie {
   public tasks!: Table<Task, number>;

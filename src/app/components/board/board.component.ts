@@ -14,7 +14,7 @@ import {ListComponent} from '../list/list.component';
 import {AddListComponent} from '../add-list/add-list.component';
 
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
-import {List} from "../../models/list.model";
+import {List} from "../../data/db/list";
 
 @Component({
   selector: 'app-board',
@@ -26,7 +26,7 @@ import {List} from "../../models/list.model";
     CdkDropList,
     CdkDrag,
   ],
-  templateUrl: './board.component.html',
+  templateUrl: './board.component.html' ,
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {

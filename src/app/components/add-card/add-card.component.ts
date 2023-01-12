@@ -12,7 +12,8 @@ import {TaskPriorityModel} from "../../models/task-priority.model";
 import {PrioritySelectorComponent} from "../priority-selector/priority-selector.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
-import {addTask} from "../../redux/actions/task.actions";
+import {addTask, updateTask} from "../../redux/actions/task.actions";
+import {Task} from "../../data/db/task";
 
 @Component({
   selector: 'app-add-card',
@@ -32,6 +33,7 @@ import {addTask} from "../../redux/actions/task.actions";
 })
 export class AddCardComponent {
   @Input() listId: number | undefined = 0;
+  @Input() tasks: Task[] = [];
   public isAddMod: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 
@@ -44,12 +46,24 @@ export class AddCardComponent {
 
   public onAddClicked($event: MouseEvent, text: string, ownerName: string): void {
     $event.stopPropagation();
+    let nextId: number | undefined = undefined;
+    let prevId: number | undefined = undefined;
+
+    if (this.tasks.length) {
+        prevId = this.tasks[this.tasks.length-1].id;
+        if (prevId !== undefined) {
+          this.store.dispatch(updateTask({id: prevId, task: {...this.tasks[this.tasks.length - 1], nextId: prevId + 1}}));
+        }
+    }
+
     this.store.dispatch(addTask({
       task: {
         text,
         ownerName,
         taskListId: this.listId!,
         priority: this.taskPriorityModel.priority.id,
+        nextId,
+        prevId,
       }
     }));
     this.isAddMod = false;

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {from, Observable, zip} from "rxjs";
 
 
-import {Task} from '../models/task.model';
-import {List} from '../models/list.model';
+import {Task} from '../../../data/db/task';
+import {List} from '../../../data/db/list';
 import {db} from "./db";
 
 

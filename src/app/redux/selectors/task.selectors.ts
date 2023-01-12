@@ -1,7 +1,9 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 
 import {taskInitialState} from "../reducers/task.reducer";
-import {Task} from "../../models/task.model";
+import {Task} from "../../data/db/task";
+import {DoublyLinkedList} from "../../data/doubly-linked-List/doubly-linked-List";
+import {DoublyLinkedNode} from "../../data/doubly-linked-List/doubly-linked-node";
 
 export const selectTasks = createFeatureSelector<taskInitialState>('task');
 export const selectTasksList = (listId: number | undefined) => createSelector(
@@ -11,16 +13,36 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
       return [];
     }
 
-    [...task.tasks].filter((task) => task.taskListId === listId);
+    const doublyLinkedList = new DoublyLinkedList<Task>();
+    const tasks = [...task.tasks];
+    const head: Task | undefined = tasks.find((task) => task.prevId === undefined);
 
-    return [...task.tasks].filter((task) => task.taskListId === listId)
-      .sort((taskOne, taskTwo) => {
-        if (taskOne.id !== undefined && taskTwo.id !== undefined) {
-          return taskOne.id - taskTwo.id;
+    if (head === undefined) {
+      throw new Error('Head of tasks was not found!');
+    } else {
+      let node = head;
+      while (node.nextId !== undefined) {
+        const nextNode = tasks.find((element) => element.id === node.nextId);
+
+        if (nextNode === undefined) {
+          break;
         }
 
-        throw new Error('One of task id is undefined!');
-      })
+        doublyLinkedList.insertEnd(new DoublyLinkedNode<Task>(nextNode));
+        node = nextNode;
+      }
+    }
+
+    return doublyLinkedList;
+
+    // return [...task.tasks].filter((task) => task.taskListId === listId)
+    //   .sort((taskOne, taskTwo) => {
+    //     if (taskOne.id !== undefined && taskTwo.id !== undefined) {
+    //       return taskOne.id - taskTwo.id;
+    //     }
+    //
+    //     throw new Error('One of task id is undefined!');
+    //   })
   },
 );
 

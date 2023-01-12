@@ -16,7 +16,7 @@ import {
   loadLists,
   updateList,
 } from "../actions/list.actions";
-import {LocalDBService} from "../../services/local-d-b.service";
+import {LocalDBService} from "../../Infrastructure/services/local-db/local-d-b.service";
 
 @Injectable()
 export class ListEffects {

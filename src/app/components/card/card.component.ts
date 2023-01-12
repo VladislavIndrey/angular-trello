@@ -14,9 +14,9 @@ import {PrioritySelectorComponent} from "../priority-selector/priority-selector.
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 import {CustomButtonComponent} from "../custom-button/custom-button.component";
 
-import {Task} from "../../models/task.model";
+import {Task} from "../../data/db/task";
 import {deleteTask, updateTask} from "../../redux/actions/task.actions";
-import {DragDropService} from "../../services/drag-drop-service/drag-drop.service";
+import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
 
 @Component({
   selector: 'app-card',

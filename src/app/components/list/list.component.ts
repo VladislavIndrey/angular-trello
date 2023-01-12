@@ -26,13 +26,13 @@ import {CardComponent} from "../card/card.component";
 import {AddCardComponent} from "../add-card/add-card.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
-import {List} from "../../models/list.model";
+import {List} from "../../data/db/list";
 import {deleteList, updateList} from "../../redux/actions/list.actions";
 import {selectTasksList} from "../../redux/selectors/task.selectors";
 import {Observable, of} from "rxjs";
-import {Task} from "../../models/task.model";
+import {Task} from "../../data/db/task";
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
-import {DragDropService} from "../../services/drag-drop-service/drag-drop.service";
+import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
 
 
 @Component({
