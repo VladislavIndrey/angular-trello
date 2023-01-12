@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
+
 import {MatRippleModule} from "@angular/material/core";
 import {MatIconModule} from "@angular/material/icon";
 import {TextFieldModule} from "@angular/cdk/text-field";
-
 
 import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {PriorityComponent} from "../priority/priority.component";
@@ -12,7 +12,7 @@ import {TaskPriorityModel} from "../../models/task-priority.model";
 import {PrioritySelectorComponent} from "../priority-selector/priority-selector.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
-import {addTask, loadTasks} from "../../redux/actions/task.actions";
+import {addTask} from "../../redux/actions/task.actions";
 
 @Component({
   selector: 'app-add-card',
@@ -51,8 +51,7 @@ export class AddCardComponent {
         taskListId: this.listId!,
         priority: this.taskPriorityModel.priority.id,
       }
-    })); // TODO: Load tasks on add task
-    this.store.dispatch(loadTasks());
+    }));
     this.isAddMod = false;
   }
 
