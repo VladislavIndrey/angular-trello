@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap, of} from "rxjs";
 
-import {LocalDBService} from "../../Infrastructure/services/local-db/local-d-b.service";
+import {LocalDBService} from "../../services/local-db/local-d-b.service";
 import {
   addTask,
   addTaskFailed,

@@ -1,6 +1,6 @@
 import {createAction, props} from "@ngrx/store";
 
-import {ITask} from "../../data/db/task";
+import {ITask} from "../../../data/db/task";
 
 const LIST_COMPONENT: string = '[List Component]';
 const LOCAL_DB: string = '[Local DB API]';

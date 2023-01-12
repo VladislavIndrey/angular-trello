@@ -6,9 +6,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from "@angular/material/icon";
 
 import {BlueInputDirective} from "../../shared/blue-input.directive";
-import {addList} from "../../redux/actions/list.actions";
+import {AddListModel} from "../../models/add-list/add-list.model";
+import {IList} from "../../data/db/list";
 
-// TODO: Add blur event and validation.
+// TODO: Add keyup event and validation.
 @Component({
   selector: 'app-add-list',
   standalone: true,
@@ -23,7 +24,10 @@ import {addList} from "../../redux/actions/list.actions";
 })
 export class AddListComponent {
   @ViewChild('nameInput', {static: false}) addListInput!: ElementRef<HTMLInputElement>;
+  @Input() lists: IList[] = [];
   public isAddMod = false;
+
+  private readonly addListModel: AddListModel = new AddListModel(this.store);
 
   constructor(private store: Store, private changeDetectorRef: ChangeDetectorRef) {
   }
@@ -39,7 +43,7 @@ export class AddListComponent {
   public onAddClicked($event: MouseEvent, title: string): void {
     $event.stopPropagation();
 
-    this.store.dispatch(addList({list: {title}}));
+    this.addListModel.addList(this.lists, {title});
     this.isAddMod = false;
   }
 

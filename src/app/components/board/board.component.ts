@@ -13,7 +13,7 @@ import {
 import {ListComponent} from '../list/list.component';
 import {AddListComponent} from '../add-list/add-list.component';
 
-import {selectOrderedLists} from "../../redux/selectors/list.selectors";
+import {selectOrderedLists} from "../../Infrastructure/redux/selectors/list.selectors";
 import {IList} from "../../data/db/list";
 
 @Component({

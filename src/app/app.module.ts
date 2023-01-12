@@ -8,10 +8,10 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 
-import {TaskEffects} from "./redux/effects/task.effects";
-import {ListEffects} from "./redux/effects/list.effects";
-import {taskReducer} from "./redux/reducers/task.reducer";
-import {listReducer} from "./redux/reducers/list.reducer";
+import {TaskEffects} from "./Infrastructure/redux/effects/task.effects";
+import {ListEffects} from "./Infrastructure/redux/effects/list.effects";
+import {taskReducer} from "./Infrastructure/redux/reducers/task.reducer";
+import {listReducer} from "./Infrastructure/redux/reducers/list.reducer";
 
 @NgModule({
   declarations: [

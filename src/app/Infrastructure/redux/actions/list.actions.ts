@@ -1,6 +1,6 @@
 import {createAction, props} from "@ngrx/store";
 
-import {IList} from "../../data/db/list";
+import {IList} from "../../../data/db/list";
 
 export const loadLists = createAction('[Main Page] Load Lists');
 export const listsLoaded = createAction('[Local DB API] Lists Loaded Success', props<{ taskLists: IList[] }>());

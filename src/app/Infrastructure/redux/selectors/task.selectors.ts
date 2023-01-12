@@ -1,7 +1,7 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 
 import {taskInitialState} from "../reducers/task.reducer";
-import {ITask} from "../../data/db/task";
+import {ITask} from "../../../data/db/task";
 
 export const selectTasks = createFeatureSelector<taskInitialState>('task');
 export const selectTasksList = (listId: number | undefined) => createSelector(

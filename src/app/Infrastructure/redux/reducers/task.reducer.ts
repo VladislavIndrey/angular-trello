@@ -14,7 +14,7 @@ import {
   updateTask,
   updateTaskFailed,
 } from "../actions/task.actions";
-import {ITask} from "../../data/db/task";
+import {ITask} from "../../../data/db/task";
 
 export type taskInitialState = {
   tasks: ITask[],

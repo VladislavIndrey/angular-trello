@@ -15,8 +15,8 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
 import {CustomButtonComponent} from "../custom-button/custom-button.component";
 
 import {ITask} from "../../data/db/task";
-import {deleteTask, updateTask} from "../../redux/actions/task.actions";
 import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
+import {CardModel} from "../../models/card/card.model";
 
 @Component({
   selector: 'app-card',
@@ -38,10 +38,13 @@ import {DragDropService} from "../../Infrastructure/services/drag-drop-service/d
 })
 export class CardComponent implements OnInit {
   @Input() task!: ITask;
+  @Input()tasks: ITask[] = [];
   public isEditMode: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 
-  constructor(private store: Store, private dragDropService: DragDropService) {
+  private cardModel: CardModel = new CardModel(this._store);
+
+  constructor(private _store: Store, private dragDropService: DragDropService) {
   }
 
   ngOnInit(): void {
@@ -57,26 +60,19 @@ export class CardComponent implements OnInit {
   }
 
   public onDeleteTaskClicked(): void {
-    if (this.task.id === undefined) {
-      throw new Error('Task id is undefined!');
-    } else {
-      this.store.dispatch(deleteTask({id: this.task.id}));
-    }
+    this.cardModel.deleteTask(this.tasks, this.task);
   }
 
   public onSaveClicked(text: string, ownerName: string): void {
     if (this.task.id === undefined) {
       throw new Error('Task id is undefined!');
     } else {
-      this.store.dispatch(updateTask({
-        id: this.task.id,
-        task: {
-          taskListId: this.task.taskListId,
-          text,
-          ownerName,
-          priority: this.taskPriorityModel.priority.id,
-        }
-      }));
+      this.cardModel.updateTask(this.task.id, {
+        taskListId: this.task.taskListId,
+        text,
+        ownerName,
+        priority: this.taskPriorityModel.priority.id,
+      });
     }
   }
 

@@ -14,7 +14,7 @@ import {
   loadLists,
   updateList
 } from "../actions/list.actions";
-import {IList} from "../../data/db/list";
+import {IList} from "../../../data/db/list";
 
 export type listInitialState = {
   lists: IList[],

@@ -5,8 +5,8 @@ import {Store} from "@ngrx/store";
 import {BoardComponent} from "../../board/board.component";
 import {HeaderComponent} from "../../header/header.component";
 
-import {loadLists} from "../../../redux/actions/list.actions";
-import {loadTasks} from "../../../redux/actions/task.actions";
+import {loadLists} from "../../../Infrastructure/redux/actions/list.actions";
+import {loadTasks} from "../../../Infrastructure/redux/actions/task.actions";
 
 @Component({
   selector: 'app-main-page',
