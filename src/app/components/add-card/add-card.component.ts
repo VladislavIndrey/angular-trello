@@ -8,12 +8,12 @@ import {TextFieldModule} from "@angular/cdk/text-field";
 
 import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {PriorityComponent} from "../priority/priority.component";
-import {TaskPriorityModel} from "../../models/task-priority.model";
+import {TaskPriorityModel} from "../../data/task-priority.model";
 import {PrioritySelectorComponent} from "../priority-selector/priority-selector.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
-import {addTask, updateTask} from "../../redux/actions/task.actions";
 import {Task} from "../../data/db/task";
+import {AddCardModel} from "../../models/add-card/add-card.model";
 
 @Component({
   selector: 'app-add-card',
@@ -37,6 +37,8 @@ export class AddCardComponent {
   public isAddMod: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 
+  private readonly addCardModel = new AddCardModel(this.store);
+
   constructor(private store: Store) {
   }
 
@@ -46,26 +48,13 @@ export class AddCardComponent {
 
   public onAddClicked($event: MouseEvent, text: string, ownerName: string): void {
     $event.stopPropagation();
-    let nextId: number | undefined = undefined;
-    let prevId: number | undefined = undefined;
 
-    if (this.tasks.length) {
-        prevId = this.tasks[this.tasks.length-1].id;
-        if (prevId !== undefined) {
-          this.store.dispatch(updateTask({id: prevId, task: {...this.tasks[this.tasks.length - 1], nextId: prevId + 1}}));
-        }
-    }
-
-    this.store.dispatch(addTask({
-      task: {
-        text,
-        ownerName,
-        taskListId: this.listId!,
-        priority: this.taskPriorityModel.priority.id,
-        nextId,
-        prevId,
-      }
-    }));
+    this.addCardModel.addTask(this.tasks, {
+      text,
+      ownerName,
+      taskListId: this.listId!,
+      priority: this.taskPriorityModel.priority.id,
+    });
     this.isAddMod = false;
   }
 

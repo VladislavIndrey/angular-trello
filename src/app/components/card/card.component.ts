@@ -8,7 +8,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {CdkDrag, CdkDragMove, CdkDragRelease} from "@angular/cdk/drag-drop";
 
-import {TaskPriorityModel} from "../../models/task-priority.model";
+import {TaskPriorityModel} from "../../data/task-priority.model";
 import {PriorityComponent} from "../priority/priority.component";
 import {PrioritySelectorComponent} from "../priority-selector/priority-selector.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
@@ -17,7 +17,6 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {Task} from "../../data/db/task";
 import {deleteTask, updateTask} from "../../redux/actions/task.actions";
 import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
-import {DoublyLinkedList} from "../../data/doubly-linked-List/doubly-linked-List";
 
 @Component({
   selector: 'app-card',
@@ -38,7 +37,7 @@ import {DoublyLinkedList} from "../../data/doubly-linked-List/doubly-linked-List
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() task: DoublyLinkedList<Task> | undefined;
+  @Input() task!: Task;
   public isEditMode: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 

@@ -7,7 +7,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatRippleModule} from "@angular/material/core";
 
 import {PriorityComponent} from "../priority/priority.component";
-import {TaskPriorityModel} from "../../models/task-priority.model";
+import {TaskPriorityModel} from "../../data/task-priority.model";
 
 @Component({
   selector: 'priority-selector',
