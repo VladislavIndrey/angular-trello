@@ -41,7 +41,7 @@ export class CardModel {
         taskListId: newData.taskListId,
         text: newData.text,
         ownerName: newData.ownerName,
-        priority: newData.priority.id,
+        priority: newData.priority,
       }
     }));
   }
