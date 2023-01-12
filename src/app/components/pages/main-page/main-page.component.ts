@@ -20,7 +20,12 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initReducers();
+  }
+
+  private initReducers(): void {
     this.store.dispatch(loadLists());
     this.store.dispatch(loadTasks());
   }
+
 }
