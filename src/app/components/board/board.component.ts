@@ -1,19 +1,19 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {Store} from '@ngrx/store';
+
 import {
   CdkDrag,
   CdkDragDrop,
   CdkDropList,
-  CdkDropListGroup,
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
-import {Store} from '@ngrx/store';
 
 import {ListComponent} from '../list/list.component';
 import {AddListComponent} from '../add-list/add-list.component';
+
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
-import {Task} from "../../models/task.model";
 import {List} from "../../models/list.model";
 
 @Component({
@@ -21,7 +21,6 @@ import {List} from "../../models/list.model";
   standalone: true,
   imports: [
     CommonModule,
-    CdkDropListGroup,
     ListComponent,
     AddListComponent,
     CdkDropList,
@@ -36,6 +35,7 @@ export class BoardComponent {
   constructor(private store: Store) {
   }
 
+  // TODO: Save result in db.
   drop(event: CdkDragDrop<List[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
