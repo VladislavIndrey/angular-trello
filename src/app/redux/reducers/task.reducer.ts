@@ -51,8 +51,9 @@ export const taskReducer = createReducer(
     isLoading: true,
     error: null,
   })),
-  on(taskAdded, (state) => ({
+  on(taskAdded, (state, {tasks}) => ({
     ...state,
+    tasks,
     isLoading: false,
     error: null,
   })),
@@ -66,8 +67,9 @@ export const taskReducer = createReducer(
     isLoading: true,
     error: null,
   })),
-  on(taskDeleted, (state) => ({
+  on(taskDeleted, (state, {tasks}) => ({
     ...state,
+    tasks,
     isLoading: false,
     error: null,
   })),

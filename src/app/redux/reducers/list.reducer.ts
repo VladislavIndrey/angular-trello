@@ -52,8 +52,9 @@ export const listReducer = createReducer(
     isLoading: true,
     error: null,
   })),
-  on(listAdded, (state) => ({
+  on(listAdded, (state, {lists}) => ({
     ...state,
+    lists,
     isLoading: false,
     error: null,
   })),
@@ -67,8 +68,9 @@ export const listReducer = createReducer(
     isLoading: true,
     error: null,
   })),
-  on(listUpdated, (state) => ({
+  on(listUpdated, (state, {lists}) => ({
     ...state,
+    lists,
     isLoading: false,
     error: null,
   })),
@@ -82,8 +84,9 @@ export const listReducer = createReducer(
     isLoading: true,
     error: null,
   })),
-  on(listDeleted, (state) => ({
+  on(listDeleted, (state, {lists}) => ({
     ...state,
+    lists,
     isLoading: false,
     error: null,
   })),

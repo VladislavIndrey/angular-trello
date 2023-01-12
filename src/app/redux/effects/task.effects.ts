@@ -28,7 +28,7 @@ export class TaskEffects {
   public addTask$ = createEffect(() => this.actions$.pipe(
     ofType(addTask),
     mergeMap((action) => this.localDBService.addTask(action.task).pipe(
-      map(() => taskAdded()),
+      map(([, tasks]) => taskAdded({tasks})),
       catchError((error) => of(addTaskFailed({error}))),
     )),
   ));
@@ -36,7 +36,7 @@ export class TaskEffects {
   public deleteTask$ = createEffect(() => this.actions$.pipe(
     ofType(deleteTask),
     mergeMap((action) => this.localDBService.deleteTask(action.id).pipe(
-      map(() => taskDeleted()),
+      map(([, tasks]) => taskDeleted({tasks})),
       catchError((error) => of(deleteTaskFailed({error}))),
     )),
   ));

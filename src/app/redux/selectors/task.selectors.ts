@@ -24,10 +24,10 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
   },
 );
 
-function orderTasks(tasks: Task[]): Task[] {
-  const firstNode: Task | undefined = tasks.find((element) => element.prevId === undefined);
-
-  if (firstNode === undefined) {
-    throw new Error('First node is undefined!');
-  }
-}
+// function orderTasks(tasks: Task[]): Task[] {
+//   const firstNode: Task | undefined = tasks.find((element) => element.prevId === undefined);
+//
+//   if (firstNode === undefined) {
+//     throw new Error('First node is undefined!');
+//   }
+// }

@@ -31,7 +31,7 @@ export class ListEffects {
   public addList$ = createEffect(() => this.actions$.pipe(
     ofType(addList),
     mergeMap((action) => this.localDBService.addNewList(action.list).pipe(
-      map(() => listAdded()),
+      map(([, lists]) => listAdded({lists})),
       catchError((error) => of(listAddFailed({error}))),
     ))
   ));
@@ -39,7 +39,7 @@ export class ListEffects {
   public updateList$ = createEffect(() => this.actions$.pipe(
     ofType(updateList),
     mergeMap((action) => this.localDBService.updateList(action.id, action.list).pipe(
-      map(() => listUpdated()),
+      map(([,lists]) => listUpdated({lists})),
       catchError((error) => of(listUpdateFailed({error})))
     ))
   ));
@@ -47,7 +47,7 @@ export class ListEffects {
   public deleteList$ = createEffect(() => this.actions$.pipe(
     ofType(deleteList),
     mergeMap((action) => this.localDBService.deleteListById(action.id).pipe(
-      map(() => listDeleted()),
+      map(([,,lists]) => listDeleted({lists})),
       catchError((error) => of(deleteListFailed({error})))
     ))
   ));

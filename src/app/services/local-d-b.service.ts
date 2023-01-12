@@ -19,29 +19,32 @@ export class LocalDBService {
     return from(db.tasks.toArray());
   }
 
-  public addNewList(list: List): Observable<number> {
-    return from(db.taskLists.add(list));
+  public addTask(task: Task): Observable<[number, Task[]]> {
+    return zip(from(db.tasks.add(task)), from(db.tasks.toArray()));
   }
 
-  public deleteListById(id: number): Observable<[void, number]> {
-    return zip(from(db.taskLists.delete(id)), from(db.tasks.where({taskListId: id}).delete()));
-  }
-
-  public updateList(id: number, list: List): Observable<number> {
-    return from(db.taskLists.update(id, list));
-  }
-
-  public addTask(task: Task): Observable<number> {
-    return from(db.tasks.add(task));
-  }
-
-  // TODO: Get new tasks on delete
-  public deleteTask(id: number): Observable<void> {
-    return from(db.tasks.delete(id));
+  public deleteTask(id: number): Observable<[void, Task[]]> {
+    return zip(db.tasks.delete(id), db.tasks.toArray());
   }
 
   public updateTask(id: number, task: Task): Observable<[number, Task[]]> {
-    return zip(from(db.tasks.update(id, task)), this.getTasks());
+    return zip(db.tasks.update(id, task), this.getTasks());
+  }
+
+  public addNewList(list: List): Observable<[number, List[]]> {
+    return zip(db.taskLists.add(list), db.taskLists.toArray());
+  }
+
+  public deleteListById(id: number): Observable<[void, number, List[]]> {
+    return zip(
+      db.taskLists.delete(id),
+      db.tasks.where({taskListId: id}).delete(),
+      db.taskLists.toArray()
+    );
+  }
+
+  public updateList(id: number, list: List): Observable<[number, List[]]> {
+    return zip(db.taskLists.update(id, list), db.taskLists.toArray());
   }
 
   public moveTask(previousTask: Task, currentTask: Task): Observable<[void, void, number, number, Task[]]> {
@@ -50,15 +53,15 @@ export class LocalDBService {
     }
 
     return zip(
-      this.deleteTask(previousTask.id),
-      this.deleteTask(currentTask.id),
-      this.addTask({
+      db.tasks.delete(previousTask.id),
+      db.tasks.delete(currentTask.id),
+      db.tasks.add({
         ...previousTask,
         text: currentTask.text,
         ownerName: currentTask.ownerName,
         priority: currentTask.priority
       }),
-      this.addTask({
+      db.tasks.add({
         ...currentTask,
         text: previousTask.text,
         ownerName: previousTask.ownerName,
