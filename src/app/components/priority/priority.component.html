@@ -1,5 +1,8 @@
-<div class="priority" [ngStyle]="{'border': '1px solid ' + bgColor, 'background': isSelected ? bgColor : 'none'}"
-     matRipple>
+<div
+  class="priority"
+  [ngStyle]="{'border': '1px solid ' + bgColor, 'background': isSelected ? bgColor : 'none'}"
+  matRipple
+>
   <mat-icon class="priority__icon" [ngStyle]="{'color': isSelected ? defaultColor : bgColor}">fiber_manual_record
   </mat-icon>
   <span class="priority__text" [ngStyle]="{'color': isSelected ? defaultColor : bgColor}"><ng-content></ng-content> </span>
