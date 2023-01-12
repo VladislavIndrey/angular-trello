@@ -1,4 +1,12 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
 
@@ -6,7 +14,9 @@ import {
   CdkDrag,
   CdkDragDrop,
   CdkDragHandle,
-  CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem,
+  CdkDropList,
+  moveItemInArray,
+  transferArrayItem,
 } from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -17,13 +27,12 @@ import {AddCardComponent} from "../add-card/add-card.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 import {List} from "../../models/list.model";
-import {deleteList, loadLists, updateList} from "../../redux/actions/list.actions";
+import {deleteList, updateList} from "../../redux/actions/list.actions";
 import {selectTasksList} from "../../redux/selectors/task.selectors";
 import {Observable, of} from "rxjs";
 import {Task} from "../../models/task.model";
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
 import {DragDropService} from "../../services/drag-drop-service/drag-drop.service";
-import {moveTask} from "../../redux/actions/task.actions";
 
 
 @Component({
@@ -40,7 +49,6 @@ import {moveTask} from "../../redux/actions/task.actions";
     MatMenuModule,
     CdkDragHandle,
     BlueInputDirective,
-    CdkDropListGroup,
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
@@ -60,22 +68,17 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
   ) {
   }
 
-  ngOnInit(): void {
-    if (this.list !== undefined) {
-      this.tasks$ = this.store.select(selectTasksList(this.list?.id));
-    }
-
-    this.lists$ = this.store.select(selectOrderedLists);
+  public ngOnInit(): void {
+    this.initLists();
+    this.initTasks();
   }
 
-  ngAfterViewInit(): void {
-    if (this.dropList) {
-      this.dragDropService.register(this.dropList);
-    }
+  public ngAfterViewInit(): void {
+    this.registerDropList();
   }
 
   public allowDropPredicate = (drag: CdkDrag, drop: CdkDropList) => {
-    return this.isDropAllowed(drag, drop);
+    return this.isDropAllowed(drop);
   }
 
   public onEditClicked(): void {
@@ -96,11 +99,39 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
   public onDeleteClicked(): void {
     if (this.list !== undefined) {
       this.store.dispatch(deleteList({id: Number(this.list.id)}));
-      this.store.dispatch(loadLists()); // TODO: Load lists on delete
     }
   }
 
-  private isDropAllowed(drag: CdkDrag, drop: CdkDropList): boolean {
+  public drop(event: CdkDragDrop<Task[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
+
+  private initTasks(): void {
+    if (this.list !== undefined) {
+      this.tasks$ = this.store.select(selectTasksList(this.list?.id));
+    }
+  }
+
+  private initLists(): void {
+    this.lists$ = this.store.select(selectOrderedLists);
+  }
+
+  private registerDropList() {
+    if (this.dropList) {
+      this.dragDropService.register(this.dropList);
+    }
+  }
+
+  private isDropAllowed(drop: CdkDropList): boolean {
     if (this.dragDropService.currentHoverDropListId === undefined) {
       return true;
     }
@@ -124,27 +155,18 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
     this.changeDetectorRef.detectChanges();
     setTimeout(() => {
       if (this.list !== undefined) {
-        if (title.trim() && this.list.title !== title) {
-          this.store.dispatch(updateList({
-            id: Number(this.list.id),
-            list: {title},
-          })); // TODO: Load lists on update
-          this.store.dispatch(loadLists());
-        }
+        this.onUpdateList(title, this.list);
       }
     });
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+  private onUpdateList(title: string, list: List) {
+    if (title.trim() && list.title !== title) {
+      this.store.dispatch(updateList({
+        id: Number(list.id),
+        list: {title},
+      }));
     }
   }
+
 }
