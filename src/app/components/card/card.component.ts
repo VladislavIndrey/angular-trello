@@ -17,6 +17,7 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {Task} from "../../data/db/task";
 import {deleteTask, updateTask} from "../../redux/actions/task.actions";
 import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
+import {DoublyLinkedList} from "../../data/doubly-linked-List/doubly-linked-List";
 
 @Component({
   selector: 'app-card',
@@ -37,7 +38,7 @@ import {DragDropService} from "../../Infrastructure/services/drag-drop-service/d
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() task!: Task;
+  @Input() task: DoublyLinkedList<Task> | undefined;
   public isEditMode: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 

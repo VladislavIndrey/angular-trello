@@ -10,7 +10,7 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
   selectTasks,
   (task) => {
     if (listId === undefined) {
-      return [];
+      return new DoublyLinkedList<Task>();
     }
 
     const doublyLinkedList = new DoublyLinkedList<Task>();

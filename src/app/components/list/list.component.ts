@@ -33,6 +33,7 @@ import {Observable, of} from "rxjs";
 import {Task} from "../../data/db/task";
 import {selectOrderedLists} from "../../redux/selectors/list.selectors";
 import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
+import {DoublyLinkedList} from "../../data/doubly-linked-List/doubly-linked-List";
 
 
 @Component({
@@ -58,7 +59,7 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
   @ViewChild('editInput', {static: false}) editInput!: ElementRef<HTMLInputElement>;
   @ViewChild(CdkDropList) dropList?: CdkDropList;
   public isAdding: boolean = false;
-  public tasks$: Observable<Task[]> = of([]);
+  public tasks$: Observable<DoublyLinkedList<Task>> = of(new DoublyLinkedList<Task>());
   public lists$: Observable<List[]> = of([]);
 
   constructor(
