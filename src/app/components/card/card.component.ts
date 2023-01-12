@@ -6,6 +6,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {TextFieldModule} from "@angular/cdk/text-field";
+import {CdkDrag, CdkDragMove, CdkDragRelease} from "@angular/cdk/drag-drop";
 
 import {TaskPriorityModel} from "../../models/task-priority.model";
 import {PriorityComponent} from "../priority/priority.component";
@@ -14,8 +15,7 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
 import {CustomButtonComponent} from "../custom-button/custom-button.component";
 
 import {Task} from "../../models/task.model";
-import {deleteTask, loadTasks, updateTask} from "../../redux/actions/task.actions";
-import {CdkDrag, CdkDragMove, CdkDragRelease} from "@angular/cdk/drag-drop";
+import {deleteTask, updateTask} from "../../redux/actions/task.actions";
 import {DragDropService} from "../../services/drag-drop-service/drag-drop.service";
 
 @Component({
@@ -61,7 +61,6 @@ export class CardComponent implements OnInit {
       throw new Error('Task id is undefined!');
     } else {
       this.store.dispatch(deleteTask({id: this.task.id}));
-      this.store.dispatch(loadTasks());
     }
   }
 
