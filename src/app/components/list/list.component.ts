@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
+import {Observable, of} from "rxjs";
+
 
 import {
   CdkDrag,
@@ -27,12 +29,11 @@ import {AddCardComponent} from "../add-card/add-card.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 import {IList} from "../../data/db/list";
-import {deleteList, updateList} from "../../Infrastructure/redux/actions/list.actions";
 import {selectTasksList} from "../../Infrastructure/redux/selectors/task.selectors";
-import {Observable, of} from "rxjs";
 import {ITask} from "../../data/db/task";
 import {selectOrderedLists} from "../../Infrastructure/redux/selectors/list.selectors";
 import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
+import {ListModel} from "../../models/list/list.model";
 
 
 @Component({
@@ -55,14 +56,17 @@ import {DragDropService} from "../../Infrastructure/services/drag-drop-service/d
 })
 export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactoring, create ListModel
   @Input() list: IList | undefined;
+  @Input() lists: IList[] = [];
   @ViewChild('editInput', {static: false}) editInput!: ElementRef<HTMLInputElement>;
   @ViewChild(CdkDropList) dropList?: CdkDropList;
   public isAdding: boolean = false;
   public tasks$: Observable<ITask[]> = of([]);
   public lists$: Observable<IList[]> = of([]);
 
+  private _listModel: ListModel = new ListModel(this._store);
+
   constructor(
-    private store: Store,
+    private _store: Store,
     private changeDetectorRef: ChangeDetectorRef,
     public dragDropService: DragDropService,
   ) {
@@ -98,7 +102,7 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
 
   public onDeleteClicked(): void {
     if (this.list !== undefined) {
-      this.store.dispatch(deleteList({id: Number(this.list.id)}));
+      this._listModel.deleteList(this.lists, this.list);
     }
   }
 
@@ -117,12 +121,12 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
 
   private initTasks(): void {
     if (this.list !== undefined) {
-      this.tasks$ = this.store.select(selectTasksList(this.list?.id));
+      this.tasks$ = this._store.select(selectTasksList(this.list?.id));
     }
   }
 
   private initLists(): void {
-    this.lists$ = this.store.select(selectOrderedLists);
+    this.lists$ = this._store.select(selectOrderedLists);
   }
 
   private registerDropList() {
@@ -162,10 +166,7 @@ export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactori
 
   private onUpdateList(title: string, list: IList) {
     if (title.trim() && list.title !== title) {
-      this.store.dispatch(updateList({
-        id: Number(list.id),
-        list: {title},
-      }));
+      this._listModel.updateList({...list, title})
     }
   }
 

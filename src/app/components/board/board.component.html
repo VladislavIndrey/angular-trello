@@ -7,7 +7,7 @@
       [cdkDropListData]="lists"
       (cdkDropListDropped)="drop($event)"
     >
-      <app-list *ngFor="let list of lists" [list]="list"></app-list>
+      <app-list *ngFor="let list of lists" [list]="list" [lists]="lists"></app-list>
     </div>
     <app-add-list [lists]="lists"></app-add-list>
   </ng-container>
