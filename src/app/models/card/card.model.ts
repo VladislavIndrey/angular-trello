@@ -1,7 +1,7 @@
 import {Store} from "@ngrx/store";
 
 import {ITask} from "../../data/db/task";
-import {deleteTask, updateTask} from "../../Infrastructure/redux/actions/task.actions";
+import {deleteTask, updateTask} from "../../infrastructure/redux/actions/task.actions";
 
 export class CardModel {
   constructor(private _store: Store) {

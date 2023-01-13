@@ -1,6 +1,6 @@
 import {Store} from "@ngrx/store";
 import {ITask} from "../../data/db/task";
-import {addTask, updateTask} from "../../Infrastructure/redux/actions/task.actions";
+import {addTask, updateTask} from "../../infrastructure/redux/actions/task.actions";
 
 export class AddCardModel {
 

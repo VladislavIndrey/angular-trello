@@ -29,10 +29,10 @@ import {AddCardComponent} from "../add-card/add-card.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 import {IList} from "../../data/db/list";
-import {selectTasksList} from "../../Infrastructure/redux/selectors/task.selectors";
+import {selectTasksList} from "../../infrastructure/redux/selectors/task.selectors";
 import {ITask} from "../../data/db/task";
-import {selectOrderedLists} from "../../Infrastructure/redux/selectors/list.selectors";
-import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
+import {selectOrderedLists} from "../../infrastructure/redux/selectors/list.selectors";
+import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
 import {ListModel} from "../../models/list/list.model";
 
 

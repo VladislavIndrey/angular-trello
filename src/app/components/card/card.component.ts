@@ -15,7 +15,7 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
 import {CustomButtonComponent} from "../custom-button/custom-button.component";
 
 import {ITask} from "../../data/db/task";
-import {DragDropService} from "../../Infrastructure/services/drag-drop-service/drag-drop.service";
+import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
 import {CardModel} from "../../models/card/card.model";
 
 @Component({
