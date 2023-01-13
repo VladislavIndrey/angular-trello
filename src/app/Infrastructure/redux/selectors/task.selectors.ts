@@ -11,7 +11,7 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
       throw new Error('List id is undefined!');
     }
 
-    const tasks = [...task.tasks];
+    const tasks = [...task.tasks].filter((task) => task.taskListId === listId);
 
     if (tasks.length === 0) {
       return [];
@@ -27,7 +27,7 @@ function sortTasks(tasks: ITask[]): ITask[] {
   let node: ITask;
 
   if (head === undefined) {
-    throw new Error('No head was founded!');
+    throw new Error('[Sort Tasks] No head was founded!');
   }
 
   node = head;
