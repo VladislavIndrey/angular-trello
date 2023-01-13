@@ -2,6 +2,7 @@ import {createFeatureSelector, createSelector} from "@ngrx/store";
 
 import {taskInitialState} from "../reducers/task.reducer";
 import {ITask} from "../../../data/db/task";
+import {sortNodes} from "../../../utils/nodes-utils";
 
 export const selectTasks = createFeatureSelector<taskInitialState>('task');
 export const selectTasksList = (listId: number | undefined) => createSelector(
@@ -17,32 +18,6 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
       return [];
     }
 
-    return sortTasks(tasks);
+    return sortNodes<ITask>(tasks);
   }
 );
-
-function sortTasks(tasks: ITask[]): ITask[] {
-  const temp: ITask[] = [];
-  const head: ITask | undefined = tasks.find((task) => task.prevId === undefined);
-  let node: ITask;
-
-  if (head === undefined) {
-    throw new Error('[Sort Tasks] No head was founded!');
-  }
-
-  node = head;
-  temp.push(node);
-
-  while (node.nextId !== undefined) {
-    const nextNode = tasks.find((task) => task.id === node.nextId);
-
-    if (nextNode === undefined) {
-      break;
-    }
-
-    node = nextNode;
-    temp.push(node);
-  }
-
-  return temp;
-}
