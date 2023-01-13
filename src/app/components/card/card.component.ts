@@ -37,7 +37,7 @@ import {CardModel} from "../../models/card/card.model";
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() task!: ITask;
+  @Input() task: ITask | undefined;
   @Input()tasks: ITask[] = [];
   public isEditMode: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
@@ -48,7 +48,9 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskPriorityModel.changePriority(this.task.priority);
+    if (this.task !== undefined) {
+      this.taskPriorityModel.changePriority(this.task.priority);
+    }
   }
 
   public onEditClicked(): void {
@@ -60,10 +62,14 @@ export class CardComponent implements OnInit {
   }
 
   public onDeleteTaskClicked(): void {
-    this.cardModel.deleteTask(this.tasks, this.task);
+    if (this.task !== undefined) {
+      this.cardModel.deleteTask(this.tasks, this.task);
+    }
+
   }
 
   public onSaveClicked(text: string, ownerName: string): void {
+    if (this.task === undefined) return;
     if (this.task.id === undefined) {
       throw new Error('Task id is undefined!');
     } else {

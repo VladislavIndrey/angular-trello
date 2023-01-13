@@ -1,4 +1,5 @@
 <div
+  *ngIf="task"
   cdkDrag
   [cdkDragData]="task"
   (cdkDragMoved)="dragMoved($event)"

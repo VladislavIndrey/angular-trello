@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddListComponent } from './add-list.component';
+import {provideMockStore} from "@ngrx/store/testing";
 
 describe('AddListComponent', () => {
   let component: AddListComponent;
@@ -8,7 +9,8 @@ describe('AddListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ AddListComponent ]
+      imports: [ AddListComponent ],
+      providers: [provideMockStore({})]
     })
     .compileComponents();
 

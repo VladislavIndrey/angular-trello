@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -55,7 +54,7 @@ import {ListModel} from "../../models/list/list.model";
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit, AfterViewInit { // TODO: Refactoring, create ListModel
+export class ListComponent implements OnInit, AfterViewInit {
   @Input() list: IList | undefined;
   @Input() lists: IList[] = [];
   @ViewChild('editInput', {static: false}) editInput!: ElementRef<HTMLInputElement>;

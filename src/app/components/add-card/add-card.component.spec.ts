@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddCardComponent } from './add-card.component';
+import {provideMockStore} from "@ngrx/store/testing";
 
 describe('AddCardComponent', () => {
   let component: AddCardComponent;
@@ -8,7 +9,8 @@ describe('AddCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ AddCardComponent ]
+      imports: [ AddCardComponent ],
+      providers: [provideMockStore({})]
     })
     .compileComponents();
 

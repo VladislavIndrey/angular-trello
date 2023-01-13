@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainPageComponent } from './main-page.component';
+import {StoreModule} from "@ngrx/store";
+import {provideMockStore} from "@ngrx/store/testing";
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -8,7 +10,7 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ MainPageComponent ]
+      imports: [ MainPageComponent, StoreModule.forRoot(provideMockStore) ]
     })
     .compileComponents();
 
