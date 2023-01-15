@@ -1,6 +1,7 @@
 import {Store} from "@ngrx/store";
+
 import {ITask} from "../../data/db/task";
-import {addTask, updateTask} from "../../infrastructure/redux/actions/task.actions";
+import {addTask, addTaskAfter} from "../../infrastructure/redux/actions/task.actions";
 
 export class AddCardModel {
 
@@ -8,13 +9,14 @@ export class AddCardModel {
   }
 
   public addTask(tasks: ITask[], newTask: ITask): void {
-    const prevId: number | undefined = tasks[tasks.length - 1]?.id;
+    const prevTask: ITask | undefined = tasks[tasks.length - 1];
 
-    if (prevId !== undefined) {
-      this.store.dispatch(updateTask({id: prevId, task: {...tasks[tasks.length - 1], nextId: prevId + 1}}));
+    if (prevTask !== undefined) {
+      this.store.dispatch(addTaskAfter({prevTask, newTask}));
+      return;
     }
 
-    this.store.dispatch(addTask({task: {...newTask, prevId}}));
+    this.store.dispatch(addTask({task: newTask}));
   }
 
-  }
+}

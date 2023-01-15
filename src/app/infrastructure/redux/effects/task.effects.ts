@@ -4,12 +4,12 @@ import {catchError, map, mergeMap, of} from "rxjs";
 
 import {LocalDBService} from "../../services/local-db/local-d-b.service";
 import {
-  addTask,
+  addTask, addTaskAfter, addTaskAfterFailed,
   addTaskFailed,
   deleteTask,
   deleteTaskFailed,
   loadTasks, moveTask, moveTaskFailed,
-  taskAdded,
+  taskAdded, taskAfterAdded,
   taskDeleted, taskMoved,
   tasksLoaded,
   tasksLoadFailed, taskUpdated, updateTask, updateTaskFailed,
@@ -30,6 +30,14 @@ export class TaskEffects {
     mergeMap((action) => this.localDBService.addTask(action.task).pipe(
       map(([, tasks]) => taskAdded({tasks})),
       catchError((error) => of(addTaskFailed({error}))),
+    )),
+  ));
+
+  public addTaskAfter$ = createEffect(() => this.actions$.pipe(
+    ofType(addTaskAfter),
+    mergeMap((action) => this.localDBService.addTaskAfter(action.prevTask, action.newTask).pipe(
+      map((tasks) => taskAfterAdded({tasks})),
+      catchError((error) => of(addTaskAfterFailed({error}))),
     )),
   ));
 

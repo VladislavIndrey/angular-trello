@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {from, Observable, zip} from "rxjs";
+import {combineLatest, from, map, Observable, zip} from "rxjs";
 
 
 import {ITask} from '../../../data/db/task';
@@ -21,6 +21,17 @@ export class LocalDBService {
 
   public addTask(task: ITask): Observable<[number, ITask[]]> {
     return zip(from(db.tasks.add(task)), from(db.tasks.toArray()));
+  }
+
+  public addTaskAfter(prevTask: ITask, newTask: ITask): Observable<ITask[]> {
+    if (prevTask.id === undefined) {
+      throw new Error('[Add Task After] Previous Task Id is Undefined!');
+    }
+
+    return zip(db.tasks.update(prevTask.id, {nextId: prevTask.id + 1}),
+      db.tasks.add({...newTask, prevId: prevTask.id}),
+      db.tasks.toArray(),
+    ).pipe(map(([,,data]) => data));
   }
 
   public deleteTask(id: number): Observable<[void, ITask[]]> {
