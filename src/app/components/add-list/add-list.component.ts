@@ -65,7 +65,6 @@ export class AddListComponent {
       return;
     }
 
-    console.log('add');
     this.addListModel.addList(this.lists, {title});
     this.isAddMod = false;
   }
