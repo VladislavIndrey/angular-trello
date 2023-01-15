@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap, of} from "rxjs";
 
 import {
-  addList,
+  addList, AddListAfter,
   deleteList,
   deleteListFailed,
   listAdded,
@@ -36,10 +36,18 @@ export class ListEffects {
     ))
   ));
 
+  public addListAfter$ = createEffect(() => this.actions$.pipe(
+    ofType(AddListAfter.add),
+    mergeMap((action) => this.localDBService.addListAfter(action.prevList, action.newList).pipe(
+      map((lists) => AddListAfter.added({lists})),
+      catchError((error) => of(AddListAfter.failed({error}))),
+    ))
+  ))
+
   public updateList$ = createEffect(() => this.actions$.pipe(
     ofType(updateList),
     mergeMap((action) => this.localDBService.updateList(action.id, action.list).pipe(
-      map(([,lists]) => listUpdated({lists})),
+      map(([, lists]) => listUpdated({lists})),
       catchError((error) => of(listUpdateFailed({error})))
     ))
   ));
@@ -47,7 +55,7 @@ export class ListEffects {
   public deleteList$ = createEffect(() => this.actions$.pipe(
     ofType(deleteList),
     mergeMap((action) => this.localDBService.deleteListById(action.id).pipe(
-      map(([,,lists]) => listDeleted({lists})),
+      map(([, , lists]) => listDeleted({lists})),
       catchError((error) => of(deleteListFailed({error})))
     ))
   ));

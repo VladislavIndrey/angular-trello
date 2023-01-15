@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
-import {combineLatest, from, map, Observable, zip} from "rxjs";
+import {from, map, Observable, zip} from "rxjs";
+import {Table} from "dexie";
 
 
 import {ITask} from '../../../data/db/task';
 import {IList} from '../../../data/db/list';
+import {IDBNode} from "../../../data/db/db-node";
+
 import {db} from "./db";
 
 
@@ -24,14 +27,11 @@ export class LocalDBService {
   }
 
   public addTaskAfter(prevTask: ITask, newTask: ITask): Observable<ITask[]> {
-    if (prevTask.id === undefined) {
-      throw new Error('[Add Task After] Previous Task Id is Undefined!');
-    }
+    return this.addNodeAfter<ITask>(db.tasks, prevTask, newTask);
+  }
 
-    return zip(db.tasks.update(prevTask.id, {nextId: prevTask.id + 1}),
-      db.tasks.add({...newTask, prevId: prevTask.id}),
-      db.tasks.toArray(),
-    ).pipe(map(([,,data]) => data));
+  public addListAfter(prevList: IList, newList: IList): Observable<IList[]> {
+    return this.addNodeAfter<IList>(db.taskLists, prevList, newList);
   }
 
   public deleteTask(id: number): Observable<[void, ITask[]]> {
@@ -80,5 +80,17 @@ export class LocalDBService {
       }),
       this.getTasks(),
     );
+  }
+
+  private addNodeAfter<T extends IDBNode>(table: Table<T, number>, prevNode: T, newNode: T): Observable<T[]> {
+    if (prevNode.id === undefined) {
+      throw new Error('[Add Node After] Previous Node Id is Undefined!');
+    }
+
+    return zip(
+      table.update(prevNode.id, {nextId: prevNode.id + 1}),
+      table.add({...newNode, prevId: prevNode.id}),
+      table.toArray(),
+    ).pipe(map(([,,data]) => data));
   }
 }

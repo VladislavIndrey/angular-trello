@@ -1,7 +1,7 @@
 import {createReducer, on} from "@ngrx/store";
 
 import {
-  addList,
+  addList, AddListAfter,
   deleteList,
   deleteListFailed,
   listAdded,
@@ -91,6 +91,22 @@ export const listReducer = createReducer(
     error: null,
   })),
   on(deleteListFailed, (state, {error}) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
+  on(AddListAfter.add, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(AddListAfter.added, (state, {lists}) => ({
+    ...state,
+    lists,
+    isLoading: false,
+    error: null,
+  })),
+  on(AddListAfter.failed, (state, {error}) => ({
     ...state,
     isLoading: false,
     error,

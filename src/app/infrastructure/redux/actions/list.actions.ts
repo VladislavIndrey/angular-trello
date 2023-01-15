@@ -1,6 +1,8 @@
-import {createAction, props} from "@ngrx/store";
+import {createAction, createActionGroup, props} from "@ngrx/store";
 
 import {IList} from "../../../data/db/list";
+
+const ADD_LIST_COMPONENT = '[Add List Component]';
 
 export const loadLists = createAction('[Main Page] Load Lists');
 export const listsLoaded = createAction('[Local DB API] Lists Loaded Success', props<{ taskLists: IList[] }>());
@@ -17,3 +19,12 @@ export const listUpdateFailed = createAction('[Local DB API] List Update Failed'
 export const deleteList = createAction('[List Component] Delete List', props<{ id: number }>());
 export const listDeleted = createAction('[Local DB API] List Deleted', props<{lists: IList[]}>());
 export const deleteListFailed = createAction('[Local DB API] Delete List Failed', props<{ error: any }>());
+
+export const AddListAfter = createActionGroup({
+  source: ADD_LIST_COMPONENT,
+  events: {
+    'Add': props<{prevList: IList, newList: IList}>(),
+    'Added': props<{lists: IList[]}>(),
+    'Failed': props<{ error: any }>(),
+  }
+});

@@ -1,7 +1,7 @@
 import {Store} from "@ngrx/store";
 
 import {IList} from "../../data/db/list";
-import {addList, updateList} from "../../infrastructure/redux/actions/list.actions";
+import {addList, AddListAfter} from "../../infrastructure/redux/actions/list.actions";
 
 export class AddListModel {
   constructor(private store: Store) {
@@ -9,12 +9,13 @@ export class AddListModel {
 
   public addList(lists: IList[], newList: IList): void {
 
-    const prevId: number | undefined = lists[lists.length - 1]?.id;
+    const prevList: IList | undefined = lists[lists.length - 1];
 
-    if (prevId !== undefined) {
-      this.store.dispatch(updateList({id: prevId, list: {...lists[lists.length - 1], nextId: prevId + 1}}));
+    if (prevList !== undefined) {
+      this.store.dispatch(AddListAfter.add({prevList, newList}));
+      return;
     }
 
-    this.store.dispatch(addList({list: {...newList, prevId}}));
+    this.store.dispatch(addList({list: newList}));
   }
 }
