@@ -25,11 +25,19 @@ export class ListModel {
 
     if (nextTask !== undefined) {
       updatedNextTask = {...nextTask, prevId: task.id};
+
+      if (nextTask.nextId === task.id) {
+        updatedNextTask = {...updatedNextTask, nextId: container.at(newIndex+2)?.id};
+      }
     }
 
     let updatedTask: ITask = {...task, prevId: updatedPrevTask?.id, nextId: updatedNextTask?.id};
-
+    // console.log({prevTask: updatedPrevTask, nextTask: updatedNextTask, taskToMove: updatedTask})
     this._store.dispatch(moveTask({prevTask: updatedPrevTask, nextTask: updatedNextTask, taskToMove: updatedTask}));
+  }
+
+  private updateNodeLinks(container: ITask[], task: ITask): ITask | undefined {
+    return undefined;
   }
 
   public deleteList(lists: IList[], listToDelete: IList): void {

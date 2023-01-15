@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {from, map, Observable, of, zip} from "rxjs";
+import {delay, from, map, Observable, of, zip} from "rxjs";
 import {Table} from "dexie";
 
 
@@ -73,7 +73,7 @@ export class LocalDBService {
     }
 
     return zip(
-      this.updateNode<T>(table, prevNode),
+      this.updateNode<T>(table, prevNode).pipe(delay(3)),
       this.updateNode(table, nextNode),
       this.updateNode(table, nodeToMove),
       table.toArray(),
