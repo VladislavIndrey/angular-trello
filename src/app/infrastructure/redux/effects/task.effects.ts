@@ -59,8 +59,8 @@ export class TaskEffects {
 
   public moveTask$ = createEffect(() => this.actions$.pipe(
     ofType(moveTask),
-    mergeMap((action) => this.localDBService.moveTask(action.previousTask, action.currentTask).pipe(
-      map(([, , , , tasks]) => taskMoved({tasks})),
+    mergeMap((action) => this.localDBService.moveTask(action.prevTask, action.nextTask, action.taskToMove).pipe(
+      map((tasks) => taskMoved({tasks})),
       catchError((error) => of(moveTaskFailed({error}))),
     ))
   ));

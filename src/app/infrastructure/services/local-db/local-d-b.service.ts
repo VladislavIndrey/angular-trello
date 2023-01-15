@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {from, map, Observable, zip} from "rxjs";
+import {from, map, Observable, of, zip} from "rxjs";
 import {Table} from "dexie";
 
 
@@ -58,29 +58,42 @@ export class LocalDBService {
     return zip(db.taskLists.update(id, list), db.taskLists.toArray());
   }
 
-  public moveTask(previousTask: ITask, currentTask: ITask): Observable<[void, void, number, number, ITask[]]> {
-    if (previousTask.id === undefined || currentTask.id === undefined) {
-      throw new Error('One of tasks id is undefined');
+  public moveTask(prevTask: ITask | undefined, nextTask: ITask | undefined, taskToMove: ITask): Observable<ITask[]> {
+    return this.moveNode<ITask>(db.tasks, prevTask, nextTask, taskToMove);
+  }
+
+  private moveNode<T extends IDBNode>(
+    table: Table<T, number>,
+    prevNode: T | undefined,
+    nextNode: T | undefined,
+    nodeToMove: T,
+  ): Observable<T[]> {
+    if (prevNode === undefined && nextNode === undefined) {
+      throw new Error('[Move Node] Both nodes are undefined!');
     }
 
     return zip(
-      db.tasks.delete(previousTask.id),
-      db.tasks.delete(currentTask.id),
-      db.tasks.add({
-        ...previousTask,
-        text: currentTask.text,
-        ownerName: currentTask.ownerName,
-        priority: currentTask.priority
-      }),
-      db.tasks.add({
-        ...currentTask,
-        text: previousTask.text,
-        ownerName: previousTask.ownerName,
-        priority: previousTask.priority
-      }),
-      this.getTasks(),
+      this.updateNode<T>(table, prevNode),
+      this.updateNode(table, nextNode),
+      this.updateNode(table, nodeToMove),
+      table.toArray(),
+    ).pipe(
+      map(([, , , data]) => data),
     );
   }
+
+  private updateNode<T extends IDBNode>(table: Table<T, number>, node: T | undefined): Observable<number> {
+    if (node === undefined) {
+      return of(-1);
+    }
+
+    if (node.id === undefined) {
+      throw new Error('[Update Node] Node id is undefined!');
+    }
+
+    return from(table.update(node.id, node));
+  }
+
 
   private addNodeAfter<T extends IDBNode>(table: Table<T, number>, prevNode: T, newNode: T): Observable<T[]> {
     if (prevNode.id === undefined) {
@@ -91,6 +104,6 @@ export class LocalDBService {
       table.update(prevNode.id, {nextId: prevNode.id + 1}),
       table.add({...newNode, prevId: prevNode.id}),
       table.toArray(),
-    ).pipe(map(([,,data]) => data));
+    ).pipe(map(([, , data]) => data));
   }
 }

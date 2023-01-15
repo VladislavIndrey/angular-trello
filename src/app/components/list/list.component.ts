@@ -109,6 +109,8 @@ export class ListComponent implements OnInit, AfterViewInit {
   public drop(event: CdkDragDrop<ITask[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      // TODO: Fix move
+      // this._listModel.moveTask(event.container.data, event.container.data[event.currentIndex], event.currentIndex);
     } else {
       transferArrayItem(
         event.previousContainer.data,
