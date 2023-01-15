@@ -41,10 +41,15 @@ export class AddListComponent {
   }
 
   public onAddClicked($event: MouseEvent, title: string): void {
+    $event.preventDefault();
     $event.stopPropagation();
+    this.addList(title);
+  }
 
-    this.addListModel.addList(this.lists, {title});
-    this.isAddMod = false;
+  public onEnterClicked($event: KeyboardEvent, title: string): void {
+    if ($event.key === 'Enter') {
+      this.addList(title);
+    }
   }
 
   public onCancelClicked(): void {
@@ -52,9 +57,17 @@ export class AddListComponent {
   }
 
   public onInputBlur(): void {
-    setTimeout(() => {
-      this.isAddMod = false;
-    }, 150)
+    this.isAddMod = false;
+  }
+
+  private addList(title: string): void {
+    if (!title.trim()) {
+      return;
+    }
+
+    console.log('add');
+    this.addListModel.addList(this.lists, {title});
+    this.isAddMod = false;
   }
 
 }
