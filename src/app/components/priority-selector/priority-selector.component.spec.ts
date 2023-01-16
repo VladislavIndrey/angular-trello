@@ -20,4 +20,9 @@ describe('PrioritySelectorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('#trackById() should return correct value',  () => {
+    const result = component.trackById(0, {id: 5});
+    expect(result).toEqual(5);
+  });
 });
