@@ -37,12 +37,11 @@ describe('AddListComponent', () => {
 
   it('#onAddClicked() should focus #nameInput',  fakeAsync(() => {
     const de: DebugElement = fixture.debugElement;
-    component.onAddListClicked();
-    tick(1);
-    const nameInput = de.query(By.css('.add-list__input')).nativeElement;
     fixture.detectChanges();
-    tick(1);
+    component.onAddListClicked();
+    const nameInput = de.query(By.css('.add-list__input')).nativeElement;
     expect(nameInput).toBeTruthy();
+    tick();
     const focusedNameInput = de.query(By.css(':focus')).nativeElement;
     expect(nameInput).toEqual(focusedNameInput);
   }));
