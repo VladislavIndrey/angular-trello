@@ -60,7 +60,7 @@ describe('AddCardComponent', () => {
       .toBeFalse();
   });
 
-  it('#onAddClicked() should change boolean value #isAddMod ', function () {
+  it('#onAddClicked() should change boolean value #isAddMod ',  () => {
     const event = new MouseEvent('clear-button__button', {bubbles: true});
     component.isAddMod = true;
     expect(component.isAddMod)
