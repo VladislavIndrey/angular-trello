@@ -9,7 +9,7 @@ export const selectTasksList = (listId: number | undefined) => createSelector(
   selectTasks,
   (task) => {
     if (listId === undefined) {
-      throw new Error('List id is undefined!');
+      throw new Error('[Select Tasks List] List id is undefined!');
     }
 
     const tasks = [...task.tasks].filter((task) => task.taskListId === listId);
