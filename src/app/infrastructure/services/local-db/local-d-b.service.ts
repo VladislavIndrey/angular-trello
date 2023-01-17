@@ -60,29 +60,30 @@ export class LocalDBService {
     return zip(this.db.taskLists.update(id, list), this.db.taskLists.toArray());
   }
 
-  public moveTask(prevTask: ITask | undefined, nextTask: ITask | undefined, taskToMove: ITask): Observable<ITask[]> {
-    return this.moveNode<ITask>(this.db.tasks, prevTask, nextTask, taskToMove);
-  }
-
-  private moveNode<T extends IDBNode>(
-    table: Table<T, number>,
-    prevNode: T | undefined,
-    nextNode: T | undefined,
-    nodeToMove: T,
-  ): Observable<T[]> {
-    if (prevNode === undefined && nextNode === undefined) {
-      throw new Error('[Move Node] Both nodes are undefined!');
-    }
-
-    return zip(
-      this.updateNode<T>(table, prevNode).pipe(delay(3)),
-      this.updateNode(table, nextNode),
-      this.updateNode(table, nodeToMove),
-      table.toArray(),
-    ).pipe(
-      map(([, , , data]) => data),
-    );
-  }
+  // TODO: Fix!!!
+  // public moveTask(prevTask: ITask | undefined, nextTask: ITask | undefined, taskToMove: ITask): Observable<ITask[]> {
+  //   return this.moveNode<ITask>(this.db.tasks, prevTask, nextTask, taskToMove);
+  // }
+  //
+  // private moveNode<T extends IDBNode>(
+  //   table: Table<T, number>,
+  //   prevNode: T | undefined,
+  //   nextNode: T | undefined,
+  //   nodeToMove: T,
+  // ): Observable<T[]> {
+  //   if (prevNode === undefined && nextNode === undefined) {
+  //     throw new Error('[Move Node] Both nodes are undefined!');
+  //   }
+  //
+  //   return zip(
+  //     this.updateNode<T>(table, prevNode).pipe(delay(3)),
+  //     this.updateNode(table, nextNode),
+  //     this.updateNode(table, nodeToMove),
+  //     table.toArray(),
+  //   ).pipe(
+  //     map(([, , , data]) => data),
+  //   );
+  // }
 
   private updateNode<T extends IDBNode>(table: Table<T, number>, node: T | undefined): Observable<number> {
     if (node === undefined) {
