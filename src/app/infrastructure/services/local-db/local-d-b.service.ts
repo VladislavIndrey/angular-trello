@@ -2,64 +2,66 @@ import {Injectable} from '@angular/core';
 import {delay, from, map, Observable, of, zip} from "rxjs";
 import {Table} from "dexie";
 
-
 import {ITask} from '../../../data/db/task';
 import {IList} from '../../../data/db/list';
 import {IDBNode} from "../../../data/db/db-node";
-
-import {db} from "./db";
+import {DbService} from "./db.service";
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalDBService {
+
+  constructor(private db: DbService) {
+  }
+
   public getTaskLists(): Observable<IList[]> {
-    return from(db.taskLists.toArray())
+    return from(this.db.taskLists.toArray())
   }
 
   public getTasks(): Observable<ITask[]> {
-    return from(db.tasks.toArray());
+    return from(this.db.tasks.toArray());
   }
 
   public addTask(task: ITask): Observable<[number, ITask[]]> {
-    return zip(from(db.tasks.add(task)), from(db.tasks.toArray()));
+    return zip(from(this.db.tasks.add(task)), from(this.db.tasks.toArray()));
   }
 
   public addTaskAfter(prevTask: ITask, newTask: ITask): Observable<ITask[]> {
-    return this.addNodeAfter<ITask>(db.tasks, prevTask, newTask);
+    return this.addNodeAfter<ITask>(this.db.tasks, prevTask, newTask);
   }
 
   public addListAfter(prevList: IList, newList: IList): Observable<IList[]> {
-    return this.addNodeAfter<IList>(db.taskLists, prevList, newList);
+    return this.addNodeAfter<IList>(this.db.taskLists, prevList, newList);
   }
 
   public deleteTask(id: number): Observable<[void, ITask[]]> {
-    return zip(db.tasks.delete(id), db.tasks.toArray());
+    return zip(this.db.tasks.delete(id), this.db.tasks.toArray());
   }
 
   public updateTask(id: number, task: ITask): Observable<[number, ITask[]]> {
-    return zip(db.tasks.update(id, task), this.getTasks());
+    return zip(this.db.tasks.update(id, task), this.getTasks());
   }
 
   public addNewList(list: IList): Observable<[number, IList[]]> {
-    return zip(db.taskLists.add(list), db.taskLists.toArray());
+    return zip(this.db.taskLists.add(list), this.db.taskLists.toArray());
   }
 
   public deleteListById(id: number): Observable<[void, number, IList[]]> {
     return zip(
-      db.taskLists.delete(id),
-      db.tasks.where({taskListId: id}).delete(),
-      db.taskLists.toArray()
+      this.db.taskLists.delete(id),
+      this.db.tasks.where({taskListId: id}).delete(),
+      this.db.taskLists.toArray()
     );
   }
 
   public updateList(id: number, list: IList): Observable<[number, IList[]]> {
-    return zip(db.taskLists.update(id, list), db.taskLists.toArray());
+    return zip(this.db.taskLists.update(id, list), this.db.taskLists.toArray());
   }
 
   public moveTask(prevTask: ITask | undefined, nextTask: ITask | undefined, taskToMove: ITask): Observable<ITask[]> {
-    return this.moveNode<ITask>(db.tasks, prevTask, nextTask, taskToMove);
+    return this.moveNode<ITask>(this.db.tasks, prevTask, nextTask, taskToMove);
   }
 
   private moveNode<T extends IDBNode>(
