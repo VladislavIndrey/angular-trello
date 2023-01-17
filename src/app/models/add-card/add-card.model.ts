@@ -5,18 +5,18 @@ import {addTask, addTaskAfter} from "../../infrastructure/redux/actions/task.act
 
 export class AddCardModel {
 
-  constructor(private store: Store) {
+  constructor(private _store: Store) {
   }
 
   public addTask(tasks: ITask[], newTask: ITask): void {
     const prevTask: ITask | undefined = tasks[tasks.length - 1];
 
     if (prevTask !== undefined) {
-      this.store.dispatch(addTaskAfter({prevTask, newTask}));
+      this._store.dispatch(addTaskAfter({prevTask, newTask}));
       return;
     }
 
-    this.store.dispatch(addTask({task: newTask}));
+    this._store.dispatch(addTask({task: newTask}));
   }
 
 }
