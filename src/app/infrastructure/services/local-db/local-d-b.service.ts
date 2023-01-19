@@ -14,6 +14,7 @@ import {IList} from '../../../data/db/list';
 import {IDBNode} from "../../../data/db/db-node";
 
 import {DbService} from "./db.service";
+import {sortNodes} from "../../../utils/nodes-utils";
 
 
 @Injectable({
@@ -25,7 +26,8 @@ export class LocalDBService {
   }
 
   public getLists(): Observable<IList[]> {
-    return from(this.db.taskLists.toArray())
+    return from(this.db.taskLists.toArray());
+    return of([]);
   }
 
   public getTasks(): Observable<ITask[]> {
@@ -74,33 +76,32 @@ export class LocalDBService {
     return zip(this.db.taskLists.update(id, list), this.db.taskLists.toArray());
   }
 
-  // TODO: Fix!!!
-  // public moveTask(prevTask: ITask | undefined, nextTask: ITask | undefined, taskToMove: ITask): Observable<ITask[]> {
-  //   return this.moveNode<ITask>(this.db.tasks, prevTask, nextTask, taskToMove);
-  // }
-  //
-  // private moveNode<T extends IDBNode>(
-  //   table: Table<T, number>,
-  //   prevNode: T | undefined,
-  //   nextNode: T | undefined,
-  //   nodeToMove: T,
-  // ): Observable<T[]> {
-  //   if (prevNode === undefined && nextNode === undefined) {
-  //     throw new Error('[Move Node] Both nodes are undefined!');
-  //   }
-  //
-  //   return zip(
-  //     this.updateNode<T>(table, prevNode).pipe(delay(3)),
-  //     this.updateNode(table, nextNode),
-  //     this.updateNode(table, nodeToMove),
-  //     table.toArray(),
-  //   ).pipe(
-  //     map(([, , , data]) => data),
-  //   );
-  // }
+  public moveTask(task: ITask, currentIndex: number): Observable<ITask[]> {
+    return from(this.db.tasks.toArray()).pipe(
+      switchMap(async (elements) => {
+        let tasks = elements.filter((task) => task.taskListId === task.taskListId);
+        const index: number = tasks.findIndex((element) => element.id === elements[currentIndex].id);
+        tasks = await firstValueFrom(this.deleteTask(task));
+        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, task, tasks, index-1));
+        console.log(await this.db.tasks.toArray());
+        return this.db.tasks.toArray();
+      })
+    );
+  }
+
+  private moveNode<T extends IDBNode>(table: Table<T, number>, node: T, nodes: T[], currentIndex: number): Observable<T[]> {
+    return of(nodes).pipe(
+      switchMap(async (elements) => {
+        console.log(currentIndex)
+        await firstValueFrom(this.deleteNode<T>(table, node, nodes));
+        await firstValueFrom(this.addNodeAt<T>(table, node, nodes, currentIndex));
+        return table.toArray();
+      })
+    );
+  }
 
   private deleteNode<T extends IDBNode>(table: Table<T, number>, node: T, nodes: T[]): Observable<T[]> {
-    return of(nodes).pipe(
+    return of(sortNodes<T>(nodes)).pipe(
       switchMap(async (elements) => {
         if (node.id === undefined) {
           throw new Error('[Delete Node] Node has no id!');
@@ -126,7 +127,7 @@ export class LocalDBService {
   }
 
   private addNodeAt<T extends IDBNode>(table: Table<T, number>, node: T, nodes: T[], at: number): Observable<T[]> {
-    return of(nodes).pipe(
+    return of(sortNodes<T>(nodes)).pipe(
       switchMap(async (elements) => {
         const prevNode: T | undefined = elements[at];
         const nextNode: T | undefined = elements[at + 1];

@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -12,14 +13,7 @@ import {Store} from "@ngrx/store";
 import {Observable, of} from "rxjs";
 
 
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragHandle,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
-} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, transferArrayItem,} from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
@@ -52,7 +46,8 @@ import {ListModel} from "../../models/list/list.model";
     BlueInputDirective,
   ],
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent implements OnInit, AfterViewInit {
   @Input() list: IList | undefined;
@@ -108,9 +103,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   public drop(event: CdkDragDrop<ITask[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      // TODO: Fix move
-      // this._listModel.moveTask(event.container.data, event.container.data[event.currentIndex], event.currentIndex);
+      this._listModel.moveTask(event.container.data[event.previousIndex], event.currentIndex);
+      // moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(
         event.previousContainer.data,

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {CommonModule} from '@angular/common';
 
@@ -34,7 +34,8 @@ import {CardModel} from "../../models/card/card.model";
     CdkDrag,
   ],
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent implements OnInit {
   @Input() task: ITask | undefined;

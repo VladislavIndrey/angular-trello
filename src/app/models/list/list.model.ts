@@ -8,33 +8,9 @@ export class ListModel {
   constructor(private _store: Store) {
   }
 
-  // public moveTask(container: ITask[], task: ITask, newIndex: number): void {
-  //   const prevTask: ITask | undefined = container.at(newIndex - 1);
-  //   const nextTask: ITask | undefined = container.at(newIndex + 1);
-  //
-  //   let updatedPrevTask: ITask | undefined;
-  //   let updatedNextTask: ITask | undefined;
-  //
-  //   if (prevTask !== undefined) {
-  //     updatedPrevTask = {...prevTask, nextId: task.id};
-  //   }
-  //
-  //   if (newIndex === 0) {
-  //     updatedPrevTask = undefined;
-  //   }
-  //
-  //   if (nextTask !== undefined) {
-  //     updatedNextTask = {...nextTask, prevId: task.id};
-  //
-  //     if (nextTask.nextId === task.id) {
-  //       updatedNextTask = {...updatedNextTask, nextId: container.at(newIndex+2)?.id};
-  //     }
-  //   }
-  //
-  //   let updatedTask: ITask = {...task, prevId: updatedPrevTask?.id, nextId: updatedNextTask?.id};
-  //   // console.log({prevTask: updatedPrevTask, nextTask: updatedNextTask, taskToMove: updatedTask})
-  //   this._store.dispatch(moveTask({prevTask: updatedPrevTask, nextTask: updatedNextTask, taskToMove: updatedTask}));
-  // }
+  public moveTask(task: ITask, currentIndex: number): void {
+    this._store.dispatch(moveTask({task, currentIndex}));
+  }
 
   public deleteList(listToDelete: IList): void {
     this._store.dispatch(deleteList({list: listToDelete}));

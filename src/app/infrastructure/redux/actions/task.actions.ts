@@ -23,7 +23,6 @@ export const updateTask = createAction(`${CARD_COMPONENT} Update Task`, props<{ 
 export const taskUpdated = createAction(`${LOCAL_DB} Task Updated`, props<{ tasks: ITask[] }>());
 export const updateTaskFailed = createAction(`${LOCAL_DB} Update Task Failed`, props<{ error: any }>());
 
-export const moveTask = createAction(`${CARD_COMPONENT} Move Task`,
-  props<{prevTask: ITask | undefined, nextTask: ITask | undefined, taskToMove: ITask }>());
+export const moveTask = createAction(`${CARD_COMPONENT} Move Task`, props<{ task: ITask, currentIndex: number }>());
 export const taskMoved = createAction(`${LOCAL_DB} Task Moved`, props<{ tasks: ITask[] }>());
 export const moveTaskFailed = createAction(`${LOCAL_DB} Move Task Failed`, props<{ error: any }>());

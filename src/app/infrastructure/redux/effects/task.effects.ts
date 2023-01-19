@@ -8,9 +8,9 @@ import {
   addTaskFailed,
   deleteTask,
   deleteTaskFailed,
-  loadTasks,
+  loadTasks, moveTask, moveTaskFailed,
   taskAdded,
-  taskDeleted,
+  taskDeleted, taskMoved,
   tasksLoaded,
   tasksLoadFailed, taskUpdated, updateTask, updateTaskFailed,
 } from "../actions/task.actions";
@@ -49,14 +49,13 @@ export class TaskEffects {
     )),
   ));
 
-  // TODO: Fix
-  // public moveTask$ = createEffect(() => this.actions$.pipe(
-  //   ofType(moveTask),
-  //   mergeMap((action) => this.localDBService.moveTask(action.prevTask, action.nextTask, action.taskToMove).pipe(
-  //     map((tasks) => taskMoved({tasks})),
-  //     catchError((error) => of(moveTaskFailed({error}))),
-  //   ))
-  // ));
+  public moveTask$ = createEffect(() => this.actions$.pipe(
+    ofType(moveTask),
+    mergeMap((action) => this.localDBService.moveTask(action.task, action.currentIndex).pipe(
+      map((tasks) => taskMoved({tasks})),
+      catchError((error) => of(moveTaskFailed({error}))),
+    )),
+  ));
 
   constructor(private localDBService: LocalDBService, private actions$: Actions) {
   }
