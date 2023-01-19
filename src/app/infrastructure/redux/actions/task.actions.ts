@@ -27,8 +27,3 @@ export const moveTask = createAction(`${CARD_COMPONENT} Move Task`,
   props<{prevTask: ITask | undefined, nextTask: ITask | undefined, taskToMove: ITask }>());
 export const taskMoved = createAction(`${LOCAL_DB} Task Moved`, props<{ tasks: ITask[] }>());
 export const moveTaskFailed = createAction(`${LOCAL_DB} Move Task Failed`, props<{ error: any }>());
-
-export const addTaskAfter = createAction(`${ADD_CARD_COMPONENT} Add Task After`,
-  props<{prevTask: ITask, newTask: ITask }>());
-export const taskAfterAdded = createAction(`${LOCAL_DB} Task After Added`, props<{ tasks: ITask[] }>());
-export const addTaskAfterFailed = createAction(`${LOCAL_DB} Add Task After Failed`, props<{ error: any }>());

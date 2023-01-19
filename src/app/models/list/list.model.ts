@@ -36,18 +36,8 @@ export class ListModel {
   //   this._store.dispatch(moveTask({prevTask: updatedPrevTask, nextTask: updatedNextTask, taskToMove: updatedTask}));
   // }
 
-  public deleteList(lists: IList[], listToDelete: IList): void {
-    if (listToDelete.id === undefined) {
-      throw new Error(`[Delete List] Deleted list's id is undefined!`);
-    }
-
-    this._store.dispatch(deleteList({id: listToDelete.id}));
-
-    const prevList: IList | undefined = lists.find((list) => list.id === listToDelete.prevId);
-    const nextList: IList | undefined = lists.find((list) => list.id === listToDelete.nextId);
-
-    this.updateListNodesId(prevList, nextList?.id, prevList?.prevId);
-    this.updateListNodesId(nextList, nextList?.nextId, prevList?.id);
+  public deleteList(listToDelete: IList): void {
+    this._store.dispatch(deleteList({list: listToDelete}));
   }
 
   public updateList(list: IList): void {
@@ -56,15 +46,5 @@ export class ListModel {
     }
 
     this._store.dispatch(updateList({id: list.id, list}));
-  }
-
-  private updateListNodesId(list: IList | undefined, nextId: number | undefined, prevId: number | undefined): void {
-    if (list !== undefined) {
-      if (list.id === undefined) {
-        throw new Error(`[Update List Nodes Id] List's id is undefined!`);
-      }
-
-      this._store.dispatch(updateList({id: list.id, list: {...list, nextId, prevId}}));
-    }
   }
 }

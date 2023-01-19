@@ -102,7 +102,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   public onDeleteClicked(): void {
     if (this.list !== undefined) {
-      this._listModel.deleteList(this.lists, this.list);
+      this._listModel.deleteList(this.list);
     }
   }
 
