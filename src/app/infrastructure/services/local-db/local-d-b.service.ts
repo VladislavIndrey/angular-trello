@@ -76,26 +76,19 @@ export class LocalDBService {
   }
 
   public moveTask(task: ITask, currentIndex: number): Observable<ITask[]> {
-    return from(this.db.tasks.toArray()).pipe(
+    return this.deleteTask(task).pipe(
       switchMap(async (elements) => {
-        let tasks = await firstValueFrom(this.deleteTask(task));
-        tasks = sortNodes<ITask>(tasks.filter((element) => element.taskListId === task.taskListId));
-        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, task, tasks, currentIndex-1));
+        const tasks: ITask[] = sortNodes<ITask>(elements.filter((element) => element.taskListId === task.taskListId));
+        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, task, tasks, currentIndex - 1));
         return this.db.tasks.toArray();
       })
     );
   }
 
   public transferTask(task: ITask, currentIndex: number, newListId: number): Observable<ITask[]> {
-    return from(this.db.tasks.toArray()).pipe(
+    return this.deleteTask(task).pipe(
       switchMap(async (elements) => {
-        let index = 0;
-        await firstValueFrom(this.deleteTask(task));
         const tasks = elements.filter((element) => element.taskListId === newListId);
-        if (tasks.length > 0) {
-          // index = tasks.findIndex((element) => element.id === element[])
-        }
-        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, {...task, taskListId: newListId}, tasks, index-1));
         return this.db.tasks.toArray();
       })
     );
