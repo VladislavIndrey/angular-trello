@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {delay, from, map, Observable, of, zip} from "rxjs";
+import {delay, delayWhen, first, firstValueFrom, from, map, Observable, of, switchMap, zip} from "rxjs";
 import {Table} from "dexie";
 
 import {ITask} from '../../../data/db/task';
@@ -16,7 +16,7 @@ export class LocalDBService {
   constructor(private db: DbService) {
   }
 
-  public getTaskLists(): Observable<IList[]> {
+  public getLists(): Observable<IList[]> {
     return from(this.db.taskLists.toArray())
   }
 
@@ -36,19 +36,19 @@ export class LocalDBService {
     return this.addNodeAfter<IList>(this.db.taskLists, prevList, newList);
   }
 
-  public deleteTask(id: number): Observable<[void, ITask[]]> {
-    return zip(this.db.tasks.delete(id), this.db.tasks.toArray());
+  public deleteTask(task: ITask): Observable<ITask[]> {
+    return this.deleteNode<ITask>(this.db.tasks, task);
   }
 
   public updateTask(id: number, task: ITask): Observable<[number, ITask[]]> {
     return zip(this.db.tasks.update(id, task), this.getTasks());
   }
 
-  public addNewList(list: IList): Observable<[number, IList[]]> {
+  public addList(list: IList): Observable<[number, IList[]]> {
     return zip(this.db.taskLists.add(list), this.db.taskLists.toArray());
   }
 
-  public deleteListById(id: number): Observable<[void, number, IList[]]> {
+  public deleteList(id: number): Observable<[void, number, IList[]]> {
     return zip(
       this.db.taskLists.delete(id),
       this.db.tasks.where({taskListId: id}).delete(),
@@ -84,6 +84,32 @@ export class LocalDBService {
   //     map(([, , , data]) => data),
   //   );
   // }
+
+  private deleteNode<T extends IDBNode>(table: Table<T, number>, node: T) {
+    return from(table.toArray()).pipe(
+      switchMap(async (elements) => {
+        if (node.id === undefined) {
+          throw new Error('[Delete Node] Node has no id!');
+        }
+
+        const nodeIndex: number = elements.findIndex((element) => element.id === node.id);
+
+        const prevNode: T | undefined = elements[nodeIndex - 1];
+        const nextNode: T | undefined = elements[nodeIndex + 1];
+
+        if (prevNode !== undefined) {
+          await firstValueFrom(this.updateNode<T>(table, {...prevNode, nextId: nextNode?.id}));
+        }
+
+        if (nextNode !== undefined) {
+          await firstValueFrom(this.updateNode<T>(table, {...nextNode, prevId: prevNode?.id}));
+        }
+
+        await table.delete(node.id);
+        return table.toArray();
+      }),
+    );
+  }
 
   private updateNode<T extends IDBNode>(table: Table<T, number>, node: T | undefined): Observable<number> {
     if (node === undefined) {

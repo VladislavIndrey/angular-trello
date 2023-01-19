@@ -117,7 +117,7 @@ describe('LocalDbService', () => {
   });
 
   it('#getTaskLists() should return lists array', (done) => {
-    service.getTaskLists().subscribe((result) => {
+    service.getLists().subscribe((result) => {
       expect(result.length).toBeGreaterThan(0);
       expect(result.some((list) => list.title === db.mockList.title)).toBeTruthy();
       done();
@@ -125,7 +125,7 @@ describe('LocalDbService', () => {
   });
 
   it('#addNewList() should add list and return lists array', (done) => {
-    service.addNewList(mockList).subscribe(([, result]) => {
+    service.addList(mockList).subscribe(([, result]) => {
       expect(result.length).toBeGreaterThan(0);
       expect(result.some((list) => list.title === mockList.title)).toBeTruthy();
       done();
@@ -133,7 +133,7 @@ describe('LocalDbService', () => {
   });
 
   it('#deleteListById() should delete list and return lists array', (done) => {
-    service.deleteListById(db.mockDeleteList.id!).subscribe(([, , result]) => {
+    service.deleteList(db.mockDeleteList.id!).subscribe(([, , result]) => {
       expect(result.length).toBeGreaterThan(0);
       expect(result.some((list) => list.title === db.mockDeleteList.title)).toBeFalse();
       done();

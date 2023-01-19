@@ -15,7 +15,7 @@ export const addTask = createAction(`${ADD_CARD_COMPONENT} Add Task`, props<{ ta
 export const taskAdded = createAction(`${LOCAL_DB} Task Added`, props<{ tasks: ITask[] }>());
 export const addTaskFailed = createAction(`${LOCAL_DB}  Add Task Failed`, props<{ error: any }>());
 
-export const deleteTask = createAction(`${CARD_COMPONENT} Delete Task Request`, props<{ id: number }>());
+export const deleteTask = createAction(`${CARD_COMPONENT} Delete Task Request`, props<{ task: ITask }>());
 export const taskDeleted = createAction(`${LOCAL_DB} Task Deleted`, props<{ tasks: ITask[] }>());
 export const deleteTaskFailed = createAction(`${LOCAL_DB} Delete Task Failed`, props<{ error: any }>());
 

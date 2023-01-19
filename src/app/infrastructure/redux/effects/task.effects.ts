@@ -43,8 +43,8 @@ export class TaskEffects {
 
   public deleteTask$ = createEffect(() => this.actions$.pipe(
     ofType(deleteTask),
-    mergeMap((action) => this.localDBService.deleteTask(action.id).pipe(
-      map(([, tasks]) => taskDeleted({tasks})),
+    mergeMap((action) => this.localDBService.deleteTask(action.task).pipe(
+      map((tasks) => taskDeleted({tasks})),
       catchError((error) => of(deleteTaskFailed({error}))),
     )),
   ));
@@ -57,13 +57,14 @@ export class TaskEffects {
     )),
   ));
 
-  public moveTask$ = createEffect(() => this.actions$.pipe(
-    ofType(moveTask),
-    mergeMap((action) => this.localDBService.moveTask(action.prevTask, action.nextTask, action.taskToMove).pipe(
-      map((tasks) => taskMoved({tasks})),
-      catchError((error) => of(moveTaskFailed({error}))),
-    ))
-  ));
+  // TODO: Fix
+  // public moveTask$ = createEffect(() => this.actions$.pipe(
+  //   ofType(moveTask),
+  //   mergeMap((action) => this.localDBService.moveTask(action.prevTask, action.nextTask, action.taskToMove).pipe(
+  //     map((tasks) => taskMoved({tasks})),
+  //     catchError((error) => of(moveTaskFailed({error}))),
+  //   ))
+  // ));
 
   constructor(private localDBService: LocalDBService, private actions$: Actions) {
   }

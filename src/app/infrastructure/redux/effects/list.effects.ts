@@ -22,7 +22,7 @@ import {LocalDBService} from "../../services/local-db/local-d-b.service";
 export class ListEffects {
   public loadTaskLists$ = createEffect(() => this.actions$.pipe(
     ofType(loadLists),
-    mergeMap(() => this.localDBService.getTaskLists().pipe(
+    mergeMap(() => this.localDBService.getLists().pipe(
       map((taskLists) => listsLoaded({taskLists})),
       catchError((error) => of(listsLoadFailed({error}))),
     ))
@@ -30,7 +30,7 @@ export class ListEffects {
 
   public addList$ = createEffect(() => this.actions$.pipe(
     ofType(addList),
-    mergeMap((action) => this.localDBService.addNewList(action.list).pipe(
+    mergeMap((action) => this.localDBService.addList(action.list).pipe(
       map(([, lists]) => listAdded({lists})),
       catchError((error) => of(listAddFailed({error}))),
     ))
@@ -54,7 +54,7 @@ export class ListEffects {
 
   public deleteList$ = createEffect(() => this.actions$.pipe(
     ofType(deleteList),
-    mergeMap((action) => this.localDBService.deleteListById(action.id).pipe(
+    mergeMap((action) => this.localDBService.deleteList(action.id).pipe(
       map(([, , lists]) => listDeleted({lists})),
       catchError((error) => of(deleteListFailed({error})))
     ))
