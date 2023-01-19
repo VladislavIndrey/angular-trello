@@ -13,7 +13,14 @@ import {Store} from "@ngrx/store";
 import {Observable, of} from "rxjs";
 
 
-import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, transferArrayItem,} from "@angular/cdk/drag-drop";
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragHandle,
+  CdkDropList,
+  moveItemInArray,
+  transferArrayItem,
+} from "@angular/cdk/drag-drop";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
@@ -104,7 +111,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   public drop(event: CdkDragDrop<ITask[]>) {
     if (event.previousContainer === event.container) {
       this._listModel.moveTask(event.container.data[event.previousIndex], event.currentIndex);
-      // moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(
         event.previousContainer.data,

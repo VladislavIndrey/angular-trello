@@ -6,15 +6,16 @@ import {
   deleteListFailed,
   listAdded,
   listAddFailed,
-  listDeleted,
+  listDeleted, listMoved,
   listsLoaded,
   listsLoadFailed,
   listUpdated,
   listUpdateFailed,
-  loadLists,
+  loadLists, moveList, moveListFailed,
   updateList
 } from "../actions/list.actions";
 import {IList} from "../../../data/db/list";
+import {state} from "@angular/animations";
 
 export type listInitialState = {
   lists: IList[],
@@ -95,4 +96,15 @@ export const listReducer = createReducer(
     isLoading: false,
     error,
   })),
+  on(listMoved, (state, {lists}) => ({
+    ...state,
+    lists,
+    isLoading: false,
+    error: null,
+  })),
+  on(moveListFailed, (state, {error}) => ({
+    ...state,
+    isLoading: false,
+    error,
+  }))
 );

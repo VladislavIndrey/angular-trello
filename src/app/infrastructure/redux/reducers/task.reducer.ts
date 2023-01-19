@@ -97,11 +97,6 @@ export const taskReducer = createReducer(
     isLoading: false,
     error,
   })),
-  on(moveTask, (state) => ({
-    ...state,
-    isLoading: true,
-    error: null,
-  })),
   on(taskMoved, (state, {tasks}) => ({
     ...state,
     tasks,

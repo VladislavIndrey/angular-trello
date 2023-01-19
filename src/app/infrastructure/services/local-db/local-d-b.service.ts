@@ -83,19 +83,18 @@ export class LocalDBService {
         const index: number = tasks.findIndex((element) => element.id === elements[currentIndex].id);
         tasks = await firstValueFrom(this.deleteTask(task));
         await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, task, tasks, index-1));
-        console.log(await this.db.tasks.toArray());
         return this.db.tasks.toArray();
       })
     );
   }
 
-  private moveNode<T extends IDBNode>(table: Table<T, number>, node: T, nodes: T[], currentIndex: number): Observable<T[]> {
-    return of(nodes).pipe(
+  public moveList(list: IList, currentIndex: number): Observable<IList[]> {
+    return from(this.db.taskLists.toArray()).pipe(
       switchMap(async (elements) => {
-        console.log(currentIndex)
-        await firstValueFrom(this.deleteNode<T>(table, node, nodes));
-        await firstValueFrom(this.addNodeAt<T>(table, node, nodes, currentIndex));
-        return table.toArray();
+        const index: number = elements.findIndex((element) => element.id === elements[currentIndex].id);
+        const lists = await firstValueFrom(this.deleteList(list));
+        await firstValueFrom(this.addNodeAt<IList>(this.db.taskLists, list, lists, index-1));
+        return this.db.taskLists.toArray();
       })
     );
   }

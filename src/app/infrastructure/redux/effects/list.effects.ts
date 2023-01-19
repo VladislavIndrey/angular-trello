@@ -8,12 +8,12 @@ import {
   deleteListFailed,
   listAdded,
   listAddFailed,
-  listDeleted,
+  listDeleted, listMoved,
   listsLoaded,
   listsLoadFailed,
   listUpdated,
   listUpdateFailed,
-  loadLists,
+  loadLists, moveList, moveListFailed,
   updateList,
 } from "../actions/list.actions";
 import {LocalDBService} from "../../services/local-db/local-d-b.service";
@@ -50,6 +50,14 @@ export class ListEffects {
       map((lists) => listDeleted({lists})),
       catchError((error) => of(deleteListFailed({error})))
     ))
+  ));
+
+  public moveList$ = createEffect(() => this.actions$.pipe(
+    ofType(moveList),
+    mergeMap((action) => this.localDBService.moveList(action.list, action.currentIndex).pipe(
+      map((lists) => listMoved({lists})),
+      catchError((error) => of(moveListFailed({error}))),
+    )),
   ));
 
   constructor(private localDBService: LocalDBService, private actions$: Actions) {
