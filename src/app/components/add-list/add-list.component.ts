@@ -9,7 +9,6 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
 import {AddListModel} from "../../models/add-list/add-list.model";
 import {IList} from "../../data/db/list";
 
-// TODO: Add keyup event and validation.
 @Component({
   selector: 'app-add-list',
   standalone: true,

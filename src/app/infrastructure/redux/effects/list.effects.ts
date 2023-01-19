@@ -32,7 +32,10 @@ export class ListEffects {
     ofType(addList),
     mergeMap((action) => this.localDBService.addList(action.list).pipe(
       map((lists) => listAdded({lists})),
-      catchError((error) => of(listAddFailed({error}))),
+      catchError((error) => {
+        console.log(error)
+        return of(listAddFailed({error}));
+      }),
     ))
   ));
 

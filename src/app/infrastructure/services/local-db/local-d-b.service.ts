@@ -27,7 +27,6 @@ export class LocalDBService {
 
   public getLists(): Observable<IList[]> {
     return from(this.db.taskLists.toArray());
-    return of([]);
   }
 
   public getTasks(): Observable<ITask[]> {
@@ -79,10 +78,36 @@ export class LocalDBService {
   public moveTask(task: ITask, currentIndex: number): Observable<ITask[]> {
     return from(this.db.tasks.toArray()).pipe(
       switchMap(async (elements) => {
-        let tasks = elements.filter((task) => task.taskListId === task.taskListId);
-        const index: number = tasks.findIndex((element) => element.id === elements[currentIndex].id);
-        tasks = await firstValueFrom(this.deleteTask(task));
-        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, task, tasks, index-1));
+        let tasks = await firstValueFrom(this.deleteTask(task));
+        tasks = sortNodes<ITask>(tasks.filter((element) => element.taskListId === task.taskListId));
+        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, task, tasks, currentIndex-1));
+        return this.db.tasks.toArray();
+      })
+    );
+  }
+
+  public transferTask(task: ITask, currentIndex: number, newListId: number): Observable<ITask[]> {
+    return from(this.db.tasks.toArray()).pipe(
+      switchMap(async (elements) => {
+        let index = 0;
+        await firstValueFrom(this.deleteTask(task));
+        const tasks = elements.filter((element) => element.taskListId === newListId);
+        if (tasks.length > 0) {
+          // index = tasks.findIndex((element) => element.id === element[])
+        }
+        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, {...task, taskListId: newListId}, tasks, index-1));
+        return this.db.tasks.toArray();
+      })
+    );
+  }
+
+  private moveTaskInArray(task: ITask, listId: number, currentIndex: number): Observable<ITask[]> {
+    return from(this.db.tasks.toArray()).pipe(
+      switchMap(async (elements) => {
+        let tasks = elements.filter((task) => task.taskListId === listId);
+        let index: number = tasks.findIndex((element) => element.id === elements[currentIndex].id);
+        tasks = [...await firstValueFrom(this.deleteTask(task))].filter((task) => task.taskListId === listId);
+        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, {...task, taskListId: listId}, tasks, index - 1));
         return this.db.tasks.toArray();
       })
     );
@@ -93,7 +118,7 @@ export class LocalDBService {
       switchMap(async (elements) => {
         const index: number = elements.findIndex((element) => element.id === elements[currentIndex].id);
         const lists = await firstValueFrom(this.deleteList(list));
-        await firstValueFrom(this.addNodeAt<IList>(this.db.taskLists, list, lists, index-1));
+        await firstValueFrom(this.addNodeAt<IList>(this.db.taskLists, list, lists, index - 1));
         return this.db.taskLists.toArray();
       })
     );

@@ -12,8 +12,8 @@ import {
   taskDeleted,
   taskMoved,
   tasksLoaded,
-  tasksLoadFailed,
-  taskUpdated,
+  tasksLoadFailed, taskTransferred,
+  taskUpdated, transferTaskFailed,
   updateTask,
   updateTaskFailed,
 } from "../actions/task.actions";
@@ -108,4 +108,15 @@ export const taskReducer = createReducer(
     isLoading: false,
     error,
   })),
+  on(taskTransferred, (state, {tasks}) => ({
+    ...state,
+    tasks,
+    isLoading: false,
+    error: null,
+  })),
+  on(transferTaskFailed, (state, {error}) => ({
+    ...state,
+    isLoading: false,
+    error,
+  }))
 );

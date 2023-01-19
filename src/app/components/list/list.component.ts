@@ -113,6 +113,10 @@ export class ListComponent implements OnInit, AfterViewInit {
       this._listModel.moveTask(event.container.data[event.previousIndex], event.currentIndex);
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      this._listModel.transferTask(
+        event.previousContainer.data[event.previousIndex],
+        event.currentIndex,
+        Number(event.container.element.nativeElement.dataset["id"]));
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,

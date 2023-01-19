@@ -38,18 +38,10 @@ export class BoardComponent {
   constructor(private _store: Store) {
   }
 
-  // TODO: Save result in db.
   drop(event: CdkDragDrop<IList[]>) {
     if (event.previousContainer === event.container) {
       this.boardModel.moveList(event.container.data[event.previousIndex], event.currentIndex);
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
     }
   }
 }

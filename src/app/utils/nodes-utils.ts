@@ -6,7 +6,8 @@ export function sortNodes<T extends IDBNode>(nodes: T[]) {
   let node: T;
 
   if (head === undefined) {
-    throw new Error('[Sort Nodes] No head was founded!');
+    return [];
+    // throw new Error('[Sort Nodes] No head was founded!');
   }
 
   node = head;

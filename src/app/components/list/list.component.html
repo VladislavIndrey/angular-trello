@@ -37,6 +37,7 @@
       [cdkDropListEnterPredicate]="allowDropPredicate"
       (cdkDropListDropped)="drop($event)"
       class="list__tasks-wrapper tasks-wrapper"
+      [attr.data-id]="list.id"
     >
       <app-card
         *ngFor="let task of tasks"
