@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Table} from "dexie";
 import {
   firstValueFrom,
-  from,
+  from, map,
   Observable,
   of,
   switchMap,
@@ -71,8 +71,10 @@ export class LocalDBService {
     );
   }
 
-  public updateList(id: number, list: IList): Observable<[number, IList[]]> {
-    return zip(this.db.taskLists.update(id, list), this.db.taskLists.toArray());
+  public updateList(id: number, list: IList): Observable<IList[]> {
+    return zip(this.db.taskLists.update(id, list), this.db.taskLists.toArray()).pipe(
+      map(([, lists]) => lists),
+    );
   }
 
   public moveTask(task: ITask, currentIndex: number): Observable<ITask[]> {

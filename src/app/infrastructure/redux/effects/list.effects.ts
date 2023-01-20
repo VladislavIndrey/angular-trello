@@ -42,7 +42,7 @@ export class ListEffects {
   public updateList$ = createEffect(() => this.actions$.pipe(
     ofType(updateList),
     mergeMap((action) => this.localDBService.updateList(action.id, action.list).pipe(
-      map(([, lists]) => listUpdated({lists})),
+      map((lists) => listUpdated({lists})),
       catchError((error) => of(listUpdateFailed({error})))
     ))
   ));
