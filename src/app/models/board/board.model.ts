@@ -1,4 +1,5 @@
 import {Store} from "@ngrx/store";
+
 import {moveList} from "../../infrastructure/redux/actions/list.actions";
 import {IList} from "../../data/db/list";
 
