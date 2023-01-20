@@ -4,7 +4,11 @@
   cdkDrag
 >
   <div class="list__header header" cdkDragHandle>
-    <span *ngIf="!isAdding" class="header__title" (click)="onEditClicked()">{{list.title}}</span>
+    <span
+      *ngIf="!isAdding"
+      class="header__title"
+      (click)="onEditClicked()"
+    >{{list.title}}</span>
     <input
       blueInput
       *ngIf="isAdding"

@@ -30,11 +30,11 @@ import {AddCardComponent} from "../add-card/add-card.component";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 import {IList} from "../../data/db/list";
-import {selectTasksList} from "../../infrastructure/redux/selectors/task.selectors";
 import {ITask} from "../../data/db/task";
+import {ListModel} from "../../models/list/list.model";
+import {selectTasksList} from "../../infrastructure/redux/selectors/task.selectors";
 import {selectOrderedLists} from "../../infrastructure/redux/selectors/list.selectors";
 import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
-import {ListModel} from "../../models/list/list.model";
 
 
 @Component({
@@ -59,7 +59,7 @@ import {ListModel} from "../../models/list/list.model";
 export class ListComponent implements OnInit, AfterViewInit {
   @Input() list: IList | undefined;
   @Input() lists: IList[] = [];
-  @ViewChild('editInput', {static: false}) editInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('editInput', {static: false}) editInput: ElementRef<HTMLInputElement> | undefined;
   @ViewChild(CdkDropList) dropList?: CdkDropList;
   public isAdding: boolean = false;
   public tasks$: Observable<ITask[]> = of([]);
@@ -153,7 +153,9 @@ export class ListComponent implements OnInit, AfterViewInit {
   private focusInput(): void {
     this.changeDetectorRef.detectChanges();
     setTimeout(() => {
-      this.editInput.nativeElement.focus();
+      if (this.editInput !== undefined) {
+        this.editInput.nativeElement.focus();
+      }
     })
   }
 
