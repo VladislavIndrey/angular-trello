@@ -1,4 +1,4 @@
-.main{
+.main {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -6,7 +6,7 @@
   height: 100vh;
   overflow: hidden;
 
-  &__board{
+  &__board {
     flex-grow: 1;
     position: relative;
   }

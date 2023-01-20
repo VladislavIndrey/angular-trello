@@ -8,7 +8,7 @@ describe('TaskPriorityModel', () => {
     expect(result.length).toEqual(10);
   });
 
-  it('#changePriority() should throw Error if id is incorrect',  () => {
+  it('#changePriority() should throw Error if id is incorrect', () => {
     const id = -1;
     expect(() => taskPriorityModel.changePriority(id)).toThrowError(`No priority was found with id: ${id}`);
   });

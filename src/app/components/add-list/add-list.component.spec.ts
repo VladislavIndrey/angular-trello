@@ -1,6 +1,6 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import { AddListComponent } from './add-list.component';
+import {AddListComponent} from './add-list.component';
 import {provideMockStore} from "@ngrx/store/testing";
 import {By} from "@angular/platform-browser";
 import {DebugElement} from "@angular/core";
@@ -11,10 +11,10 @@ describe('AddListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ AddListComponent ],
+      imports: [AddListComponent],
       providers: [provideMockStore({})]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AddListComponent);
     component = fixture.componentInstance;
@@ -25,7 +25,7 @@ describe('AddListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#onAddListClicked() should change correctly boolean #isAddMod',  () => {
+  it('#onAddListClicked() should change correctly boolean #isAddMod', () => {
     expect(component.isAddMod)
       .withContext('false at first')
       .toBeFalse();
@@ -35,7 +35,7 @@ describe('AddListComponent', () => {
       .toBeTruthy();
   });
 
-  it('#onAddClicked() should focus #nameInput',  fakeAsync(() => {
+  it('#onAddClicked() should focus #nameInput', fakeAsync(() => {
     const de: DebugElement = fixture.debugElement;
     fixture.detectChanges();
     component.onAddListClicked();
@@ -46,7 +46,7 @@ describe('AddListComponent', () => {
     expect(nameInput).toEqual(focusedNameInput);
   }));
 
-  it('#onCancelClicked() should change correctly boolean #isAddMod',  () => {
+  it('#onCancelClicked() should change correctly boolean #isAddMod', () => {
     component.isAddMod = true;
     expect(component.isAddMod)
       .withContext('true at first')
@@ -57,21 +57,21 @@ describe('AddListComponent', () => {
       .toBeFalse();
   });
 
-  it('#onEnterClicked() should not call #addList() if key not Enter',  () => {
+  it('#onEnterClicked() should not call #addList() if key not Enter', () => {
     const event = new KeyboardEvent('keyup', {key: 'Space'});
     spyOn<AddListComponent, any>(component, 'addList');
     component.onEnterClicked(event, '');
     expect(component['addList']).not.toHaveBeenCalled();
   });
 
-  it('#onEnterClicked() should not call #addList() if key Enter',  () => {
+  it('#onEnterClicked() should not call #addList() if key Enter', () => {
     const event = new KeyboardEvent('keyup', {key: 'Enter'});
     spyOn<AddListComponent, any>(component, 'addList');
     component.onEnterClicked(event, '');
     expect(component['addList']).toHaveBeenCalled();
   });
 
-  it('#onInputBlur() should change correctly boolean #isAddMod',  () => {
+  it('#onInputBlur() should change correctly boolean #isAddMod', () => {
     component.isAddMod = true;
     expect(component.isAddMod)
       .withContext('true at first')
@@ -82,7 +82,7 @@ describe('AddListComponent', () => {
       .toBeFalse();
   });
 
-  it('#onAddClicked() should call #addList()',  () => {
+  it('#onAddClicked() should call #addList()', () => {
     const event = new MouseEvent('buttons__add-button', {bubbles: true});
     spyOn<AddListComponent, any>(component, 'addList');
     component.onAddClicked(event, '');

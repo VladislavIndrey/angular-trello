@@ -9,9 +9,11 @@ export class DragDropService {
   get currentHoverDropListId(): string | undefined {
     return this._currentHoverDropListId;
   }
+
   public get dropLists(): CdkDropList[] {
     return this._dropLists;
   }
+
   private readonly DROP_LIST_CLASS: string = 'cdk-drop-list';
 
   private _dropLists: CdkDropList[] = [];

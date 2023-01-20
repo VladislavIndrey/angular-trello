@@ -39,7 +39,7 @@ import {CardModel} from "../../models/card/card.model";
 })
 export class CardComponent implements OnInit {
   @Input() task: ITask | undefined;
-  @Input()tasks: ITask[] = [];
+  @Input() tasks: ITask[] = [];
   public isEditMode: boolean = false;
   public taskPriorityModel: TaskPriorityModel = new TaskPriorityModel();
 

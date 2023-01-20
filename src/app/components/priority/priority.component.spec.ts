@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PriorityComponent } from './priority.component';
+import {PriorityComponent} from './priority.component';
 
 describe('PriorityComponent', () => {
   let component: PriorityComponent;
@@ -8,9 +8,9 @@ describe('PriorityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ PriorityComponent ]
+      imports: [PriorityComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PriorityComponent);
     component = fixture.componentInstance;

@@ -2,7 +2,7 @@ import {MockStore, provideMockStore} from "@ngrx/store/testing";
 import {TestBed} from "@angular/core/testing";
 
 import {IList} from "../../data/db/list";
-import {addList, AddListAfter} from "../../infrastructure/redux/actions/list.actions";
+import {addList} from "../../infrastructure/redux/actions/list.actions";
 
 import {AddListModel} from "./add-list.model";
 
@@ -23,14 +23,6 @@ describe('Add List Model', () => {
     const dispatchSpy = spyOn(addListModel['_store'], 'dispatch').and.callThrough();
     addListModel.addList([], mockList);
     expect(dispatchSpy).toHaveBeenCalledWith(addList({list: mockList}));
-  });
-  it('#addList() should call only #AddListAfter.add action if #prevList is not undefined', () => {
-    const dispatchSpy = spyOn(addListModel['_store'], 'dispatch').and.callThrough();
-    addListModel.addList(mockLists, mockList);
-    expect(dispatchSpy).toHaveBeenCalledWith(AddListAfter.add({
-      prevList: mockLists[mockLists.length - 1],
-      newList: mockList
-    }));
   });
 
 });

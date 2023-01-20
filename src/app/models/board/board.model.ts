@@ -7,6 +7,6 @@ export class BoardModel {
   }
 
   public moveList(list: IList, currentIndex: number): void {
-    this._store.dispatch(moveList({ list, currentIndex}));
+    this._store.dispatch(moveList({list, currentIndex}));
   }
 }

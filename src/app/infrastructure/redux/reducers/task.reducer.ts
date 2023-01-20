@@ -6,7 +6,6 @@ import {
   deleteTask,
   deleteTaskFailed,
   loadTasks,
-  moveTask,
   moveTaskFailed,
   taskAdded,
   taskDeleted,

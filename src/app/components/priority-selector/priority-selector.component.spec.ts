@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PrioritySelectorComponent } from './priority-selector.component';
+import {PrioritySelectorComponent} from './priority-selector.component';
 
 describe('PrioritySelectorComponent', () => {
   let component: PrioritySelectorComponent;
@@ -8,9 +8,9 @@ describe('PrioritySelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ PrioritySelectorComponent ]
+      imports: [PrioritySelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PrioritySelectorComponent);
     component = fixture.componentInstance;
@@ -21,7 +21,7 @@ describe('PrioritySelectorComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#trackById() should return correct value',  () => {
+  it('#trackById() should return correct value', () => {
     const result = component.trackById(0, {id: 5});
     expect(result).toEqual(5);
   });

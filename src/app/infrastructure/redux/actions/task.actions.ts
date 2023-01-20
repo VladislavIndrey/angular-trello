@@ -29,5 +29,5 @@ export const moveTaskFailed = createAction(`${LOCAL_DB} Move Task Failed`, props
 
 export const transferTask = createAction(`${CARD_COMPONENT} Transfer Task`,
   props<{ task: ITask, currentIndex: number, newListId: number }>());
-export const taskTransferred = createAction(`${LOCAL_DB} Task Transferred`, props<{tasks: ITask[]}>());
-export const transferTaskFailed = createAction(`${LOCAL_DB} Transfer Task Failed`, props<{error: any}>())
+export const taskTransferred = createAction(`${LOCAL_DB} Task Transferred`, props<{ tasks: ITask[] }>());
+export const transferTaskFailed = createAction(`${LOCAL_DB} Transfer Task Failed`, props<{ error: any }>())

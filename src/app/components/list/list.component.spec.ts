@@ -118,7 +118,7 @@ describe('ListComponent', () => {
     expect(component.dragDropService.register).not.toHaveBeenCalled();
   });
 
-  it('#focusInput() should focus #editInput',  fakeAsync(() => {
+  it('#focusInput() should focus #editInput', fakeAsync(() => {
     const de: DebugElement = fixture.debugElement;
     fixture.detectChanges();
     component.onEditClicked();
@@ -129,13 +129,13 @@ describe('ListComponent', () => {
     expect(editInput).toEqual(focusedEditInput);
   }));
 
-  it('#endEditing() should call #updateList()',  () => {
+  it('#endEditing() should call #updateList()', () => {
     spyOn<ListComponent, any>(component, 'updateList');
     component['endEditing']('mock');
     expect(component['updateList']).toHaveBeenCalled();
   });
 
-  it('#endEditing() should correctly change #isAdding',  () => {
+  it('#endEditing() should correctly change #isAdding', () => {
     component.isAdding = true;
     expect(component.isAdding)
       .withContext('true at first')
@@ -146,15 +146,15 @@ describe('ListComponent', () => {
       .toBeFalse();
   });
 
-  it('#updateList() should not call #onUpdateList() if #list is undefined',  fakeAsync(() => {
-      component.list = undefined;
-      spyOn<ListComponent, any>(component, 'onUpdateList');
-      component['updateList']('mock');
-      tick();
-      expect(component['onUpdateList']).not.toHaveBeenCalled();
+  it('#updateList() should not call #onUpdateList() if #list is undefined', fakeAsync(() => {
+    component.list = undefined;
+    spyOn<ListComponent, any>(component, 'onUpdateList');
+    component['updateList']('mock');
+    tick();
+    expect(component['onUpdateList']).not.toHaveBeenCalled();
   }));
 
-  it('#updateList() should call #onUpdateList() if #list is not undefined',  fakeAsync(() => {
+  it('#updateList() should call #onUpdateList() if #list is not undefined', fakeAsync(() => {
     component.list = mockList;
     spyOn<ListComponent, any>(component, 'onUpdateList');
     component['updateList']('mock');
@@ -162,13 +162,13 @@ describe('ListComponent', () => {
     expect(component['onUpdateList']).toHaveBeenCalled();
   }));
 
-  it('#onUpdateList() should not call #_listModel.updateList() if title is empty',  () => {
+  it('#onUpdateList() should not call #_listModel.updateList() if title is empty', () => {
     spyOn(component['_listModel'], 'updateList');
     component['onUpdateList']('', mockList);
     expect(component['_listModel'].updateList).not.toHaveBeenCalled();
   });
 
-  it('#onUpdateList() should call #_listModel.updateList() if title is not empty',  () => {
+  it('#onUpdateList() should call #_listModel.updateList() if title is not empty', () => {
     component.list = mockList;
     spyOn(component['_listModel'], 'updateList');
     component['onUpdateList']('title', mockList);

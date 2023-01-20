@@ -89,7 +89,10 @@ export class LocalDBService {
     return this.deleteTask(task).pipe(
       switchMap(async (elements) => {
         const tasks = sortNodes<ITask>(elements.filter((element) => element.taskListId === newListId));
-        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, {...task, taskListId: newListId}, tasks, currentIndex-1));
+        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, {
+          ...task,
+          taskListId: newListId
+        }, tasks, currentIndex - 1));
         return this.db.tasks.toArray();
       })
     );

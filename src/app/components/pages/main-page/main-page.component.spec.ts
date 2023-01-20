@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MainPageComponent } from './main-page.component';
+import {MainPageComponent} from './main-page.component';
 import {StoreModule} from "@ngrx/store";
 import {provideMockStore} from "@ngrx/store/testing";
 
@@ -10,9 +10,9 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ MainPageComponent, StoreModule.forRoot(provideMockStore) ]
+      imports: [MainPageComponent, StoreModule.forRoot(provideMockStore)]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(MainPageComponent);
     component = fixture.componentInstance;

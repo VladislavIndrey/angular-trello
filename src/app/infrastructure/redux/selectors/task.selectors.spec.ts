@@ -46,7 +46,7 @@ describe('Task Selector', () => {
     expect(result[1].text).toEqual('text2');
   });
 
-  it('#selectTasksList should select empty array if tasks are empty',  () => {
+  it('#selectTasksList should select empty array if tasks are empty', () => {
     const result = selectTasksList(1).projector(mockDataEmpty);
     expect(result.length).toEqual(0);
   });

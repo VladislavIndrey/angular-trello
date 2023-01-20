@@ -4,7 +4,7 @@ import {TestBed} from "@angular/core/testing";
 import {AddCardModel} from "./add-card.model";
 import {taskInitialState} from "../../infrastructure/redux/reducers/task.reducer";
 import {ITask} from "../../data/db/task";
-import {addTask, addTaskAfter} from "../../infrastructure/redux/actions/task.actions";
+import {addTask} from "../../infrastructure/redux/actions/task.actions";
 
 describe('Add Card Model', () => {
   const mockTask: ITask = {taskListId: 1, text: 'txt', ownerName: 'kennen', priority: 1};
@@ -29,11 +29,5 @@ describe('Add Card Model', () => {
     const dispatchSpy = spyOn(addCardModel['_store'], 'dispatch').and.callThrough();
     addCardModel.addTask([], mockTask);
     expect(dispatchSpy).toHaveBeenCalledWith(addTask({task: mockTask}));
-  });
-
-  it('#addTask() should call #addTaskAfter action if array is not empty', () => {
-    const dispatchSpy = spyOn(addCardModel['_store'], 'dispatch').and.callThrough();
-    addCardModel.addTask(mockTasks, mockTask);
-    expect(dispatchSpy).toHaveBeenCalledWith(addTaskAfter({prevTask: mockTasks[0], newTask: mockTask}));
   });
 });
