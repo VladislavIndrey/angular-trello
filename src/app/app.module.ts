@@ -1,12 +1,12 @@
 import {NgModule, isDevMode} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 
 import {TaskEffects} from "./infrastructure/redux/effects/task.effects";
 import {ListEffects} from "./infrastructure/redux/effects/list.effects";
