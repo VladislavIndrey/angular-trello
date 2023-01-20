@@ -26,7 +26,10 @@
       </priority>
       <priority-selector [taskPriorityModel]="taskPriorityModel"></priority-selector>
     </div>
-    <custom-button class="add-card__add-button" (click)="onAddClicked($event, textInput.value, ownerInput.value)">Add
+    <custom-button
+      class="add-card__add-button"
+      (click)="onAddClicked($event, textInput.value, ownerInput.value)">
+      Add
     </custom-button>
   </ng-template>
 </div>
