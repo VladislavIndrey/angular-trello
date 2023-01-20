@@ -100,18 +100,6 @@ export class LocalDBService {
     );
   }
 
-  private moveTaskInArray(task: ITask, listId: number, currentIndex: number): Observable<ITask[]> {
-    return from(this.db.tasks.toArray()).pipe(
-      switchMap(async (elements) => {
-        let tasks = elements.filter((task) => task.taskListId === listId);
-        let index: number = tasks.findIndex((element) => element.id === elements[currentIndex].id);
-        tasks = [...await firstValueFrom(this.deleteTask(task))].filter((task) => task.taskListId === listId);
-        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, {...task, taskListId: listId}, tasks, index - 1));
-        return this.db.tasks.toArray();
-      })
-    );
-  }
-
   public moveList(list: IList, currentIndex: number): Observable<IList[]> {
     return from(this.db.taskLists.toArray()).pipe(
       switchMap(async (elements) => {
