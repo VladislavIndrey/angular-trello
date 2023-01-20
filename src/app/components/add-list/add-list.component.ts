@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
 
@@ -19,7 +19,8 @@ import {IList} from "../../data/db/list";
     BlueInputDirective,
   ],
   templateUrl: './add-list.component.html',
-  styleUrls: ['./add-list.component.scss']
+  styleUrls: ['./add-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddListComponent {
   @ViewChild('nameInput', {static: false}) addListInput!: ElementRef<HTMLInputElement>;

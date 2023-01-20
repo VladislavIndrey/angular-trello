@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {MatButtonModule} from "@angular/material/button";
@@ -23,7 +23,8 @@ import {TaskPriorityModel} from "../../data/task-priority.model";
     CdkMenuItem,
   ],
   templateUrl: './priority-selector.component.html',
-  styleUrls: ['./priority-selector.component.scss']
+  styleUrls: ['./priority-selector.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrioritySelectorComponent {
   @Input() taskPriorityModel!: TaskPriorityModel;

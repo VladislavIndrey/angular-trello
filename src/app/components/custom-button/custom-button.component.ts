@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatRippleModule} from "@angular/material/core";
 
@@ -7,7 +7,8 @@ import {MatRippleModule} from "@angular/material/core";
   standalone: true,
   imports: [CommonModule, MatRippleModule],
   templateUrl: './custom-button.component.html',
-  styleUrls: ['./custom-button.component.scss']
+  styleUrls: ['./custom-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomButtonComponent {
 

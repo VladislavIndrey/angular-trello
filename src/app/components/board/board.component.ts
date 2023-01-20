@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Store} from '@ngrx/store';
 
@@ -28,12 +28,17 @@ import {selectOrderedLists} from "../../infrastructure/redux/selectors/list.sele
   ],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent {
   public lists$ = this._store.select(selectOrderedLists);
   private boardModel: BoardModel = new BoardModel(this._store);
 
   constructor(private _store: Store) {
+  }
+
+  public trackList(index: number, list: IList) {
+    return list.id;
   }
 
   drop(event: CdkDragDrop<IList[]>) {

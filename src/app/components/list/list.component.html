@@ -44,7 +44,7 @@
       [attr.data-id]="list.id"
     >
       <app-card
-        *ngFor="let task of tasks"
+        *ngFor="let task of tasks; trackBy: trackTask"
         [task]="task"
         [tasks]="tasks"
         class="task"

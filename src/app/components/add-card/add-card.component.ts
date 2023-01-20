@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Store} from "@ngrx/store";
 
@@ -29,7 +29,8 @@ import {AddCardModel} from "../../models/add-card/add-card.model";
     BlueInputDirective
   ],
   templateUrl: './add-card.component.html',
-  styleUrls: ['./add-card.component.scss']
+  styleUrls: ['./add-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddCardComponent {
   @Input() listId: number | undefined = 0;

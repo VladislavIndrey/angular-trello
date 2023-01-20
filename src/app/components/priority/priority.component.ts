@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {MatIconModule} from "@angular/material/icon";
@@ -9,7 +9,8 @@ import {MatRippleModule} from "@angular/material/core";
   standalone: true,
   imports: [CommonModule, MatIconModule, MatRippleModule],
   templateUrl: './priority.component.html',
-  styleUrls: ['./priority.component.scss']
+  styleUrls: ['./priority.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriorityComponent {
   @Input() isSelected: boolean = false;

@@ -8,7 +8,7 @@
       (cdkDropListDropped)="drop($event)"
     >
       <app-list
-        *ngFor="let list of lists"
+        *ngFor="let list of lists; trackBy: trackList"
         [list]="list"
         [lists]="lists"
       >

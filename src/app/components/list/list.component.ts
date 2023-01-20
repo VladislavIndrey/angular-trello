@@ -126,6 +126,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public trackTask(index: number, task: ITask) {
+    return task.id;
+  }
+
   private initTasks(): void {
     if (this.list !== undefined) {
       this.tasks$ = this._store.select(selectTasksList(this.list?.id));

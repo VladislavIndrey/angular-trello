@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import {MatProgressBarModule} from "@angular/material/progress-bar";
@@ -8,7 +8,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
   standalone: true,
   imports: [CommonModule, NgOptimizedImage, MatProgressBarModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
 }
