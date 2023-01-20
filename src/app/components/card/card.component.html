@@ -21,10 +21,17 @@
         class="priority-wrapper__priority-selector"
       ></priority-selector>
     </div>
-    <button *ngIf="!isEditMode" mat-icon-button class="top__edit-button" [matMenuTriggerFor]="menu">
+    <button
+      *ngIf="!isEditMode"
+      mat-icon-button class="top__edit-button"
+      [matMenuTriggerFor]="menu">
       <mat-icon>more_horiz</mat-icon>
     </button>
-    <button *ngIf="isEditMode" mat-icon-button class="top__cancel-button" (click)="onCancelClicked()">
+    <button
+      *ngIf="isEditMode"
+      mat-icon-button
+      class="top__cancel-button"
+      (click)="onCancelClicked()">
       <mat-icon>clear</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
