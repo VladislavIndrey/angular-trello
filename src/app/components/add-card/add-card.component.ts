@@ -53,6 +53,10 @@ export class AddCardComponent {
       return;
     }
 
+    if (!text.trim() || !ownerName.trim()) {
+      return;
+    }
+
     this.addCardModel.addTask(this.tasks, {
       text,
       ownerName,

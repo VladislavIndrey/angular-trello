@@ -166,6 +166,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   private updateList(title: string): void {
     this.changeDetectorRef.detectChanges();
+
+    if (!title.trim()) {
+      return;
+    }
+
     setTimeout(() => {
       if (this.list !== undefined) {
         this.onUpdateList(title, this.list);

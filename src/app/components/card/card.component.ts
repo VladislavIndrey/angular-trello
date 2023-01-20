@@ -75,17 +75,25 @@ export class CardComponent implements OnInit {
   }
 
   public onSaveClicked(text: string, ownerName: string): void {
-    if (this.task === undefined) return;
+    if (this.task === undefined) {
+      return;
+    }
+
     if (this.task.id === undefined) {
       throw new Error('Task id is undefined!');
-    } else {
-      this.cardModel.updateTask(this.task.id, {
-        taskListId: this.task.taskListId,
-        text,
-        ownerName,
-        priority: this.taskPriorityModel.priority.id,
-      });
     }
+
+    if (!text.trim() || !ownerName.trim()) {
+      return;
+    }
+
+    this.cardModel.updateTask(this.task.id, {
+      taskListId: this.task.taskListId,
+      text,
+      ownerName,
+      priority: this.taskPriorityModel.priority.id,
+    });
+
   }
 
   public dragMoved(event: CdkDragMove): void {
