@@ -11,11 +11,11 @@ import {
   listsLoadFailed,
   listUpdated,
   listUpdateFailed,
-  loadLists, moveList, moveListFailed,
+  loadLists,
+  moveListFailed,
   updateList
 } from "../actions/list.actions";
 import {IList} from "../../../data/db/list";
-import {state} from "@angular/animations";
 
 export type listInitialState = {
   lists: IList[],
