@@ -44,7 +44,7 @@ export class TaskEffects {
   public updateTask$ = createEffect(() => this.actions$.pipe(
     ofType(updateTask),
     mergeMap((action) => this.localDBService.updateTask(action.id, action.task).pipe(
-      map(([, tasks]) => taskUpdated({tasks})),
+      map((tasks) => taskUpdated({tasks})),
       catchError((error) => of(updateTaskFailed({error}))),
     )),
   ));

@@ -51,8 +51,10 @@ export class LocalDBService {
     );
   }
 
-  public updateTask(id: number, task: ITask): Observable<[number, ITask[]]> {
-    return zip(this.db.tasks.update(id, task), this.getTasks());
+  public updateTask(id: number, task: ITask): Observable<ITask[]> {
+    return zip(this.db.tasks.update(id, task), this.getTasks()).pipe(
+      map(([, tasks]) => tasks),
+    );
   }
 
   public addList(list: IList): Observable<IList[]> {
