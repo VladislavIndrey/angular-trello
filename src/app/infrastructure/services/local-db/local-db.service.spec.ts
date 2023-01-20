@@ -17,7 +17,7 @@ class DbServiceTest extends Dexie {
     ownerName: 'Bob',
     priority: 1,
   }
-  public readonly mockAddTaskAfter: ITask = {text: 'after', ownerName: 'EFT', priority: 2, taskListId: 1};
+  public readonly mockTaskMove: ITask = {id: 123, text: 'move', taskListId: 1, priority: 0, ownerName: ''};
   public readonly mockTaskHello: ITask = {
     id: 8,
     taskListId: 0,
@@ -29,7 +29,7 @@ class DbServiceTest extends Dexie {
   public readonly mockList: IList = {title: 'tit'};
   public readonly mockDeleteList: IList = {id: 8, title: 'delete'};
   public readonly mockUpdateList: IList = {id: 12, title: 'not updated'};
-  public readonly mockAddListAfter: IList = {title: 'after effects'};
+  public transferListId: number = 0;
 
   constructor() {
     super('trello', {indexedDB: indexedDB, IDBKeyRange: IDBKeyRange});
@@ -48,7 +48,7 @@ class DbServiceTest extends Dexie {
     });
     await this.taskLists.add(this.mockList);
     await this.taskLists.add(this.mockDeleteList);
-    await this.taskLists.add(this.mockUpdateList);
+    this.transferListId = await this.taskLists.add(this.mockUpdateList);
     await this.tasks.bulkAdd([
       {
         ...this.mockTask,
@@ -58,6 +58,10 @@ class DbServiceTest extends Dexie {
         ...this.mockTaskHello,
         taskListId,
       },
+      {
+        ...this.mockTaskMove,
+        taskListId,
+      }
     ]);
   }
 }
@@ -147,5 +151,32 @@ describe('LocalDbService', () => {
         expect(result.some((list) => list.title === updateListTitle)).toBeTruthy();
         done();
       });
+  });
+
+  it('#moveTask() should update tasks list correctly and return tasks array', (done) => {
+    const index = 0;
+    service.moveTask(db.mockTaskMove, index).subscribe((result) => {
+      expect(result.length).toBeGreaterThan(0);
+      expect(result.some((task) => task.prevId === db.mockTaskMove.id)).toBeTruthy();
+      done();
+    })
+  });
+
+  it('#transferTask() should update tasks list correctly and return tasks array',  (done) => {
+    const index = 0;
+    service.transferTask(db.mockTaskHello, index, db.transferListId).subscribe((result) => {
+      expect(result.length).toBeGreaterThan(0);
+      expect(result.some((task) => task.taskListId === db.transferListId)).toBeTruthy();
+      done();
+    })
+  });
+
+  it('#moveList should update lists correctly and return lists array',  (done) => {
+    const index = 0;
+    service.moveList(db.mockUpdateList, index).subscribe((result) => {
+      expect(result.length).toBeGreaterThan(0);
+      expect(result.some((list) => list.prevId === db.mockUpdateList.id)).toBeTruthy();
+      done();
+    })
   });
 });

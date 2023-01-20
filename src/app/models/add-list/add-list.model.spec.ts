@@ -8,7 +8,6 @@ import {AddListModel} from "./add-list.model";
 
 describe('Add List Model', () => {
   const mockList: IList = {id: 2, title: 'title2'};
-  const mockLists: IList[] = [{id: 1, title: 'title1', prevId: undefined, nextId: undefined}];
   let store: MockStore;
   let addListModel: AddListModel;
 
