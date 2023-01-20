@@ -1,8 +1,9 @@
 import {Store} from "@ngrx/store";
+
 import {IList} from "../../data/db/list";
+import {ITask} from "../../data/db/task";
 import {deleteList, updateList} from "../../infrastructure/redux/actions/list.actions";
 import {moveTask, transferTask} from "../../infrastructure/redux/actions/task.actions";
-import {ITask} from "../../data/db/task";
 
 export class ListModel {
   constructor(private _store: Store) {
