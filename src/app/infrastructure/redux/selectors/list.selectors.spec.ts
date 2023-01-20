@@ -1,5 +1,4 @@
-import {listInitialState} from "../reducers/list.reducer";
-import {selectLists, selectOrderedLists} from "./list.selectors";
+import {selectOrderedLists} from "./list.selectors";
 
 describe('List Selector', () => {
   const mockLists = {
