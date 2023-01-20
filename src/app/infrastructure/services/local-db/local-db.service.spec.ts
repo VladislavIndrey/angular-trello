@@ -109,7 +109,7 @@ describe('LocalDbService', () => {
   });
 
   it('#updateTask() should update task and return tasks array', (done) => {
-    service.updateTask(1, {...db.mockTask, text: updateTaskText}).subscribe(([, tasks]) => {
+    service.updateTask(1, {...db.mockTask, text: updateTaskText}).subscribe((tasks) => {
       expect(tasks.length).toBeGreaterThan(0);
       expect(tasks.some((task) => task.text === updateTaskText)).toBeTruthy();
       done();
@@ -142,7 +142,7 @@ describe('LocalDbService', () => {
 
   it('#updateList() should update list and return lists array', (done) => {
     service.updateList(db.mockUpdateList.id!, {...db.mockUpdateList, title: updateListTitle})
-      .subscribe(([, result]) => {
+      .subscribe((result) => {
         expect(result.length).toBeGreaterThan(0);
         expect(result.some((list) => list.title === updateListTitle)).toBeTruthy();
         done();

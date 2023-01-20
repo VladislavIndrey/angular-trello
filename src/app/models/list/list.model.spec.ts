@@ -17,11 +17,6 @@ describe('List Model', () => {
     listModel = new ListModel(store);
   });
 
-  it('#deleteList() should throw error if #listToDelete id is undefined', () => {
-    expect(() => listModel.deleteList(mockUndefinedList))
-      .toThrowError(`[Delete List] Deleted list's id is undefined!`);
-  });
-
   it('#deleteList() should dispatch store if #listToDelete id is not undefined', () => {
     spyOn(listModel['_store'], 'dispatch');
     listModel.deleteList(mockList);

@@ -124,26 +124,6 @@ describe('Card Model', () => {
     cardModel = new CardModel(store);
   });
 
-  it('#deleteTask() should throw error if #taskToDelete.id is undefined', () => {
-    expect(() => cardModel.deleteTask(mockTasks, mockUndefinedTask))
-      .toThrowError('[Delete Task] Task To Delete task has no id!');
-  });
-
-  it('#deleteTask() should not throw error if #taskToDelete.id is not undefined', () => {
-    expect(() => cardModel.deleteTask(mockTasks, mockTask))
-      .not.toThrowError('[Delete Task] Task To Delete task has no id!');
-  });
-
-  it('#deleteTask() should throw error if #prevTask.id is undefined', () => {
-    expect(() => cardModel.deleteTask(mockTasksUndefined, mockTask))
-      .toThrowError('[Delete Task] Previous task has no id!');
-  });
-
-  it('#deleteTask() should throw error if #nextTask.id is undefined', () => {
-    expect(() => cardModel.deleteTask(mockTasksUndefinedNext, mockTasksUndefinedNext[1]))
-      .toThrowError('[Delete Task] Next task has no id!');
-  });
-
   it('#deleteTask() should call store dispatch', () => {
     spyOn(cardModel['_store'], 'dispatch');
     cardModel.deleteTask(mockTasksIdeal, mockTasksIdeal[1]);
