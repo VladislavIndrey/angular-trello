@@ -88,7 +88,8 @@ export class LocalDBService {
   public transferTask(task: ITask, currentIndex: number, newListId: number): Observable<ITask[]> {
     return this.deleteTask(task).pipe(
       switchMap(async (elements) => {
-        const tasks = elements.filter((element) => element.taskListId === newListId);
+        const tasks = sortNodes<ITask>(elements.filter((element) => element.taskListId === newListId));
+        await firstValueFrom(this.addNodeAt<ITask>(this.db.tasks, {...task, taskListId: newListId}, tasks, currentIndex-1));
         return this.db.tasks.toArray();
       })
     );
