@@ -7,16 +7,14 @@ import {
   CdkDragDrop,
   CdkDropList,
   moveItemInArray,
-  transferArrayItem
 } from '@angular/cdk/drag-drop';
 
 import {ListComponent} from '../list/list.component';
 import {AddListComponent} from '../add-list/add-list.component';
 
-import {selectOrderedLists} from "../../infrastructure/redux/selectors/list.selectors";
 import {IList} from "../../data/db/list";
-import {moveList} from "../../infrastructure/redux/actions/list.actions";
 import {BoardModel} from "../../models/board/board.model";
+import {selectOrderedLists} from "../../infrastructure/redux/selectors/list.selectors";
 
 @Component({
   selector: 'app-board',
