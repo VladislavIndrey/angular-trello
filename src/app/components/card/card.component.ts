@@ -63,6 +63,11 @@ export class CardComponent implements OnInit {
     this.isEditMode = true;
   }
 
+  public onRightClick($event: MouseEvent): void {
+    $event.preventDefault();
+    this.isEditMode = true;
+  }
+
   public onCancelClicked(): void {
     this.isEditMode = false;
   }

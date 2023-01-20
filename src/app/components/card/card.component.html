@@ -5,6 +5,7 @@
   (cdkDragMoved)="dragMoved($event)"
   (cdkDragReleased)="dragReleased($event)"
   class="card"
+  (contextmenu)="onRightClick($event)"
 >
   <div class="card__top top">
     <div class="top__priority-wrapper priority-wrapper">
