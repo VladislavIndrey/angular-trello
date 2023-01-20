@@ -11,8 +11,10 @@ import {
   taskDeleted,
   taskMoved,
   tasksLoaded,
-  tasksLoadFailed, taskTransferred,
-  taskUpdated, transferTaskFailed,
+  tasksLoadFailed,
+  taskTransferred,
+  taskUpdated,
+  transferTaskFailed,
   updateTask,
   updateTaskFailed,
 } from "../actions/task.actions";
