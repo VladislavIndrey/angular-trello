@@ -98,7 +98,7 @@ export class CardComponent implements OnInit {
       ownerName,
       priority: this.taskPriorityModel.priority.id,
     });
-
+    this.isEditMode = false;
   }
 
   public dragMoved(event: CdkDragMove): void {
