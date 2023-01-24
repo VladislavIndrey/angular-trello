@@ -8,6 +8,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {BlueInputDirective} from "../../shared/blue-input.directive";
 import {AddListModel} from "../../models/add-list/add-list.model";
 import {IList} from "../../data/db/list";
+import {validateText} from "../../utils/nodes-utils";
 
 @Component({
   selector: 'app-add-list',
@@ -61,11 +62,12 @@ export class AddListComponent {
   }
 
   private addList(title: string): void {
-    if (!title.trim()) {
+    const value = validateText(title);
+    if (!value) {
       return;
     }
 
-    this.addListModel.addList(this.lists, {title});
+    this.addListModel.addList(this.lists, {title: value});
     this.isAddMod = false;
   }
 

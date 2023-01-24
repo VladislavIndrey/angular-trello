@@ -35,6 +35,7 @@ import {ListModel} from "../../models/list/list.model";
 import {selectTasksList} from "../../infrastructure/redux/selectors/task.selectors";
 import {selectOrderedLists} from "../../infrastructure/redux/selectors/list.selectors";
 import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
+import {validateText} from "../../utils/nodes-utils";
 
 
 @Component({
@@ -168,8 +169,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.isAdding = false;
   }
 
-  private updateList(title: string): void {
+  private updateList(titleValue: string): void {
     this.changeDetectorRef.detectChanges();
+
+    const title = validateText(titleValue);
 
     if (!title.trim()) {
       return;

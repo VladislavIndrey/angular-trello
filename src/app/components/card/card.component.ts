@@ -22,6 +22,7 @@ import {CustomButtonComponent} from "../custom-button/custom-button.component";
 import {ITask} from "../../data/db/task";
 import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
 import {CardModel} from "../../models/card/card.model";
+import {validateText} from "../../utils/nodes-utils";
 
 @Component({
   selector: 'app-card',
@@ -79,7 +80,10 @@ export class CardComponent implements OnInit {
 
   }
 
-  public onSaveClicked(text: string, ownerName: string): void {
+  public onSaveClicked(textValue: string, ownerNameValue: string): void {
+    const text = validateText(textValue);
+    const ownerName = validateText(ownerNameValue);
+
     if (this.task === undefined) {
       return;
     }

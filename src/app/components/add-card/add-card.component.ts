@@ -14,6 +14,7 @@ import {BlueInputDirective} from "../../shared/blue-input.directive";
 
 import {ITask} from "../../data/db/task";
 import {AddCardModel} from "../../models/add-card/add-card.model";
+import {validateText} from "../../utils/nodes-utils";
 
 @Component({
   selector: 'app-add-card',
@@ -47,8 +48,11 @@ export class AddCardComponent {
     this.isAddMod = true;
   }
 
-  public onAddClicked($event: MouseEvent, text: string, ownerName: string): void {
+  public onAddClicked($event: MouseEvent, textValue: string, ownerNameValue: string): void {
     $event.stopPropagation();
+
+    const text = validateText(textValue);
+    const ownerName = validateText(ownerNameValue);
 
     if (this.listId === undefined) {
       return;

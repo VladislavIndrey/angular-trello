@@ -25,3 +25,7 @@ export function sortNodes<T extends IDBNode>(nodes: T[]) {
 
   return temp;
 }
+
+export function validateText(text: string): string {
+  return text.trim().replace(/\s{2,}/g, ' ');
+}
