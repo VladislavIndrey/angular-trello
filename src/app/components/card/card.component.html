@@ -1,6 +1,7 @@
 <div
   *ngIf="task"
   cdkDrag
+  [cdkDragDisabled]="isEditMode"
   [cdkDragData]="task"
   (cdkDragMoved)="dragMoved($event)"
   (cdkDragReleased)="dragReleased($event)"

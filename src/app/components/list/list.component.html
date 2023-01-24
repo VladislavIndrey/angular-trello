@@ -2,6 +2,7 @@
   *ngIf="list"
   class="list"
   cdkDrag
+  [cdkDragDisabled]="isAdding"
 >
   <div class="list__header header" cdkDragHandle>
     <span
