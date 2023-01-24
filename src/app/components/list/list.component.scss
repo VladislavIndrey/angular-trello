@@ -11,9 +11,9 @@
   padding: 0 20px;
 
   height: fit-content;
-  width: fit-content;
   min-height: 50px;
-  min-width: 362px;
+  width: 362px;
+  word-break: break-word;
   border-radius: var(--card-border-radius);
   background-color: var(--card-color);
 
