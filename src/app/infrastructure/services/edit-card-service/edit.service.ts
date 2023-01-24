@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
-import {ICard} from "./card.interfase";
+import {IEdit} from "./edit.interfase";
 
 @Injectable({
   providedIn: 'root',
 })
-export class EditCardService {
-  private cards: ICard[] = [];
+export class EditService {
+  private cards: IEdit[] = [];
 
-  public subscribe(card: ICard): void {
+  public subscribe(card: IEdit): void {
     const isExist = this.cards.includes(card);
     if (isExist) {
       return;
@@ -16,7 +16,7 @@ export class EditCardService {
     this.cards.push(card);
   }
 
-  public unsubscribe(card: ICard): void {
+  public unsubscribe(card: IEdit): void {
     const cardIndex = this.cards.indexOf(card);
     if (cardIndex === -1) {
       return;

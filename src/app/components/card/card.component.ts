@@ -23,8 +23,8 @@ import {ITask} from "../../data/db/task";
 import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
 import {CardModel} from "../../models/card/card.model";
 import {validateText} from "../../utils/nodes-utils";
-import {EditCardService} from "../../infrastructure/services/edit-card-service/edit-card.service";
-import {ICard} from "../../infrastructure/services/edit-card-service/card.interfase";
+import {EditService} from "../../infrastructure/services/edit-card-service/edit.service";
+import {IEdit} from "../../infrastructure/services/edit-card-service/edit.interfase";
 
 @Component({
   selector: 'app-card',
@@ -45,7 +45,7 @@ import {ICard} from "../../infrastructure/services/edit-card-service/card.interf
   styleUrls: ['./card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardComponent implements OnInit, ICard {
+export class CardComponent implements OnInit, IEdit {
   @Input() task: ITask | undefined;
   @Input() tasks: ITask[] = [];
   public isEditMode: boolean = false;
@@ -56,7 +56,7 @@ export class CardComponent implements OnInit, ICard {
   constructor(
     private readonly _store: Store,
     private readonly _dragDropService: DragDropService,
-    private readonly _editCardService: EditCardService,
+    private readonly _editService: EditService,
     private readonly _detectorRef: ChangeDetectorRef) {
   }
 
@@ -125,13 +125,13 @@ export class CardComponent implements OnInit, ICard {
   }
 
   private startEditing(): void {
-    this._editCardService.notify();
+    this._editService.notify();
     this.isEditMode = true;
-    this._editCardService.subscribe(this);
+    this._editService.subscribe(this);
   }
 
   private cancelEdit(): void {
     this.isEditMode = false;
-    this._editCardService.unsubscribe(this);
+    this._editService.unsubscribe(this);
   }
 }

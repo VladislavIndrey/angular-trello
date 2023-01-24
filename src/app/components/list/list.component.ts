@@ -36,6 +36,8 @@ import {selectTasksList} from "../../infrastructure/redux/selectors/task.selecto
 import {selectOrderedLists} from "../../infrastructure/redux/selectors/list.selectors";
 import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
 import {validateText} from "../../utils/nodes-utils";
+import {EditService} from "../../infrastructure/services/edit-card-service/edit.service";
+import {IEdit} from "../../infrastructure/services/edit-card-service/edit.interfase";
 
 
 @Component({
@@ -57,7 +59,7 @@ import {validateText} from "../../utils/nodes-utils";
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent implements OnInit, AfterViewInit {
+export class ListComponent implements OnInit, AfterViewInit, IEdit {
   @Input() list: IList | undefined;
   @Input() lists: IList[] = [];
   @ViewChild('editInput', {static: false}) editInput: ElementRef<HTMLInputElement> | undefined;
@@ -70,7 +72,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _store: Store,
-    private changeDetectorRef: ChangeDetectorRef,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private readonly _editService: EditService,
     public dragDropService: DragDropService,
   ) {
   }
@@ -78,6 +81,10 @@ export class ListComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     this.initLists();
     this.initTasks();
+  }
+
+  public update(): void {
+    this.cancelEditing();
   }
 
   public ngAfterViewInit(): void {
@@ -89,7 +96,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   public onEditClicked(): void {
-    this.isAdding = true;
+    this.startEditing();
     this.focusInput();
   }
 
@@ -156,7 +163,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   private focusInput(): void {
-    this.changeDetectorRef.detectChanges();
+    this._changeDetectorRef.detectChanges();
     setTimeout(() => {
       if (this.editInput !== undefined) {
         this.editInput.nativeElement.focus();
@@ -166,11 +173,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   private endEditing(value: string) {
     this.updateList(value);
-    this.isAdding = false;
+    this.cancelEditing();
   }
 
   private updateList(titleValue: string): void {
-    this.changeDetectorRef.detectChanges();
+    this._changeDetectorRef.detectChanges();
 
     const title = validateText(titleValue);
 
@@ -191,4 +198,15 @@ export class ListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private startEditing(): void {
+    this._editService.notify();
+    this.isAdding = true;
+    this._editService.subscribe(this);
+  }
+
+  private cancelEditing(): void {
+    this.isAdding = false;
+    this._changeDetectorRef.detectChanges();
+    this._editService.unsubscribe(this);
+  }
 }
