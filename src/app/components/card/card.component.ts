@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -23,6 +23,8 @@ import {ITask} from "../../data/db/task";
 import {DragDropService} from "../../infrastructure/services/drag-drop-service/drag-drop.service";
 import {CardModel} from "../../models/card/card.model";
 import {validateText} from "../../utils/nodes-utils";
+import {EditCardService} from "../../infrastructure/services/edit-card-service/edit-card.service";
+import {ICard} from "../../infrastructure/services/edit-card-service/card.interfase";
 
 @Component({
   selector: 'app-card',
@@ -43,7 +45,7 @@ import {validateText} from "../../utils/nodes-utils";
   styleUrls: ['./card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, ICard {
   @Input() task: ITask | undefined;
   @Input() tasks: ITask[] = [];
   public isEditMode: boolean = false;
@@ -51,7 +53,11 @@ export class CardComponent implements OnInit {
 
   private cardModel: CardModel = new CardModel(this._store);
 
-  constructor(private _store: Store, private dragDropService: DragDropService) {
+  constructor(
+    private readonly _store: Store,
+    private readonly _dragDropService: DragDropService,
+    private readonly _editCardService: EditCardService,
+    private readonly _detectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -60,17 +66,22 @@ export class CardComponent implements OnInit {
     }
   }
 
+  public update(): void {
+   this.cancelEdit();
+   this._detectorRef.detectChanges();
+  }
+
   public onEditClicked(): void {
-    this.isEditMode = true;
+    this.startEditing();
   }
 
   public onRightClick($event: MouseEvent): void {
     $event.preventDefault();
-    this.isEditMode = true;
+    this.startEditing();
   }
 
   public onCancelClicked(): void {
-    this.isEditMode = false;
+    this.cancelEdit();
   }
 
   public onDeleteTaskClicked(): void {
@@ -102,14 +113,25 @@ export class CardComponent implements OnInit {
       ownerName,
       priority: this.taskPriorityModel.priority.id,
     });
-    this.isEditMode = false;
+    this.cancelEdit();
   }
 
   public dragMoved(event: CdkDragMove): void {
-    this.dragDropService.dragMoved(event);
+    this._dragDropService.dragMoved(event);
   }
 
   public dragReleased(event: CdkDragRelease): void {
-    this.dragDropService.dragReleased(event);
+    this._dragDropService.dragReleased(event);
+  }
+
+  private startEditing(): void {
+    this._editCardService.notify();
+    this.isEditMode = true;
+    this._editCardService.subscribe(this);
+  }
+
+  private cancelEdit(): void {
+    this.isEditMode = false;
+    this._editCardService.unsubscribe(this);
   }
 }
