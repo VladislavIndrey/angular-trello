@@ -4,8 +4,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {MainPageComponent} from "./components/pages/main-page/main-page.component";
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'home'},
-  {path: 'home', component: MainPageComponent}
+  {path: '', pathMatch: 'full', redirectTo: ''},
+  {path: '', component: MainPageComponent}
 ];
 
 @NgModule({
